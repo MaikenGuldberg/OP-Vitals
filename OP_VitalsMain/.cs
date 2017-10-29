@@ -11,7 +11,7 @@ namespace OP_VitalsMain
 {
     public class Program
     {
-        private CtrlOPVitalsPL currentOpVitalsPl;
+        private CtrlOPVitalsPL1 currentOpVitalsPl;
         private CtrlOPVitalsBL currentOpVitalsBl;
         private CtrlOPVitalsDAL currentOpVitalsDal;
 
@@ -24,7 +24,7 @@ namespace OP_VitalsMain
         {
             currentOpVitalsDal = new CtrlOPVitalsDAL();
             currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal);
-            currentOpVitalsPl = new CtrlOPVitalsPL(currentOpVitalsBl);
+            currentOpVitalsPl = new CtrlOPVitalsPL1(currentOpVitalsBl);
             currentOpVitalsPl.StartGUI();
         }
     }
