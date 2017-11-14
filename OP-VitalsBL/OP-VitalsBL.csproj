@@ -41,12 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
+    <Compile Include="CalcDia.cs" />
+    <Compile Include="CalcDia2.cs" />
+    <Compile Include="CalcSys.cs" />
+    <Compile Include="CalcSys2.cs" />
     <Compile Include="CtrlOPVitalsBL.cs" />
     <Compile Include="DigitalFilter.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="MeanAlgorithm.cs" />
     <Compile Include="Calibration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Puls.cs" />
     <Compile Include="RsquaredCalculator.cs" />
   </ItemGroup>
   <ItemGroup>

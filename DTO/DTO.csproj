@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlarmDTO.cs" />
+    <Compile Include="BloodpreasureDTO.cs" />
     <Compile Include="BPDataSequence.cs" />
     <Compile Include="DAQSettingsDTO.cs" />
     <Compile Include="EmployeeDTO.cs" />
