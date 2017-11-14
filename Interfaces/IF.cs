@@ -62,4 +62,14 @@ namespace Interfaces
             out double rsquared, out double yintercept,
             out double slope);
     }
+
+    public interface ICalcSys
+    {
+        void CalculateSys(double value, BloodpreasureDTO bloodpreasure);
+    }
+
+    public interface ICalcDia
+    {
+        void CalculateDia(double value, BloodpreasureDTO bloodpreasure);
+    }
 }

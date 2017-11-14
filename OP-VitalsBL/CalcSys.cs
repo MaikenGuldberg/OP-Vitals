@@ -4,36 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class MeanAlgorithm
+    class CalcSys : ICalcSys
     {
-
         private List<double> analyselist;
 
-        public MeanAlgorithm()
+        public CalcSys()
         {
-                analyselist = new List<double>();
+            analyselist = new List<double>();
         }
-        private void CalculateMean(double value,BloodpreasureDTO bloodpreasure)
+        public void CalculateSys(double value,BloodpreasureDTO bloodpreasure)
         {
-    
             if (analyselist.Count < 3000)
             {
                 analyselist.Add(value);
-               
             }
-            if (analyselist.Count== 3000)
+            if (analyselist.Count == 3000)
             {
-                bloodpreasure.Meanpressure = analyselist.Average();
+                bloodpreasure.Systole = analyselist.Max();
             }
             else
             {
                 analyselist.Clear();
             }
-         
         }
-
     }
 }
