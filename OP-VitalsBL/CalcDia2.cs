@@ -20,9 +20,9 @@ namespace OP_VitalsBL
             MinList = new List<double>();
             threshold = 80; //Skal måske ændres
         }
-        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure)
+        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3000)
+            if (analyselist.Count < 3*DAQ.SampleRate)
             {
                 if (value < threshold)
                 {
@@ -40,7 +40,7 @@ namespace OP_VitalsBL
                 }
                 analyselist.Add(value);
             }
-            if (analyselist.Count == 3000)
+            if (analyselist.Count == 3*DAQ.SampleRate)
             {
                 analyselist.Clear();
             }

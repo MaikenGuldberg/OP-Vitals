@@ -21,13 +21,13 @@ namespace OP_VitalsBL
             Counthighs = 0;
         }
 
-        public void CalculatePuls(double value, BloodpreasureDTO bloodpreasure)
+        public void CalculatePuls(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
             if (analyselist.Count == 0)
             {
                 threashold = bloodpreasure.Systole * 0.80;
             }
-            if (analyselist.Count < 9000)
+            if (analyselist.Count < 9*DAQ.SampleRate)
             {
                 if (value > threashold)
                 {
@@ -45,7 +45,7 @@ namespace OP_VitalsBL
                 }
                 
             }
-            if (analyselist.Count == 9000)
+            if (analyselist.Count == 9*DAQ.SampleRate)
             {
                 bloodpreasure.Puls = (Counthighs-1) * (9/60);
                 analyselist.Clear();

@@ -16,13 +16,13 @@ namespace OP_VitalsBL
         {
             analyselist = new List<double>();
         }
-        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure)
+        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3000)
+            if (analyselist.Count < 3*DAQ.SampleRate)
             {
                 analyselist.Add(value);
             }
-            if (analyselist.Count == 3000)
+            if (analyselist.Count == 3*DAQ.SampleRate)
             {
                 bloodpreasure.Diastole = analyselist.Min();
             }
