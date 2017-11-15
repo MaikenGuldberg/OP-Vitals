@@ -16,15 +16,15 @@ namespace OP_VitalsBL
         {
                 analyselist = new List<double>();
         }
-        private void CalculateMean(double value,BloodpreasureDTO bloodpreasure)
+        private void CalculateMean(double value,BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
     
-            if (analyselist.Count < 3000)
+            if (analyselist.Count < 3*DAQ.SampleRate)
             {
                 analyselist.Add(value);
                
             }
-            if (analyselist.Count== 3000)
+            if (analyselist.Count== 3*DAQ.SampleRate)
             {
                 bloodpreasure.Meanpressure = analyselist.Average();
             }

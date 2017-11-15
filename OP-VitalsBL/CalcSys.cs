@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcSys : ICalcSys
+    public class CalcSys : ICalcSys
     {
         private List<double> analyselist;
 
@@ -16,19 +16,21 @@ namespace OP_VitalsBL
         {
             analyselist = new List<double>();
         }
-        public void CalculateSys(double value,BloodpreasureDTO bloodpreasure)
+        public void CalculateSys(double value,BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3000)
+            
+            if (analyselist.Count < 3*DAQ.SampleRate)
             {
                 analyselist.Add(value);
             }
-            if (analyselist.Count == 3000)
+            if (analyselist.Count == 3*DAQ.SampleRate)
             {
                 bloodpreasure.Systole = analyselist.Max();
             }
-            else
+            if(analyselist.Count>3*DAQ.SampleRate)
             {
                 analyselist.Clear();
+                analyselist.Add(value);
             }
         }
     }
