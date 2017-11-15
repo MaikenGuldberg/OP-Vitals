@@ -11,25 +11,43 @@ namespace OP_VitalsBL
     class CalcDia : ICalcDia
     {
         private List<double> analyselist;
+        private int ix;
 
         public CalcDia()
         {
             analyselist = new List<double>();
+            ix = 0;
         }
-        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
+        public void CalculateDia(List<double> dataList, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3*DAQ.SampleRate)
+            for (int i = ix; i < ix+DAQ.SamplesPerChannel; i++)
             {
-                analyselist.Add(value);
+                if (analyselist.Count < 3 * DAQ.SampleRate)
+                {
+                    analyselist.Add(dataList[i]);
+                }
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    bloodpreasure.Diastole = Math.Round(analyselist.Min());
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count == 3*DAQ.SampleRate)
-            {
-                bloodpreasure.Diastole = analyselist.Min();
-            }
-            else
-            {
-                analyselist.Clear();
-            }
+            ix = dataList.Count;
+            
         }
+
+        //foreach (var data in dataList)
+        //{
+        //    if (analyselist.Count< 3 * DAQ.SampleRate)
+        //    {
+        //        analyselist.Add(data);
+        //    }
+        //    if (analyselist.Count == 3 * DAQ.SampleRate)
+        //    {
+        //        bloodpreasure.Diastole = Math.Round(analyselist.Min());
+        //        analyselist.RemoveAt(0);
+        //    }
+
+        //}
     }
 }

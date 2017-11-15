@@ -65,11 +65,11 @@ namespace Interfaces
 
     public interface ICalcSys
     {
-        void CalculateSys(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ);
+        void CalculateSys(List<double> dataList, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ);
     }
 
     public interface ICalcDia
     {
-        void CalculateDia(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ);
+        void CalculateDia(List<double> dataList, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ);
     }
 }

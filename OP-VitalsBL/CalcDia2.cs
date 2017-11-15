@@ -13,39 +13,73 @@ namespace OP_VitalsBL
         private List<double> analyselist;
         private List<double> MinList;
         private double threshold;
+        private int ix;
 
         public CalcDia2()
         {
             analyselist = new List<double>();
             MinList = new List<double>();
             threshold = 80; //Skal måske ændres
+            ix = 0;
         }
-        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
+        
+        public void CalculateDia(List<double> dataList, BloodpreasureDTO bloodpreasure, DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3*DAQ.SampleRate)
+            for (int i = ix; i < ix+DAQ.SamplesPerChannel; i++)
             {
-                if (value < threshold)
+                if (analyselist.Count < 3 * DAQ.SampleRate)
                 {
-                   MinList.Add(value);
-                   analyselist.Add(value);
-                }
-                else
-                {
-                    analyselist.Add(value);
-                    if (MinList.Count > 0)
+                    analyselist.Add(dataList[i]);
+                    if (dataList[i] < threshold)
                     {
-                        bloodpreasure.Diastole = MinList.Min();
-                        MinList.Clear();
+                        MinList.Add(dataList[i]);
+
                     }
+                    if (dataList[i] > threshold)
+                    {
+
+                        if (MinList.Count > 0)
+                        {
+                            bloodpreasure.Systole = Math.Round(MinList.Min());
+                            MinList.Clear();
+                        }
+                    }
+
                 }
-                analyselist.Add(value);
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count == 3*DAQ.SampleRate)
-            {
-                analyselist.Clear();
-            }
-
-
+            ix = dataList.Count;
+            
         }
+
+        //foreach (var data in dataList)
+        //{
+        //    if (analyselist.Count< 3 * DAQ.SampleRate)
+        //    {
+        //        analyselist.Add(data);
+        //        if (data<threshold)
+        //        {
+        //            MinList.Add(data);
+
+        //        }
+        //        if (data > threshold)
+        //        {
+
+        //            if (MinList.Count > 0)
+        //            {
+        //                bloodpreasure.Systole = Math.Round(MinList.Min());
+        //                MinList.Clear();
+        //            }
+        //        }
+
+        //    }
+        //    if (analyselist.Count == 3 * DAQ.SampleRate)
+        //    {
+        //        analyselist.RemoveAt(0);
+        //    }
+        //}
     }
 }

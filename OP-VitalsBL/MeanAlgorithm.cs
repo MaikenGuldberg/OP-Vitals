@@ -11,29 +11,46 @@ namespace OP_VitalsBL
     {
 
         private List<double> analyselist;
+        private int ix;
 
         public MeanAlgorithm()
         {
-                analyselist = new List<double>();
+            analyselist = new List<double>();
+            ix = 0;
         }
-        private void CalculateMean(double value,BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
+        private void CalculateMean(List<double> dataList,BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
-    
-            if (analyselist.Count < 3*DAQ.SampleRate)
+            for (int i = ix; i < ix+DAQ.SamplesPerChannel; i++)
             {
-                analyselist.Add(value);
-               
+                if (analyselist.Count < 3 * DAQ.SampleRate)
+                {
+                    analyselist.Add(dataList[i]);
+
+                }
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    bloodpreasure.Meanpressure = Math.Round(analyselist.Average());
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count== 3*DAQ.SampleRate)
-            {
-                bloodpreasure.Meanpressure = analyselist.Average();
-            }
-            else
-            {
-                analyselist.Clear();
-            }
-         
+            ix = dataList.Count;
+            
+
         }
+
+        //foreach (var data in dataList)
+        //{
+        //    if (analyselist.Count< 3 * DAQ.SampleRate)
+        //    {
+        //        analyselist.Add(data);
+
+        //    }
+        //    if (analyselist.Count == 3 * DAQ.SampleRate)
+        //    {
+        //        bloodpreasure.Meanpressure = Math.Round(analyselist.Average());
+        //        analyselist.RemoveAt(0);
+        //    }
+        //}
 
     }
 }

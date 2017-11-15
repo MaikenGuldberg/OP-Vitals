@@ -11,27 +11,42 @@ namespace OP_VitalsBL
     public class CalcSys : ICalcSys
     {
         private List<double> analyselist;
+        private int ix;
 
         public CalcSys()
         {
             analyselist = new List<double>();
+            ix = 0;
         }
-        public void CalculateSys(double value,BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
+        public void CalculateSys(List<double> dataList,BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
         {
-            
-            if (analyselist.Count < 3*DAQ.SampleRate)
+            for (int i = ix; i < ix+DAQ.SamplesPerChannel; i++)
             {
-                analyselist.Add(value);
+                if (analyselist.Count < 3 * DAQ.SampleRate)
+                {
+                    analyselist.Add(dataList[i]);
+                }
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    bloodpreasure.Systole = Math.Round(analyselist.Max());
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count == 3*DAQ.SampleRate)
-            {
-                bloodpreasure.Systole = analyselist.Max();
-            }
-            if(analyselist.Count>3*DAQ.SampleRate)
-            {
-                analyselist.Clear();
-                analyselist.Add(value);
-            }
+            ix = dataList.Count;
+
         }
+
+        // foreach (var data in dataList)
+        //{
+        //    if (analyselist.Count< 3 * DAQ.SampleRate)
+        //    {
+        //        analyselist.Add(data);
+        //    }
+        //    if (analyselist.Count == 3 * DAQ.SampleRate)
+        //    {
+        //        bloodpreasure.Systole = Math.Round(analyselist.Max());
+        //        analyselist.RemoveAt(0);
+        //    }
+        //}
     }
 }
