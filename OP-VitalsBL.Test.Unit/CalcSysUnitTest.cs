@@ -22,10 +22,8 @@ namespace OP_VitalsBL.Test.Unit
             List<double> listOfTestValues = new List<double>(){1,2,3,4,9,4,3,2,1};
             DAQ.SampleRate = 3;
 
-            foreach (var VARIABLE in listOfTestValues)
-            {
-              uut.CalculateSys(VARIABLE,bloodpreasure,DAQ);  
-            }
+            uut.CalculateSys(listOfTestValues,bloodpreasure,DAQ);  
+            
             Assert.That(bloodpreasure.Systole,Is.EqualTo(9));
             
 

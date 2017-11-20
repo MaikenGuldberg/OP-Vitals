@@ -13,39 +13,50 @@ namespace OP_VitalsBL
         private List<double> analyselist;
         private List<double> MaxList;
         private double threshold;
-
-        public CalcSys2()
+        private double _sys;
+        private DAQSettingsDTO _daqDTO;
+        public CalcSys2(DAQSettingsDTO daqDTO)
         {
+            _daqDTO = daqDTO;
             analyselist = new List<double>();
             MaxList = new List<double>();
             threshold = 100; //Skal måske ændres
+            _sys = 0;
         }
-        public void CalculateSys(double value, BloodpreasureDTO bloodpreasure,DAQSettingsDTO DAQ)
+       
+        private void CalculateSys(List<double> dataList, DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3*DAQ.SampleRate)
+            for (int i = 0; i < dataList.Count; i++)
             {
-                if (value > threshold)
+                if (analyselist.Count < 3 * DAQ.SampleRate)
                 {
-                    MaxList.Add(value);
-                    analyselist.Add(value);
-                }
-                else
-                {
-                    analyselist.Add(value);
-                    if (MaxList.Count > 0)
+                    analyselist.Add(dataList[i]);
+                    if (dataList[i] > threshold)
                     {
-                        bloodpreasure.Systole = MaxList.Max();
-                        MaxList.Clear();
+                        MaxList.Add(dataList[i]);
+
                     }
+                    if (dataList[i] < threshold)
+                    {
+
+                        if (MaxList.Count > 0)
+                        {
+                            _sys = Math.Round(MaxList.Max());
+                            MaxList.Clear();
+                        }
+                    }
+
                 }
-               
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count == 3*DAQ.SampleRate)
-            {
-                analyselist.Clear();
-            }
+        }
 
-
+        public double GetSys()
+        {
+            return _sys;
         }
     }
 }
