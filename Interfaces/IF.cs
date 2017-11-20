@@ -18,6 +18,8 @@ namespace Interfaces
         double GetZeroPoint();
 
         bool ValidateLogin(EmployeeDTO Employee);
+
+        void StopMeasurement();
     }
 
     public interface iOPVitalsBL
@@ -35,6 +37,13 @@ namespace Interfaces
 
         bool ValidateLogin(EmployeeDTO Employee);
         EmployeeDTO employee { get; set; }
+
+        void AttachToMeanFilter(IMeanFilterObserver observer);
+
+        List<double> GetDisplayList();
+        void StartChartThread();
+
+        void StopThreads(bool result);
     }
 
     public interface iOPVitalsPL
@@ -71,5 +80,15 @@ namespace Interfaces
     public interface ICalcDia
     {
         
+    }
+
+    public interface IMeanFilterObserver
+    {
+        void UpdateMeanFilterGUI();
+    }
+
+    public interface IDeQueueObserver
+    {
+        void UpdateRawData();
     }
 }
