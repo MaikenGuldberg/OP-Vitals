@@ -13,19 +13,20 @@ namespace OP_VitalsBL
         private List<double> analyselist;
         private List<double> MinList;
         private double threshold;
-        private int ix;
-
-        public CalcDia2()
+        private double _dia;
+        private DAQSettingsDTO _daqDTO;
+        public CalcDia2(DAQSettingsDTO daqDTO)
         {
             analyselist = new List<double>();
             MinList = new List<double>();
             threshold = 80; //Skal måske ændres
-            ix = 0;
+            _dia = 0;
+            _daqDTO = daqDTO;
         }
         
-        public void CalculateDia(List<double> dataList, BloodpreasureDTO bloodpreasure, DAQSettingsDTO DAQ)
+        private void CalculateDia(List<double> dataList, DAQSettingsDTO DAQ)
         {
-            for (int i = ix; i < ix+DAQ.SamplesPerChannel; i++)
+            for (int i = 0; i < dataList.Count; i++)
             {
                 if (analyselist.Count < 3 * DAQ.SampleRate)
                 {
@@ -40,7 +41,7 @@ namespace OP_VitalsBL
 
                         if (MinList.Count > 0)
                         {
-                            bloodpreasure.Systole = Math.Round(MinList.Min());
+                            _dia = Math.Round(MinList.Min());
                             MinList.Clear();
                         }
                     }
@@ -51,35 +52,11 @@ namespace OP_VitalsBL
                     analyselist.RemoveAt(0);
                 }
             }
-            ix = dataList.Count;
-            
         }
 
-        //foreach (var data in dataList)
-        //{
-        //    if (analyselist.Count< 3 * DAQ.SampleRate)
-        //    {
-        //        analyselist.Add(data);
-        //        if (data<threshold)
-        //        {
-        //            MinList.Add(data);
-
-        //        }
-        //        if (data > threshold)
-        //        {
-
-        //            if (MinList.Count > 0)
-        //            {
-        //                bloodpreasure.Systole = Math.Round(MinList.Min());
-        //                MinList.Clear();
-        //            }
-        //        }
-
-        //    }
-        //    if (analyselist.Count == 3 * DAQ.SampleRate)
-        //    {
-        //        analyselist.RemoveAt(0);
-        //    }
-        //}
+        public double GetDia()
+        {
+            return _dia;
+        }
     }
 }

@@ -13,18 +13,20 @@ namespace OP_VitalsBL
         private List<double> analyselist;
         private List<double> MaxList;
         private double threshold;
-        private int ix;
-        public CalcSys2()
+        private double _sys;
+        private DAQSettingsDTO _daqDTO;
+        public CalcSys2(DAQSettingsDTO daqDTO)
         {
+            _daqDTO = daqDTO;
             analyselist = new List<double>();
             MaxList = new List<double>();
             threshold = 100; //Skal måske ændres
-            ix = 0;
+            _sys = 0;
         }
        
-        public void CalculateSys(List<double> dataList, BloodpreasureDTO bloodpreasure, DAQSettingsDTO DAQ)
+        private void CalculateSys(List<double> dataList, DAQSettingsDTO DAQ)
         {
-            for (int i = ix; i < ix+DAQ.SamplesPerChannel; i++)
+            for (int i = 0; i < dataList.Count; i++)
             {
                 if (analyselist.Count < 3 * DAQ.SampleRate)
                 {
@@ -39,7 +41,7 @@ namespace OP_VitalsBL
 
                         if (MaxList.Count > 0)
                         {
-                            bloodpreasure.Systole = Math.Round(MaxList.Max());
+                            _sys = Math.Round(MaxList.Max());
                             MaxList.Clear();
                         }
                     }
@@ -50,33 +52,11 @@ namespace OP_VitalsBL
                     analyselist.RemoveAt(0);
                 }
             }
-            ix = dataList.Count;
         }
-        //foreach (var data in dataList)
-        //{
-        //    if (analyselist.Count< 3 * DAQ.SampleRate)
-        //    {
-        //        analyselist.Add(data);
-        //        if (data > threshold)
-        //        {
-        //            MaxList.Add(data);
-                       
-        //        }
-        //        if(data<threshold)
-        //        {
-                        
-        //            if (MaxList.Count > 0)
-        //            {
-        //                bloodpreasure.Systole = Math.Round(MaxList.Max());
-        //                MaxList.Clear();
-        //            }
-        //        }
 
-        //    }
-        //    if (analyselist.Count == 3 * DAQ.SampleRate)
-        //    {
-        //        analyselist.RemoveAt(0);
-        //    }
-        //}
+        public double GetSys()
+        {
+            return _sys;
+        }
     }
 }

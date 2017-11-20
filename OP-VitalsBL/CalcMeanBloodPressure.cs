@@ -4,42 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
-using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class CalcSys : ICalcSys
+    public class CalcMeanBloodPressure
     {
+
         private List<double> analyselist;
-        private double _sys;
+        private double _meanBloodPressure;
         private DAQSettingsDTO _daqDTO;
 
-        public CalcSys(DAQSettingsDTO daqDTO)
+        public CalcMeanBloodPressure(DAQSettingsDTO daqDTO)
         {
+            _meanBloodPressure = 0;
             analyselist = new List<double>();
-            _sys = 0;
             _daqDTO = daqDTO;
         }
-        private void CalculateSys(List<double> dataList,DAQSettingsDTO DAQ)
+        public void CalculateMean(List<double> dataList,DAQSettingsDTO DAQ)
         {
             for (int i = 0; i < dataList.Count; i++)
             {
                 if (analyselist.Count < 3 * DAQ.SampleRate)
                 {
                     analyselist.Add(dataList[i]);
+
                 }
                 if (analyselist.Count == 3 * DAQ.SampleRate)
                 {
-                    _sys = Math.Round(analyselist.Max());
+                    _meanBloodPressure = Math.Round(analyselist.Average());
                     analyselist.RemoveAt(0);
                 }
             }
-
         }
 
-        public double GetSys()
+        public double GetMeanBloodPressure()
         {
-            return _sys;
+            return _meanBloodPressure;
         }
     }
 }
