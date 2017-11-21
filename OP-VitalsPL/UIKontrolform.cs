@@ -46,7 +46,6 @@ namespace OP_VitalsPL
                 BeginInvoke((Action)delegate
                 {
                     MeanBloodPressureValue.Text = Convert.ToString(currentBl.GetMeanBloodPressure());
-
                 });
             }
         }
