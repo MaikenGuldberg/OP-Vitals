@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace OP_VitalsPL
 {
-    public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver
+    public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver, ICalcDiaObserver
     {
         private iOPVitalsBL currentBl;
         public UIKontrolform(iOPVitalsBL mybl)
@@ -22,7 +22,20 @@ namespace OP_VitalsPL
             this.currentBl = mybl;
             currentBl.AttachToMeanFilter(this);
             currentBl.AttachToCalcSys(this);
+            currentBl.AttachToCalcDia(this);
             InitializeComponent();
+        }
+
+        public void UpdateDiaGUI()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)delegate
+                {
+                    DiaValue.Text = Convert.ToString(currentBl.GetDia());
+
+                });
+            }
         }
 
         public void UpdateMeanFilterGUI()

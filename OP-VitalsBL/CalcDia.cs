@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DTO;
 using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcDia : ICalcDia
+    class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia
     {
         private List<double> analyselist;
         private double _dia;
         private DAQSettingsDTO _daqDTO;
+        private AutoResetEvent _dataReadyEvent;
+        private DeQueue _deQueue;
+        private bool _stopThread;
 
-        public CalcDia(DAQSettingsDTO daqDTO)
+        public CalcDia(DAQSettingsDTO daqDTO, AutoResetEvent dataReadyEvent, DeQueue deQueue)
         {
             analyselist = new List<double>();
             _dia = 0;
             _daqDTO = daqDTO;
+            _dataReadyEvent = dataReadyEvent;
+            _deQueue = deQueue;
+            _deQueue.Attach(this);
         }
         private void CalculateDia(List<double> dataList,DAQSettingsDTO DAQ)
         {
@@ -41,5 +48,25 @@ namespace OP_VitalsBL
             return _dia;
         }
 
+        public void UpdateRawData()
+        {
+            _dataReadyEvent.Set();
+        }
+
+        public void RunCalcDia()
+        {
+            while (!_stopThread)
+            {
+                _dataReadyEvent.WaitOne();
+                List<double> list = _deQueue.GetRawDataFromDeQueue();
+                CalculateDia(list, _daqDTO);
+                Notify();
+            }
+        }
+
+        public void stopThread(bool result)
+        {
+            _stopThread = result;
+        }
     }
 }
