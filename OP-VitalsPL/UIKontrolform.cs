@@ -14,13 +14,14 @@ using System.Threading;
 
 namespace OP_VitalsPL
 {
-    public partial class UIKontrolform : Form,IMeanFilterObserver
+    public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver
     {
         private iOPVitalsBL currentBl;
         public UIKontrolform(iOPVitalsBL mybl)
         {
             this.currentBl = mybl;
             currentBl.AttachToMeanFilter(this);
+            currentBl.AttachToCalcSys(this);
             InitializeComponent();
         }
 
@@ -38,6 +39,18 @@ namespace OP_VitalsPL
                     {
                         chart1.Series["Series1"].Points.AddXY(i, showlist[i]);
                     }
+                });
+            }
+        }
+
+        public void UpdateSysGUI()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)delegate
+                {
+                    SysValue.Text = Convert.ToString(currentBl.GetSys());
+
                 });
             }
         }

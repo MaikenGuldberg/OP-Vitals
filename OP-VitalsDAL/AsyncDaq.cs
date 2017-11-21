@@ -88,7 +88,7 @@ namespace OP_VitalsDAL
                     //DataToDataList(data);
                     RawDataQueue reading = new RawDataQueue();
                     reading.SetRawDataSample(data);
-                    _rawDataQueue.Enqueue(reading);
+                    _rawDataQueue.Enqueue(reading); //Consumer producer patteren
 
                     analogInReader.BeginMemoryOptimizedReadWaveform(100,
                         analogCallback, myTask, data);

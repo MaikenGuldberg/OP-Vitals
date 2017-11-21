@@ -58,7 +58,6 @@ namespace OP_VitalsBL
                 List<double> list = _deQueue.GetRawDataFromDeQueue();
                 SortList(list);
                 Notify();
-                Thread.Sleep(100);
             }
 
         }

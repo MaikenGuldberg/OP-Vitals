@@ -53,6 +53,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.SysValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -246,7 +247,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1277, 392);
+            this.label1.Location = new System.Drawing.Point(1273, 392);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 21;
@@ -255,9 +256,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1277, 425);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1294, 52);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.Size = new System.Drawing.Size(43, 24);
             this.label3.TabIndex = 23;
             this.label3.Text = "Sys";
             // 
@@ -279,11 +281,23 @@
             this.label6.TabIndex = 25;
             this.label6.Text = "MBT";
             // 
+            // SysValue
+            // 
+            this.SysValue.AutoSize = true;
+            this.SysValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SysValue.ForeColor = System.Drawing.Color.Red;
+            this.SysValue.Location = new System.Drawing.Point(1355, 45);
+            this.SysValue.Name = "SysValue";
+            this.SysValue.Size = new System.Drawing.Size(30, 31);
+            this.SysValue.TabIndex = 26;
+            this.SysValue.Text = "0";
+            // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.SysValue);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -333,5 +347,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label SysValue;
     }
 }

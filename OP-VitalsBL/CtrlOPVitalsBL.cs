@@ -19,16 +19,20 @@ namespace OP_VitalsBL
         private DeQueue _deQueue;
         private Thread _chartThread;
         private Thread _DeQueueThread;
+        private Thread _CalcSysThread;
         public  EmployeeDTO employee { get; set; }
         private RsquaredCalculator rsquaredCalculator;
         private ConcurrentQueue<RawDataQueue> _RawDataQueue;
-        private AutoResetEvent _dataReadyEvent;
+        private AutoResetEvent _dataReadyEventMeanFilter;
+        private AutoResetEvent _dataReadyEventCalcSys;
+        private CalcSys _calcSys;
 
         private bool _stopThreads;
 
         public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue)
         {
-            _dataReadyEvent = new AutoResetEvent(false);
+            _dataReadyEventMeanFilter = new AutoResetEvent(false);
+            _dataReadyEventCalcSys = new AutoResetEvent(false);
             _RawDataQueue = RawDataQueue;
             this.currentDal = currentDal;
             rsquaredCalculator = new RsquaredCalculator();
@@ -36,7 +40,8 @@ namespace OP_VitalsBL
             daqSettings = new DAQSettingsDTO();
             employee = new EmployeeDTO();
             _deQueue = new DeQueue(_RawDataQueue);
-            meanfilter_ = new MeanFilter(_dataReadyEvent, _deQueue);
+            meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
+            _calcSys = new CalcSys(daqSettings,_dataReadyEventCalcSys,_deQueue);
         }
 
         public void AddToCalibrationlist(double pressure)
@@ -97,29 +102,43 @@ namespace OP_VitalsBL
             meanfilter_.Attach(observer);
         }
 
+        public void AttachToCalcSys(ICalcSysObserver observer)
+        {
+            _calcSys.Attach(observer);
+        }
+
         public List<double> GetDisplayList()
         {
             return meanfilter_.GetDisplayList();
+        }
+
+        public double GetSys()
+        {
+            return _calcSys.GetSys();
         }
 
         public void StartChartThread()
         {
             currentDal.StartDaq();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
+            _CalcSysThread = new Thread(_calcSys.RunCalcSys);
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
 
 
             _chartThread.IsBackground = true;
+            _CalcSysThread.IsBackground = true;
             _DeQueueThread.IsBackground = true;
 
             _DeQueueThread.Start();
             _chartThread.Start();
+            _CalcSysThread.Start();
         }
 
         public void StopThreads(bool result)
         {
             meanfilter_.stopThread(result);
             _deQueue.stopThread(result);
+            _calcSys.stopThread(result);
             currentDal.StopMeasurement();
         }
     }

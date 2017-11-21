@@ -44,6 +44,10 @@ namespace Interfaces
         void StartChartThread();
 
         void StopThreads(bool result);
+
+        double GetSys();
+
+        void AttachToCalcSys(ICalcSysObserver observer);
     }
 
     public interface iOPVitalsPL
@@ -90,5 +94,10 @@ namespace Interfaces
     public interface IDeQueueObserver
     {
         void UpdateRawData();
+    }
+
+    public interface ICalcSysObserver
+    {
+        void UpdateSysGUI();
     }
 }
