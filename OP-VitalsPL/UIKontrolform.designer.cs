@@ -54,6 +54,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.SysValue = new System.Windows.Forms.Label();
+            this.DiaValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -266,9 +267,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1277, 462);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(1295, 99);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 13);
+            this.label5.Size = new System.Drawing.Size(40, 24);
             this.label5.TabIndex = 24;
             this.label5.Text = "Dia";
             // 
@@ -292,11 +294,23 @@
             this.SysValue.TabIndex = 26;
             this.SysValue.Text = "0";
             // 
+            // DiaValue
+            // 
+            this.DiaValue.AutoSize = true;
+            this.DiaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DiaValue.ForeColor = System.Drawing.Color.Lime;
+            this.DiaValue.Location = new System.Drawing.Point(1355, 92);
+            this.DiaValue.Name = "DiaValue";
+            this.DiaValue.Size = new System.Drawing.Size(30, 31);
+            this.DiaValue.TabIndex = 27;
+            this.DiaValue.Text = "0";
+            // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.DiaValue);
             this.Controls.Add(this.SysValue);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -348,5 +362,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label SysValue;
+        private System.Windows.Forms.Label DiaValue;
     }
 }

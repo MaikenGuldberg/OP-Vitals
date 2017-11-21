@@ -48,6 +48,10 @@ namespace Interfaces
         double GetSys();
 
         void AttachToCalcSys(ICalcSysObserver observer);
+        double GetDia();
+        void AttachToCalcDia(ICalcDiaObserver observer);
+
+
     }
 
     public interface iOPVitalsPL
@@ -99,5 +103,10 @@ namespace Interfaces
     public interface ICalcSysObserver
     {
         void UpdateSysGUI();
+    }
+
+    public interface ICalcDiaObserver
+    {
+        void UpdateDiaGUI();
     }
 }

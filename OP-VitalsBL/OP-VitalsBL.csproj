@@ -43,6 +43,7 @@
     <Compile Include="Alarm.cs" />
     <Compile Include="CalcDia.cs" />
     <Compile Include="CalcDia2.cs" />
+    <Compile Include="CalcDiaSubject.cs" />
     <Compile Include="CalcSys.cs" />
     <Compile Include="CalcSys2.cs" />
     <Compile Include="CalcSysSubject.cs" />
