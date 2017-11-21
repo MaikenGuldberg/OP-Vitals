@@ -54,6 +54,7 @@
     <Compile Include="Login.cs" />
     <Compile Include="CalcMeanBloodPressure.cs" />
     <Compile Include="Calibration.cs" />
+    <Compile Include="MeanBloodPressureSubject.cs" />
     <Compile Include="MeanFilter.cs" />
     <Compile Include="MeanFilterSubject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

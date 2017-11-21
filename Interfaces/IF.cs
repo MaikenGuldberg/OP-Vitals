@@ -51,6 +51,10 @@ namespace Interfaces
         double GetDia();
         void AttachToCalcDia(ICalcDiaObserver observer);
 
+        double GetMeanBloodPressure();
+
+        void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
+
 
     }
 
@@ -109,4 +113,10 @@ namespace Interfaces
     {
         void UpdateDiaGUI();
     }
+
+    public interface ICalcMeanBloodPressureObserver
+    {
+        void UpdateMeanBloodPressureGUI();
+    }
+
 }

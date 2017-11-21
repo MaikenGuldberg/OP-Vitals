@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace OP_VitalsPL
 {
-    public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver, ICalcDiaObserver
+    public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver, ICalcDiaObserver,ICalcMeanBloodPressureObserver
     {
         private iOPVitalsBL currentBl;
         public UIKontrolform(iOPVitalsBL mybl)
@@ -23,6 +23,7 @@ namespace OP_VitalsPL
             currentBl.AttachToMeanFilter(this);
             currentBl.AttachToCalcSys(this);
             currentBl.AttachToCalcDia(this);
+            currentBl.AttachToMeanBloodPressure(this);
             InitializeComponent();
         }
 
@@ -34,6 +35,17 @@ namespace OP_VitalsPL
                 {
                     DiaValue.Text = Convert.ToString(currentBl.GetDia());
 
+                });
+            }
+        }
+
+        public void UpdateMeanBloodPressureGUI()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)delegate
+                {
+                    MeanBloodPressureValue.Text = Convert.ToString(currentBl.GetMeanBloodPressure());
                 });
             }
         }

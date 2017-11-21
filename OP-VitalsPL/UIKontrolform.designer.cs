@@ -55,6 +55,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.SysValue = new System.Windows.Forms.Label();
             this.DiaValue = new System.Windows.Forms.Label();
+            this.MeanBloodPressureValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -277,9 +278,10 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1277, 500);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(1295, 148);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 13);
+            this.label6.Size = new System.Drawing.Size(53, 24);
             this.label6.TabIndex = 25;
             this.label6.Text = "MBT";
             // 
@@ -305,11 +307,22 @@
             this.DiaValue.TabIndex = 27;
             this.DiaValue.Text = "0";
             // 
+            // MeanBloodPressureValue
+            // 
+            this.MeanBloodPressureValue.AutoSize = true;
+            this.MeanBloodPressureValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MeanBloodPressureValue.Location = new System.Drawing.Point(1355, 141);
+            this.MeanBloodPressureValue.Name = "MeanBloodPressureValue";
+            this.MeanBloodPressureValue.Size = new System.Drawing.Size(30, 31);
+            this.MeanBloodPressureValue.TabIndex = 28;
+            this.MeanBloodPressureValue.Text = "0";
+            // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.MeanBloodPressureValue);
             this.Controls.Add(this.DiaValue);
             this.Controls.Add(this.SysValue);
             this.Controls.Add(this.label6);
@@ -363,5 +376,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label SysValue;
         private System.Windows.Forms.Label DiaValue;
+        private System.Windows.Forms.Label MeanBloodPressureValue;
     }
 }
