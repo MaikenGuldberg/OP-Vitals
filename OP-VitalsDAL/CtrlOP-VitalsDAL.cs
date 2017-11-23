@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,14 @@ namespace OP_VitalsDAL
         private string path;
         private AsyncDaq DaqAsync;
         private EmployeeDatabase employee;
+        private ConcurrentQueue<RawDataQueue> _RawDataQueue;
 
-        public CtrlOPVitalsDAL()
+        public CtrlOPVitalsDAL(ref ConcurrentQueue<RawDataQueue> RawDataQueue)
         {
+            _RawDataQueue = RawDataQueue;
             fileManager = new FileManager();
             employee = new EmployeeDatabase();
-            DaqAsync = new AsyncDaq();
+            DaqAsync = new AsyncDaq(_RawDataQueue);
         }
 
         
@@ -42,6 +45,16 @@ namespace OP_VitalsDAL
         public bool ValidateLogin(EmployeeDTO Employee)
         {
             return employee.ValidateLogin(Employee);
+        }
+
+        public AsyncDaq GetAsyncDaq()
+        {
+            return DaqAsync;
+        }
+
+        public void StopMeasurement()
+        {
+            DaqAsync.StopMeasurement();
         }
     }
 

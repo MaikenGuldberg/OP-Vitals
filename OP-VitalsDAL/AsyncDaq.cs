@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,29 +8,25 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using NationalInstruments;
 using NationalInstruments.DAQmx;
+using DTO;
 
 namespace OP_VitalsDAL
 {
-    class AsyncDaq
+    public class AsyncDaq
     {
         private AnalogMultiChannelReader analogInReader;
         private NationalInstruments.DAQmx.Task myTask;
         private NationalInstruments.DAQmx.Task runningTask;
         private AsyncCallback analogCallback;
-        private Thread dataInThread;
-        private Thread simulateDataInThread;
-        private Thread listSortThread;
         private AnalogWaveform<double>[] data;
-        private List<double> dataList;
-        private List<double> chartList;
-        private List<double> avgList;
         private List<double> zeroPoint;
         private double zeroDouble;
-        private double avg;
+        private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
 
-        public List<double> getDataList { get; }
-        public List<double> getChartList { get; }
-
+        public AsyncDaq(ConcurrentQueue<RawDataQueue> rawDataQueue)
+        {
+            _rawDataQueue = rawDataQueue;
+        }
         public void InitiateAsyncDaq()
         {
             if (runningTask == null)
@@ -88,8 +85,14 @@ namespace OP_VitalsDAL
                     // Read the available data from the channels
                     data = analogInReader.EndReadWaveform(ar);
 
+                    //DataToDataList(data);
+                    RawDataQueue reading = new RawDataQueue();
+                    reading.SetRawDataSample(data);
+                    _rawDataQueue.Enqueue(reading); //Consumer producer patteren
+
                     analogInReader.BeginMemoryOptimizedReadWaveform(100,
                         analogCallback, myTask, data);
+                    //Notify();
                 }
             }
             catch (DaqException exception)
@@ -97,25 +100,6 @@ namespace OP_VitalsDAL
                 // Display Errors
                 runningTask = null;
                 myTask.Dispose();
-            }
-        }
-
-        private void DataInToList()
-        {
-            foreach (var variable in analogInReader.ReadMultiSample(100))
-            {
-                dataList.Add(variable);
-            }
-        }
-
-        private void SortDataToList()
-        {
-
-            avg = 0;
-            for (int i = 0; i < dataList.Count; i = i + 10)
-            {
-                avg = (chartList.GetRange(i, 10).Average());
-                avgList.Add(avg);
             }
         }
 

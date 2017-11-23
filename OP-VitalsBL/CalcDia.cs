@@ -2,34 +2,71 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DTO;
 using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcDia : ICalcDia
+    class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia
     {
         private List<double> analyselist;
+        private double _dia;
+        private DAQSettingsDTO _daqDTO;
+        private AutoResetEvent _dataReadyEvent;
+        private DeQueue _deQueue;
+        private bool _stopThread;
 
-        public CalcDia()
+        public CalcDia(DAQSettingsDTO daqDTO, AutoResetEvent dataReadyEvent, DeQueue deQueue)
         {
             analyselist = new List<double>();
+            _dia = 0;
+            _daqDTO = daqDTO;
+            _dataReadyEvent = dataReadyEvent;
+            _deQueue = deQueue;
+            _deQueue.Attach(this);
         }
-        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure)
+        private void CalculateDia(List<double> dataList,DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3000)
+            for (int i = 0; i < dataList.Count; i++)
             {
-                analyselist.Add(value);
+                if (analyselist.Count < 3 * DAQ.SampleRate)
+                {
+                    analyselist.Add(dataList[i]);
+                }
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    _dia = Math.Round(analyselist.Min());
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count == 3000)
+        }
+
+        public double GetDia()
+        {
+            return _dia;
+        }
+
+        public void UpdateRawData()
+        {
+            _dataReadyEvent.Set();
+        }
+
+        public void RunCalcDia()
+        {
+            while (!_stopThread)
             {
-                bloodpreasure.Diastole = analyselist.Min();
+                _dataReadyEvent.WaitOne();
+                List<double> list = _deQueue.GetRawDataFromDeQueue();
+                CalculateDia(list, _daqDTO);
+                Notify();
             }
-            else
-            {
-                analyselist.Clear();
-            }
+        }
+
+        public void stopThread(bool result)
+        {
+            _stopThread = result;
         }
     }
 }

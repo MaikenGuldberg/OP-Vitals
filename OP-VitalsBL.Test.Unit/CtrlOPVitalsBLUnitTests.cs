@@ -8,26 +8,26 @@ using OP_VitalsBL;
 
 namespace OP_VitalsBL.Test.Unit
 {
-    [TestFixture]
+    //[TestFixture]
 
-    public class CtrlOPVitalsBLUnitTests
+    //public class CtrlOPVitalsBLUnitTests
 
-    {
-        private Alarm uut_;
-        [SetUp]
-        public void SetUp()
-        {
-            uut_ = new Alarm();
-        }
+    //{
+    //    private Alarm uut_;
+    //    [SetUp]
+    //    public void SetUp()
+    //    {
+    //        uut_ = new Alarm();
+    //    }
 
-        [Test]
-        public void Check_akutalarm_resulton()
-        {
-            var changepercentlowest = 15;
-            var changepercenthighest = 9;
-            Assert.That(uut_.CheckAkutAlarm(), Is.EqualTo(AlarmSound.PlayLooping));
-        }
+    //    [Test]
+    //    public void Check_akutalarm_resulton()
+    //    {
+    //        var changepercentlowest = 15;
+    //        var changepercenthighest = 9;
+    //        Assert.That(uut_.CheckAkutAlarm(), Is.EqualTo(AlarmSound.PlayLooping));
+    //    }
         
-        //tests skrives her ... start med [test]
-    }
+    //    //tests skrives her ... start med [test]
+    //}
 }

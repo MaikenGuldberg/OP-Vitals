@@ -13,39 +13,50 @@ namespace OP_VitalsBL
         private List<double> analyselist;
         private List<double> MinList;
         private double threshold;
-
-        public CalcDia2()
+        private double _dia;
+        private DAQSettingsDTO _daqDTO;
+        public CalcDia2(DAQSettingsDTO daqDTO)
         {
             analyselist = new List<double>();
             MinList = new List<double>();
             threshold = 80; //Skal måske ændres
+            _dia = 0;
+            _daqDTO = daqDTO;
         }
-        public void CalculateDia(double value, BloodpreasureDTO bloodpreasure)
+        
+        private void CalculateDia(List<double> dataList, DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count < 3000)
+            for (int i = 0; i < dataList.Count; i++)
             {
-                if (value < threshold)
+                if (analyselist.Count < 3 * DAQ.SampleRate)
                 {
-                   MinList.Add(value);
-                   analyselist.Add(value);
-                }
-                else
-                {
-                    analyselist.Add(value);
-                    if (MinList.Count > 0)
+                    analyselist.Add(dataList[i]);
+                    if (dataList[i] < threshold)
                     {
-                        bloodpreasure.Diastole = MinList.Min();
-                        MinList.Clear();
+                        MinList.Add(dataList[i]);
+
                     }
+                    if (dataList[i] > threshold)
+                    {
+
+                        if (MinList.Count > 0)
+                        {
+                            _dia = Math.Round(MinList.Min());
+                            MinList.Clear();
+                        }
+                    }
+
                 }
-                analyselist.Add(value);
+                if (analyselist.Count == 3 * DAQ.SampleRate)
+                {
+                    analyselist.RemoveAt(0);
+                }
             }
-            if (analyselist.Count == 3000)
-            {
-                analyselist.Clear();
-            }
+        }
 
-
+        public double GetDia()
+        {
+            return _dia;
         }
     }
 }

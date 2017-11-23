@@ -13,44 +13,53 @@ namespace OP_VitalsBL
         private List<double> pulsList;
         private int Counthighs;
         private double threashold;
+        private double _puls;
+        private DAQSettingsDTO _daqDTO;
 
-        public Puls()
+        public Puls(DAQSettingsDTO daqDTO)
         {
+            _daqDTO = daqDTO;
             analyselist = new List<double>();
-
+            _puls = 0;
             Counthighs = 0;
         }
 
-        public void CalculatePuls(double value, BloodpreasureDTO bloodpreasure)
+        private void CalculatePuls(List<double> dataList,DAQSettingsDTO DAQ)
         {
-            if (analyselist.Count == 0)
+            //threashold = bloodpreasure.Systole * 0.80;
+            foreach (var data in dataList)
             {
-                threashold = bloodpreasure.Systole * 0.80;
-            }
-            if (analyselist.Count < 9000)
-            {
-                if (value > threashold)
+                if (analyselist.Count < 9 * DAQ.SampleRate)
                 {
-                    pulsList.Add(value);
-                    analyselist.Add(value);
-                }
-                else
-                {
-                    analyselist.Add(value);
-                    if (pulsList.Count > 0)
+                    analyselist.Add(data);
+                    if (data > threashold)
                     {
-                        Counthighs++;
-                        pulsList.Clear();
+                        pulsList.Add(data);
+                        
                     }
+                    else
+                    {
+                        if (pulsList.Count > 0)
+                        {
+                            Counthighs++;
+                            pulsList.Clear();
+                        }
+                    }
+
                 }
-                
+                if (analyselist.Count == 9 * DAQ.SampleRate)
+                {
+                    _puls = Counthighs * (9 / 60);
+                    analyselist.RemoveAt(0);
+                    Counthighs = 0;
+                }
             }
-            if (analyselist.Count == 9000)
-            {
-                bloodpreasure.Puls = (Counthighs-1) * (9/60);
-                analyselist.Clear();
-                Counthighs = 0;
-            }
+           
+        }
+
+        public double GetPuls()
+        {
+            return _puls;
         }
     }
 }

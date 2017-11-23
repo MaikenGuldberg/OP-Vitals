@@ -53,6 +53,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.SysValue = new System.Windows.Forms.Label();
+            this.DiaValue = new System.Windows.Forms.Label();
+            this.MeanBloodPressureValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -61,7 +64,7 @@
             // 
             // chart1
             // 
-            this.chart1.BackColor = System.Drawing.Color.Black;
+            this.chart1.BackColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -70,10 +73,11 @@
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(402, 276);
+            this.chart1.Size = new System.Drawing.Size(1173, 399);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -155,7 +159,7 @@
             // 
             // KontrolLogOutButton
             // 
-            this.KontrolLogOutButton.Location = new System.Drawing.Point(562, 365);
+            this.KontrolLogOutButton.Location = new System.Drawing.Point(562, 477);
             this.KontrolLogOutButton.Name = "KontrolLogOutButton";
             this.KontrolLogOutButton.Size = new System.Drawing.Size(75, 23);
             this.KontrolLogOutButton.TabIndex = 12;
@@ -186,7 +190,7 @@
             // 
             // StopKontrolButton
             // 
-            this.StopKontrolButton.Location = new System.Drawing.Point(450, 365);
+            this.StopKontrolButton.Location = new System.Drawing.Point(450, 477);
             this.StopKontrolButton.Name = "StopKontrolButton";
             this.StopKontrolButton.Size = new System.Drawing.Size(75, 23);
             this.StopKontrolButton.TabIndex = 16;
@@ -196,7 +200,7 @@
             // 
             // StartKontrolButton
             // 
-            this.StartKontrolButton.Location = new System.Drawing.Point(345, 365);
+            this.StartKontrolButton.Location = new System.Drawing.Point(345, 477);
             this.StartKontrolButton.Name = "StartKontrolButton";
             this.StartKontrolButton.Size = new System.Drawing.Size(75, 23);
             this.StartKontrolButton.TabIndex = 17;
@@ -235,7 +239,7 @@
             // 
             this.groupBox3.Controls.Add(this.FilterOff);
             this.groupBox3.Controls.Add(this.FilterOn);
-            this.groupBox3.Location = new System.Drawing.Point(307, 278);
+            this.groupBox3.Location = new System.Drawing.Point(307, 390);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(179, 66);
             this.groupBox3.TabIndex = 20;
@@ -245,7 +249,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(570, 66);
+            this.label1.Location = new System.Drawing.Point(1273, 392);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 21;
@@ -254,35 +258,73 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(570, 99);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1294, 52);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.Size = new System.Drawing.Size(43, 24);
             this.label3.TabIndex = 23;
             this.label3.Text = "Sys";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(570, 136);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(1295, 99);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 13);
+            this.label5.Size = new System.Drawing.Size(40, 24);
             this.label5.TabIndex = 24;
             this.label5.Text = "Dia";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(570, 174);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(1295, 148);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 13);
+            this.label6.Size = new System.Drawing.Size(53, 24);
             this.label6.TabIndex = 25;
             this.label6.Text = "MBT";
+            // 
+            // SysValue
+            // 
+            this.SysValue.AutoSize = true;
+            this.SysValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SysValue.ForeColor = System.Drawing.Color.Red;
+            this.SysValue.Location = new System.Drawing.Point(1355, 45);
+            this.SysValue.Name = "SysValue";
+            this.SysValue.Size = new System.Drawing.Size(30, 31);
+            this.SysValue.TabIndex = 26;
+            this.SysValue.Text = "0";
+            // 
+            // DiaValue
+            // 
+            this.DiaValue.AutoSize = true;
+            this.DiaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DiaValue.ForeColor = System.Drawing.Color.Lime;
+            this.DiaValue.Location = new System.Drawing.Point(1355, 92);
+            this.DiaValue.Name = "DiaValue";
+            this.DiaValue.Size = new System.Drawing.Size(30, 31);
+            this.DiaValue.TabIndex = 27;
+            this.DiaValue.Text = "0";
+            // 
+            // MeanBloodPressureValue
+            // 
+            this.MeanBloodPressureValue.AutoSize = true;
+            this.MeanBloodPressureValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MeanBloodPressureValue.Location = new System.Drawing.Point(1355, 141);
+            this.MeanBloodPressureValue.Name = "MeanBloodPressureValue";
+            this.MeanBloodPressureValue.Size = new System.Drawing.Size(30, 31);
+            this.MeanBloodPressureValue.TabIndex = 28;
+            this.MeanBloodPressureValue.Text = "0";
             // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 400);
+            this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.MeanBloodPressureValue);
+            this.Controls.Add(this.DiaValue);
+            this.Controls.Add(this.SysValue);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -332,5 +374,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label SysValue;
+        private System.Windows.Forms.Label DiaValue;
+        private System.Windows.Forms.Label MeanBloodPressureValue;
     }
 }

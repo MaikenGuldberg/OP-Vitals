@@ -23,7 +23,7 @@ namespace OP_VitalsPL
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.DoEvents();
-            Application.Run(new UILogin(currentBl));
+            Application.Run(new UIKontrolform(currentBl));
         }
     }
 }

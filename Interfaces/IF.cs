@@ -18,6 +18,8 @@ namespace Interfaces
         double GetZeroPoint();
 
         bool ValidateLogin(EmployeeDTO Employee);
+
+        void StopMeasurement();
     }
 
     public interface iOPVitalsBL
@@ -35,6 +37,25 @@ namespace Interfaces
 
         bool ValidateLogin(EmployeeDTO Employee);
         EmployeeDTO employee { get; set; }
+
+        void AttachToMeanFilter(IMeanFilterObserver observer);
+
+        List<double> GetDisplayList();
+        void StartChartThread();
+
+        void StopThreads(bool result);
+
+        double GetSys();
+
+        void AttachToCalcSys(ICalcSysObserver observer);
+        double GetDia();
+        void AttachToCalcDia(ICalcDiaObserver observer);
+
+        double GetMeanBloodPressure();
+
+        void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
+
+
     }
 
     public interface iOPVitalsPL
@@ -65,11 +86,37 @@ namespace Interfaces
 
     public interface ICalcSys
     {
-        void CalculateSys(double value, BloodpreasureDTO bloodpreasure);
+        
     }
 
     public interface ICalcDia
     {
-        void CalculateDia(double value, BloodpreasureDTO bloodpreasure);
+        
     }
+
+    public interface IMeanFilterObserver
+    {
+        void UpdateMeanFilterGUI();
+    }
+
+    public interface IDeQueueObserver
+    {
+        void UpdateRawData();
+    }
+
+    public interface ICalcSysObserver
+    {
+        void UpdateSysGUI();
+    }
+
+    public interface ICalcDiaObserver
+    {
+        void UpdateDiaGUI();
+    }
+
+    public interface ICalcMeanBloodPressureObserver
+    {
+        void UpdateMeanBloodPressureGUI();
+    }
+
 }
