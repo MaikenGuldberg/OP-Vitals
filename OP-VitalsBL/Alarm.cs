@@ -22,7 +22,11 @@ namespace OP_VitalsBL
         private int lowest_dia;
         private int highest_sys;
         private int lowest_sys;
-    
+        SoundPlayer AlarmSound =
+            new SoundPlayer(
+                @"C:\Users\Margarit\Documents\signal.wav");
+
+
 
         //constructorder definerer default værdier
         public Alarm()
@@ -34,7 +38,7 @@ namespace OP_VitalsBL
 
         }
         // find og åbn wav filen
-        SoundPlayer AlarmSound =new SoundPlayer( @"C:\Users\Margarit\Desktop\Semesterprojekt 3\Alarm");
+        //SoundPlayer AlarmSound =new SoundPlayer( @"C:\Users\Margarit\Desktop\Semesterprojekt 3\Alarm");
         //connstructor
         public Alarm (AlarmDTO dtoalarm)
         {
@@ -59,6 +63,7 @@ namespace OP_VitalsBL
                 // Playlooping metoden sørger for at lyden bliver afspilt kontinuerligt
                 //ved hjælp af en tråde
                 AlarmSound.PlayLooping();
+
             }
         }
 
