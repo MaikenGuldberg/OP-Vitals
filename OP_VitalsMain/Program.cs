@@ -17,6 +17,8 @@ namespace OP_VitalsMain
         private CtrlOPVitalsBL currentOpVitalsBl;
         private CtrlOPVitalsDAL currentOpVitalsDal;
         private ConcurrentQueue<RawDataQueue> RawDataQueue;
+        private ConcurrentQueue<RawDataQueue> SaveQueue;
+        private DAQSettingsDTO daqSettings;
 
         static void Main(string[] args)
         {
@@ -26,9 +28,11 @@ namespace OP_VitalsMain
         public Program()
         {
             RawDataQueue = new ConcurrentQueue<RawDataQueue>();
+            SaveQueue = new ConcurrentQueue<RawDataQueue>();
+            daqSettings = new DAQSettingsDTO();
 
-            currentOpVitalsDal = new CtrlOPVitalsDAL(ref RawDataQueue);
-            currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal,ref RawDataQueue);
+            currentOpVitalsDal = new CtrlOPVitalsDAL(ref RawDataQueue,ref SaveQueue,daqSettings);
+            currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal,ref RawDataQueue,daqSettings);
             currentOpVitalsPl = new CtrlOPVitalsPL(currentOpVitalsBl);
             currentOpVitalsPl.StartGUI();
         }

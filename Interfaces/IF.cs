@@ -20,6 +20,8 @@ namespace Interfaces
         bool ValidateLogin(EmployeeDTO Employee);
 
         void StopMeasurement();
+        void StartSaveThread();
+        void StopSaveDataThread(bool result);
     }
 
     public interface iOPVitalsBL
