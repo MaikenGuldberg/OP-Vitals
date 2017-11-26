@@ -22,10 +22,12 @@ namespace OP_VitalsDAL
         private List<double> zeroPoint;
         private double zeroDouble;
         private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
+        private readonly ConcurrentQueue<RawDataQueue> _saveDataQueue;
 
-        public AsyncDaq(ConcurrentQueue<RawDataQueue> rawDataQueue)
+        public AsyncDaq(ConcurrentQueue<RawDataQueue> rawDataQueue,ConcurrentQueue<RawDataQueue> saveDataQueue)
         {
             _rawDataQueue = rawDataQueue;
+            _saveDataQueue = saveDataQueue;
         }
         public void InitiateAsyncDaq()
         {
@@ -89,6 +91,10 @@ namespace OP_VitalsDAL
                     RawDataQueue reading = new RawDataQueue();
                     reading.SetRawDataSample(data);
                     _rawDataQueue.Enqueue(reading); //Consumer producer patteren
+
+                    RawDataQueue reading2 = new RawDataQueue();
+                    reading2.SetRawDataSample(data);
+                    _saveDataQueue.Enqueue(reading2);
 
                     analogInReader.BeginMemoryOptimizedReadWaveform(100,
                         analogCallback, myTask, data);
