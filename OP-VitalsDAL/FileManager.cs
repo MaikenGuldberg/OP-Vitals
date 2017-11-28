@@ -20,6 +20,17 @@ namespace OP_VitalsDAL
 
         private int CountSequences_ = 1;
 
+        private string OperationFolder;
+
+        public string GetOperationFolder()
+        {
+            return OperationFolder;
+        }
+
+        public void SetSequences(int numberofsequence)
+        {
+            CountSequences_ = numberofsequence;
+        }
         //Laver en fil til calibreringenværdien. Denne er navngivet efter præcippet: Calibration + dato(day-month-year) + nummeret på denne dags kalibration +  csv
         //den første linje i filen beskriver hvad der er i de forskellige kolonner. I dette tilfælde: ConversionConstant(mmhg/mV) + TechnicianID
         //Calibrationsfilerne er også nummeret således at hvis der er lavet to kalibrationer på en dag bliver disse ikke overskrevet (nummeret denne fil får er = antal filer i folderen + 1)
@@ -51,21 +62,21 @@ namespace OP_VitalsDAL
         //Laver en mappe til den pågældende operation. Denne er unik for lige denne operation og denne metode skal kun benyttes en gang lige når man starter målingen. Man skal gemme vejen for 
         //folderen ned i DTO til senere brug når man skal til at gemme sekvenserne i filer
         // folderen bliver navngivet efter metoden: Operation + dato (date-month-year) + tidspunkt (hour:min:sek)
-        public string CreateAFolderToOperationFiles(DateTime dateoperation)
+        public void CreateAFolderToOperationFiles(DateTime dateoperation)
         {
             string foldername = "Operation" + dateoperation.ToShortDateString() + "_" + dateoperation.Hour + "-" + dateoperation.Minute + "-" + dateoperation.Second;
             string pathFolder = System.IO.Path.Combine(addressFileMeasurements_, foldername);
             System.IO.Directory.CreateDirectory(pathFolder);
-            return pathFolder;
+            OperationFolder = pathFolder;
         }
 
         //Indlæser en liste af dobbeltværdier til en csv-fil. Der ligger i en operationsmappe. Filen bliver navngivet efter princippet: sequence + sequencenumber (eks. 1) + csv
         //Til sidst tælles sekvensnummeret op således at den næste fil der bliver gemt ned ikke kommer til at hedde det samme og der er en vis orden i filerne.
-        public void SaveMeasurementsInFile(List<double> list, string pathFolder)
+        public void SaveMeasurementsInFile(List<double> list, string pathFolder, int sequencenumber)
         {
             try
             {
-                string nameFile = "sequence" + CountSequences_ + ".csv";
+                string nameFile = "sequence" + sequencenumber + ".csv";
                 string path_ = System.IO.Path.Combine(pathFolder, nameFile);
                 FileStream input = new FileStream(path_, FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter fileWriter = new StreamWriter(input);
@@ -75,7 +86,6 @@ namespace OP_VitalsDAL
                     fileWriter.WriteLine(i + ";" + list[i]); //der er også en metode der hedder asynkron... måske kan vi senere få brug for denne
                 }
                 fileWriter.Close();
-                CountSequences_++;
             }
             catch (Exception e)
             {
@@ -161,7 +171,7 @@ namespace OP_VitalsDAL
 
 
         //Denne metode benyttes til at tælle antal filer i en mappe
-        public int CountFilesInFolder(string pathFolder)
+        private int CountFilesInFolder(string pathFolder)
         {
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(pathFolder);
             return dir.GetFiles().Length;

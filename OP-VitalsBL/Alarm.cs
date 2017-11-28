@@ -23,10 +23,10 @@ namespace OP_VitalsBL
         private int lowest_dia;
         private int highest_sys;
         private int lowest_sys;
+
         private int thresholdlowestsys;
         private int thresholdhighestsys;
-    
-
+        
         //constructorder definerer default værdier
         public Alarm()
         {
@@ -37,9 +37,10 @@ namespace OP_VitalsBL
             thresholdlowestsys = Convert.ToInt32(lowest_sys * 0.1);
             thresholdhighestsys = Convert.ToInt32(highest_sys * 0.1);
         }
-        // find og åbn wav filen
-        SoundPlayer akutAlarmSound =new SoundPlayer(@"C:\Users\Margarit\Desktop\Semesterprojekt 3\hihghAlarm.wav");
+        // find og åbn wav filer
+        SoundPlayer akutAlarmSound = new SoundPlayer(@"C:\Users\Margarit\Desktop\Semesterprojekt 3\hihghAlarm.wav");
         SoundPlayer subakutAlarmSound = new SoundPlayer(@"C:\Users\Margarit\Desktop\Semesterprojekt 3\mediumAlarm.wav");
+
 
         //connstructor
         public Alarm (AlarmDTO dtoalarm)

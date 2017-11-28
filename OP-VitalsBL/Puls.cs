@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using MathNet.Filtering;
+using MathNet.Numerics.IntegralTransforms;
 
 namespace OP_VitalsBL
 {
@@ -23,43 +25,56 @@ namespace OP_VitalsBL
             _puls = 0;
             Counthighs = 0;
         }
-
-        private void CalculatePuls(List<double> dataList,DAQSettingsDTO DAQ)
-        {
-            //threashold = bloodpreasure.Systole * 0.80;
-            foreach (var data in dataList)
-            {
-                if (analyselist.Count < 9 * DAQ.SampleRate)
-                {
-                    analyselist.Add(data);
-                    if (data > threashold)
-                    {
-                        pulsList.Add(data);
+        
+        //private void CalculatePuls(List<double> dataList,DAQSettingsDTO DAQ)
+        //{
+        //    Fourier.Forward(dataList);
+        //    for (int i = 0; i < dataList.Count; i++)
+        //    {
+        //        if (analyselist.Count < 3 * DAQ.SampleRate)
+        //        {
+        //            analyselist.Add(dataList[i]);
+        //        }
+        //        if (analyselist.Count == 3 * DAQ.SampleRate)
+        //        {
+        //            _dia = Math.Round(analyselist.Min());
+        //            analyselist.RemoveAt(0);
+        //        }
+        //    }
+        //    //threashold = bloodpreasure.Systole * 0.80;
+        //    foreach (var data in dataList)
+        //    {
+        //        if (analyselist.Count < 9 * DAQ.SampleRate)
+        //        {
+        //            analyselist.Add(data);
+        //            if (data > threashold)
+        //            {
+        //                pulsList.Add(data);
                         
-                    }
-                    else
-                    {
-                        if (pulsList.Count > 0)
-                        {
-                            Counthighs++;
-                            pulsList.Clear();
-                        }
-                    }
+        //            }
+        //            else
+        //            {
+        //                if (pulsList.Count > 0)
+        //                {
+        //                    Counthighs++;
+        //                    pulsList.Clear();
+        //                }
+        //            }
 
-                }
-                if (analyselist.Count == 9 * DAQ.SampleRate)
-                {
-                    _puls = Counthighs * (9 / 60);
-                    analyselist.RemoveAt(0);
-                    Counthighs = 0;
-                }
-            }
+        //        }
+        //        if (analyselist.Count == 9 * DAQ.SampleRate)
+        //        {
+        //            _puls = Counthighs * (9 / 60);
+        //            analyselist.RemoveAt(0);
+        //            Counthighs = 0;
+        //        }
+        //    }
            
-        }
+        //}
 
-        public double GetPuls()
-        {
-            return _puls;
-        }
+        //public double GetPuls()
+        //{
+        //    return _puls;
+        //}
     }
 }

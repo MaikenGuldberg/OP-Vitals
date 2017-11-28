@@ -14,7 +14,7 @@ namespace OP_VitalsBL
     {
         private iOPVitalsDAL currentDal;
         private Calibration calibration;
-        private DAQSettingsDTO daqSettings;
+        private DAQSettingsDTO _daqSettings;
         private MeanFilter meanfilter_;
         private DeQueue _deQueue;
         private Thread _chartThread;
@@ -35,7 +35,7 @@ namespace OP_VitalsBL
 
         private bool _stopThreads;
 
-        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue)
+        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue,DAQSettingsDTO daqSettingsDto)
         {
             _dataReadyEventMeanFilter = new AutoResetEvent(false);
             _dataReadyEventCalcSys = new AutoResetEvent(false);
@@ -45,13 +45,13 @@ namespace OP_VitalsBL
             this.currentDal = currentDal;
             rsquaredCalculator = new RsquaredCalculator();
             calibration = new Calibration(rsquaredCalculator);
-            daqSettings = new DAQSettingsDTO();
+            _daqSettings = daqSettingsDto;
             employee = new EmployeeDTO();
             _deQueue = new DeQueue(_RawDataQueue);
             meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
-            _calcSys = new CalcSys(daqSettings,_dataReadyEventCalcSys,_deQueue);
-            _calcDia = new CalcDia(daqSettings, _dataReadyEventCalcDia, _deQueue);
-            _calcMeanBloodPressure = new CalcMeanBloodPressure(daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
+            _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue);
+            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue);
+            _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
         }
 
         public void AddToCalibrationlist(double pressure)
@@ -62,7 +62,7 @@ namespace OP_VitalsBL
         public void LinearRegression(List<CalibrationPointDTO> list)
         {
             calibration.LinearRegression(list);
-            daqSettings.ConversionConstant_ = calibration.Slope_;
+            _daqSettings.ConversionConstant_ = calibration.Slope_;
         }
 
         public List<CalibrationPointDTO> GetCalibrationList()
@@ -149,6 +149,7 @@ namespace OP_VitalsBL
         public void StartChartThread()
         {
             currentDal.StartDaq();
+            currentDal.StartSaveThread();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
             _CalcSysThread = new Thread(_calcSys.RunCalcSys);
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
@@ -177,6 +178,7 @@ namespace OP_VitalsBL
             _calcDia.stopThread(result);
             _calcMeanBloodPressure.StopThread(result);
             currentDal.StopMeasurement();
+            currentDal.StopSaveDataThread(result);
         }
     }
 }
