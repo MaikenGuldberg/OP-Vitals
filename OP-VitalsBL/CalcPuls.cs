@@ -29,6 +29,7 @@ namespace OP_VitalsBL
             _puls = 0;
             _dataReadyEvent = dataReadyEvent;
             _deQueue = deQueue;
+            _deQueue.Attach(this);
         }
 
         private void CalculatePuls(List<double> dataList)
@@ -40,13 +41,13 @@ namespace OP_VitalsBL
 
             if (analysisList.Count == 6 * _daqDTO.SampleRate)
             {
-                Complex[] complexAnalysisListWithoutWindow = new Complex[analysisList.Count];
+                Complex[] complexAnalysisListWithoutWindow = new Complex[6 * _daqDTO.SampleRate];
                 for (int i = 0; i < analysisList.Count; i++)
                 {
                     complexAnalysisListWithoutWindow[i] = new Complex(analysisList[i],0);
                 }
 
-                Complex[] complexAnalysisListWithWindow = new Complex[analysisList.Count];
+                Complex[] complexAnalysisListWithWindow = new Complex[6 * _daqDTO.SampleRate];
                 double[] hammingWindow = MathNet.Numerics.Window.Hamming(complexAnalysisListWithWindow.Length);
 
                 for (int i = 0; i < complexAnalysisListWithoutWindow.Length; i++)
@@ -67,9 +68,7 @@ namespace OP_VitalsBL
                 for (int i = 0; i < magnitudes.Length; i++)
                 {
                     if (magnitudes[i] == magnitudes.Max())
-                    {
                         maxIndex = i;
-                    }
                 }
 
                 double frequenceForMaxMagnitude = maxIndex * 1000.0 / complexAnalysisListWithWindow.Length;
