@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcDiaSubject
+    public class CalcDiaSubject //public tilføjet
     {
         private List<ICalcDiaObserver> _observers = new List<ICalcDiaObserver>();
 

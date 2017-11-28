@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcSys : CalcSysSubject, ICalcSys, IDeQueueObserver
+     public class CalcSys : CalcSysSubject, ICalcSys, IDeQueueObserver //+public tilføjet
     {
         private List<double> analyselist;
         private double _sys;
@@ -18,7 +18,7 @@ namespace OP_VitalsBL
         private bool _stopThread;
         private DeQueue _deQueue;
 
-        public CalcSys(DAQSettingsDTO daqDTO,AutoResetEvent dataReadyEvent, DeQueue deQueue)
+        public CalcSys(DAQSettingsDTO daqDTO,AutoResetEvent dataReadyEvent, DeQueue deQueue) 
         {
             analyselist = new List<double>();
             _sys = 0;
@@ -27,7 +27,12 @@ namespace OP_VitalsBL
             _deQueue = deQueue;
             _deQueue.Attach(this);
         }
-        private void CalculateSys(List<double> dataList,DAQSettingsDTO DAQ)
+
+        public CalcSys()
+        {
+        }
+
+        public void CalculateSys(List<double> dataList,DAQSettingsDTO DAQ)
         {
             for (int i = 0; i < dataList.Count; i++)
             {
@@ -44,7 +49,7 @@ namespace OP_VitalsBL
 
         }
 
-        public void RunCalcSys()
+        public void RunCalcSys() //GOF
         {
             while (!_stopThread)
             {

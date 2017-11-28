@@ -9,7 +9,7 @@ using DTO;
 
 namespace OP_VitalsBL
 {
-    class DeQueue:DeQueueSubject
+    public class DeQueue:DeQueueSubject
     {
         private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
         private List<double> _listOfRawData;

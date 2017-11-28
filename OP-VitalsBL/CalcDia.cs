@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia
+    public class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia // public tilføjet
     {
         private List<double> analyselist;
         private double _dia;
@@ -27,7 +27,8 @@ namespace OP_VitalsBL
             _deQueue = deQueue;
             _deQueue.Attach(this);
         }
-        private void CalculateDia(List<double> dataList,DAQSettingsDTO DAQ)
+        public CalcDia() { }  // tilføjet af Margarit
+        public void CalculateDia(List<double> dataList,DAQSettingsDTO DAQ)
         {
             for (int i = 0; i < dataList.Count; i++)
             {

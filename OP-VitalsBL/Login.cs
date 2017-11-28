@@ -8,7 +8,7 @@ using DTO;
 
 namespace OP_VitalsBL
 {
-    class Login
+    public class Login  // public tilføjet
     {
         private iOPVitalsDAL currentDal;
         private EmployeeDTO employee;

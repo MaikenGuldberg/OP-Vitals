@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class DeQueueSubject
+    public class DeQueueSubject // public tilføjet
     {
         private List<IDeQueueObserver> _observers = new List<IDeQueueObserver>();
 
