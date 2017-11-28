@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class CalcSysSubject
+    public class CalcSysSubject // public tilføjet
     {
         private List<ICalcSysObserver> _observers = new List<ICalcSysObserver>();
 

@@ -9,7 +9,7 @@ using MathNet.Numerics.IntegralTransforms;
 
 namespace OP_VitalsBL
 {
-    class Puls
+    public class Puls
     {
         private List<double> analyselist;
         private List<double> pulsList;

@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class MeanBloodPressureSubject
+    public class MeanBloodPressureSubject // public tilføjet
     {
         private List<ICalcMeanBloodPressureObserver> _observers = new List<ICalcMeanBloodPressureObserver>();
 

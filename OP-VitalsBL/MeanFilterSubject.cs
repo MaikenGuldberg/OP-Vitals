@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class MeanFilterSubject
+    public class MeanFilterSubject
     {
         private List<IMeanFilterObserver> _observers = new List<IMeanFilterObserver>();
 

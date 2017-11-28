@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    class MeanFilter : MeanFilterSubject, IDeQueueObserver
+    public class MeanFilter : MeanFilterSubject, IDeQueueObserver //public tilføjet
     {
         private List<double> _displayList;
         private readonly AutoResetEvent _dataReadyEvent;
