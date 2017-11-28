@@ -49,13 +49,14 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.SysValue = new System.Windows.Forms.Label();
             this.DiaValue = new System.Windows.Forms.Label();
             this.MeanBloodPressureValue = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.PulsValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -246,15 +247,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Filter indstillinger";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1273, 392);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "Puls";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -317,18 +309,39 @@
             this.MeanBloodPressureValue.TabIndex = 28;
             this.MeanBloodPressureValue.Text = "0";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1294, 197);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 24);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Puls";
+            // 
+            // PulsValue
+            // 
+            this.PulsValue.AutoSize = true;
+            this.PulsValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PulsValue.Location = new System.Drawing.Point(1355, 190);
+            this.PulsValue.Name = "PulsValue";
+            this.PulsValue.Size = new System.Drawing.Size(30, 31);
+            this.PulsValue.TabIndex = 30;
+            this.PulsValue.Text = "0";
+            // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.PulsValue);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.MeanBloodPressureValue);
             this.Controls.Add(this.DiaValue);
             this.Controls.Add(this.SysValue);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -370,12 +383,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label SysValue;
         private System.Windows.Forms.Label DiaValue;
         private System.Windows.Forms.Label MeanBloodPressureValue;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label PulsValue;
     }
 }
