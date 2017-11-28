@@ -57,7 +57,8 @@ namespace Interfaces
 
         void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
 
-
+        double GetPuls();
+        void AttachToCalcPuls(ICalcPulsObserver observer);
     }
 
     public interface iOPVitalsPL
@@ -120,5 +121,12 @@ namespace Interfaces
     {
         void UpdateMeanBloodPressureGUI();
     }
+
+    public interface ICalcPulsObserver
+    {
+        void UpdatePulsGUI();
+    }
+
+    
 
 }

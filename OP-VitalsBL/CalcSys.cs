@@ -29,17 +29,15 @@ namespace OP_VitalsBL
         }
         private void CalculateSys(List<double> dataList,DAQSettingsDTO DAQ)
         {
-            for (int i = 0; i < dataList.Count; i++)
+            foreach (var value in dataList)
             {
-                if (analyselist.Count < 3 * DAQ.SampleRate)
-                {
-                    analyselist.Add(dataList[i]);
-                }
-                if (analyselist.Count == 3 * DAQ.SampleRate)
-                {
-                    _sys = Math.Round(analyselist.Max());
-                    analyselist.RemoveAt(0);
-                }
+                analyselist.Add(value);
+            }
+            if (analyselist.Count == 3 * DAQ.SampleRate)
+            {
+                _sys = Math.Round(analyselist.Max());
+                Notify();
+                analyselist.RemoveRange(0,100);
             }
 
         }
@@ -51,7 +49,6 @@ namespace OP_VitalsBL
                 _dataReadyEvent.WaitOne();
                 List<double> list = _deQueue.GetRawDataFromDeQueue();
                 CalculateSys(list,_daqDTO);
-                Notify();
             }
 
         }

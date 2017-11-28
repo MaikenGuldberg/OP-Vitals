@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalcPulsUnitTest.cs" />
     <Compile Include="CalcSysUnitTest.cs" />
     <Compile Include="CalibrationUnitTests.cs" />
     <Compile Include="CtrlOPVitalsBLUnitTests.cs" />

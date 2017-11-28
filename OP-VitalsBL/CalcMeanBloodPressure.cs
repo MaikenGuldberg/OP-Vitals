@@ -30,18 +30,15 @@ namespace OP_VitalsBL
         }
         public void CalculateMean(List<double> dataList,DAQSettingsDTO DAQ)
         {
-            for (int i = 0; i < dataList.Count; i++)
+            foreach (var value in dataList)
             {
-                if (analyselist.Count < 3 * DAQ.SampleRate)
-                {
-                    analyselist.Add(dataList[i]);
-
-                }
-                if (analyselist.Count == 3 * DAQ.SampleRate)
-                {
-                    _meanBloodPressure = Math.Round(analyselist.Average());
-                    analyselist.RemoveAt(0);
-                }
+                analyselist.Add(value);
+            }
+            if (analyselist.Count == 3 * DAQ.SampleRate)
+            {
+                _meanBloodPressure = Math.Round(analyselist.Average());
+                Notify();
+                analyselist.RemoveRange(0,100);
             }
         }
 
@@ -52,7 +49,6 @@ namespace OP_VitalsBL
                 _dataReadyEvent.WaitOne();
                 List<double> list = _deQueue.GetRawDataFromDeQueue();
                 CalculateMean(list,_daqDTO);
-                Notify();
             }
         }
         public double GetMeanBloodPressure()

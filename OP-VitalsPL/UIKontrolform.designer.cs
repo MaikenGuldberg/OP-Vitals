@@ -56,6 +56,7 @@
             this.SysValue = new System.Windows.Forms.Label();
             this.DiaValue = new System.Windows.Forms.Label();
             this.MeanBloodPressureValue = new System.Windows.Forms.Label();
+            this.PulsValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -249,9 +250,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1273, 392);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1295, 184);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.Size = new System.Drawing.Size(50, 24);
             this.label1.TabIndex = 21;
             this.label1.Text = "Puls";
             // 
@@ -317,11 +319,22 @@
             this.MeanBloodPressureValue.TabIndex = 28;
             this.MeanBloodPressureValue.Text = "0";
             // 
+            // PulsValue
+            // 
+            this.PulsValue.AutoSize = true;
+            this.PulsValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PulsValue.Location = new System.Drawing.Point(1355, 177);
+            this.PulsValue.Name = "PulsValue";
+            this.PulsValue.Size = new System.Drawing.Size(30, 31);
+            this.PulsValue.TabIndex = 29;
+            this.PulsValue.Text = "0";
+            // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.PulsValue);
             this.Controls.Add(this.MeanBloodPressureValue);
             this.Controls.Add(this.DiaValue);
             this.Controls.Add(this.SysValue);
@@ -377,5 +390,6 @@
         private System.Windows.Forms.Label SysValue;
         private System.Windows.Forms.Label DiaValue;
         private System.Windows.Forms.Label MeanBloodPressureValue;
+        private System.Windows.Forms.Label PulsValue;
     }
 }

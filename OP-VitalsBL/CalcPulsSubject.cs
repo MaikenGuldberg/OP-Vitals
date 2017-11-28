@@ -7,16 +7,16 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class DeQueueSubject
+    public class CalcPulsSubject
     {
-        private List<IDeQueueObserver> _observers = new List<IDeQueueObserver>();
+        private List<ICalcPulsObserver> _observers = new List<ICalcPulsObserver>();
 
-        public void Attach(IDeQueueObserver observer)
+        public void Attach(ICalcPulsObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(IDeQueueObserver observer)
+        public void Detach(ICalcPulsObserver observer)
         {
             _observers.Remove(observer);
         }
@@ -25,7 +25,7 @@ namespace OP_VitalsBL
         {
             foreach (var observer in _observers)
             {
-                observer.UpdateRawData();
+                observer.UpdatePulsGUI();
             }
         }
     }

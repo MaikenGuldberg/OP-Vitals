@@ -22,6 +22,7 @@ namespace OP_VitalsBL
         private Thread _CalcSysThread;
         private Thread _CalcDiaThread;
         private Thread _CalcMeanBloodPressureThread;
+        private Thread _CalcPulsThread;
         public  EmployeeDTO employee { get; set; }
         private RsquaredCalculator rsquaredCalculator;
         private ConcurrentQueue<RawDataQueue> _RawDataQueue;
@@ -29,9 +30,11 @@ namespace OP_VitalsBL
         private AutoResetEvent _dataReadyEventCalcSys;
         private AutoResetEvent _dataReadyEventCalcDia;
         private AutoResetEvent _dataReadyEventCalcMeanBloodPressure;
+        private AutoResetEvent _dataReadyEventCalcPuls;
         private CalcSys _calcSys;
         private CalcDia _calcDia;
         private CalcMeanBloodPressure _calcMeanBloodPressure;
+        private CalcPuls _calcPuls;
 
         private bool _stopThreads;
 
@@ -41,6 +44,7 @@ namespace OP_VitalsBL
             _dataReadyEventCalcSys = new AutoResetEvent(false);
             _dataReadyEventCalcDia = new AutoResetEvent(false);
             _dataReadyEventCalcMeanBloodPressure = new AutoResetEvent(false);
+            _dataReadyEventCalcPuls = new AutoResetEvent(false);
             _RawDataQueue = RawDataQueue;
             this.currentDal = currentDal;
             rsquaredCalculator = new RsquaredCalculator();
@@ -52,6 +56,7 @@ namespace OP_VitalsBL
             _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue);
             _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue);
             _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
+            _calcPuls = new CalcPuls(_daqSettings,_dataReadyEventCalcPuls,_deQueue);
         }
 
         public void AddToCalibrationlist(double pressure)
@@ -127,6 +132,10 @@ namespace OP_VitalsBL
             _calcMeanBloodPressure.Attach(observer);
         }
 
+        public void AttachToCalcPuls(ICalcPulsObserver observer)
+        {
+            _calcPuls.Attach(observer);
+        }
         public List<double> GetDisplayList()
         {
             return meanfilter_.GetDisplayList();
@@ -146,6 +155,11 @@ namespace OP_VitalsBL
         {
             return _calcMeanBloodPressure.GetMeanBloodPressure();
         }
+
+        public double GetPuls()
+        {
+            return _calcPuls.GetPuls();
+        }
         public void StartChartThread()
         {
             currentDal.StartDaq();
@@ -155,6 +169,7 @@ namespace OP_VitalsBL
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
             _CalcDiaThread = new Thread(_calcDia.RunCalcDia);
             _CalcMeanBloodPressureThread = new Thread(_calcMeanBloodPressure.RunCalcMeanBloodPressure);
+            _CalcPulsThread = new Thread(_calcPuls.RunCalcPuls);
             
 
             _chartThread.IsBackground = true;
@@ -162,12 +177,14 @@ namespace OP_VitalsBL
             _DeQueueThread.IsBackground = true;
             _CalcDiaThread.IsBackground = true;
             _CalcMeanBloodPressureThread.IsBackground = true;
+            _CalcPulsThread.IsBackground = true;
 
             _DeQueueThread.Start();
             _chartThread.Start();
             _CalcSysThread.Start();
             _CalcDiaThread.Start();
             _CalcMeanBloodPressureThread.Start();
+            _CalcPulsThread.Start();
         }
 
         public void StopThreads(bool result)
@@ -177,6 +194,7 @@ namespace OP_VitalsBL
             _calcSys.stopThread(result);
             _calcDia.stopThread(result);
             _calcMeanBloodPressure.StopThread(result);
+            _calcPuls.stopThread(result);
             currentDal.StopMeasurement();
             currentDal.StopSaveDataThread(result);
         }

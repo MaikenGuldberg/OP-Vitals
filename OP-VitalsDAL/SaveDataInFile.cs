@@ -56,17 +56,18 @@ namespace OP_VitalsBL
             {
                 SaveToFile();
             }
-            if (_stopThread == true & savelist.Count > 0)
-            {
-                _fileManager.SaveMeasurementsInFile(savelist,_fileManager.GetOperationFolder(),_sequenceNumber+1);
-                savelist.Clear();
-                _sequenceNumber = 1;
-            }
+           
         }
 
         public void stopThread(bool result)
         {
             _stopThread = result;
+            if (savelist.Count > 0)
+            {
+                _fileManager.SaveMeasurementsInFile(savelist, _fileManager.GetOperationFolder(), _sequenceNumber);
+            }
+            savelist.Clear();
+            _sequenceNumber = 1;
         }
 
     }
