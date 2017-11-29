@@ -17,8 +17,9 @@ namespace OP_VitalsBL
         private readonly AutoResetEvent _dataReadyEvent;
         private bool _stopThread;
         private DeQueue _deQueue;
+        private Alarm _alarm;
 
-        public CalcSys(DAQSettingsDTO daqDTO,AutoResetEvent dataReadyEvent, DeQueue deQueue) 
+        public CalcSys(DAQSettingsDTO daqDTO,AutoResetEvent dataReadyEvent, DeQueue deQueue,Alarm alarm) 
         {
             analyselist = new List<double>();
             _sys = 0;
@@ -26,6 +27,7 @@ namespace OP_VitalsBL
             _dataReadyEvent = dataReadyEvent;
             _deQueue = deQueue;
             _deQueue.Attach(this);
+            _alarm = alarm;
         }
 
         public void CalculateSys(List<double> dataList)
@@ -37,6 +39,7 @@ namespace OP_VitalsBL
             if (analyselist.Count == 3 * _daqDTO.SampleRate)
             {
                 _sys = Math.Round(analyselist.Max());
+                _alarm.CheckSubakutAlarmSys(_sys);
                 Notify();
                 analyselist.RemoveRange(0,100);
             }
@@ -51,7 +54,6 @@ namespace OP_VitalsBL
                 _dataReadyEvent.WaitOne();
                 List<double> list = _deQueue.GetRawDataFromDeQueue();
                 CalculateSys(list);
-                Notify();
             }
 
         }

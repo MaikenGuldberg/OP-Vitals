@@ -15,6 +15,8 @@ namespace OP_VitalsBL
         private iOPVitalsDAL currentDal;
         private Calibration calibration;
         private DAQSettingsDTO _daqSettings;
+        private OperationDTO _operationDTO;
+        private AlarmDTO _alarmDTO;
         private MeanFilter meanfilter_;
         private DeQueue _deQueue;
         private Thread _chartThread;
@@ -23,7 +25,9 @@ namespace OP_VitalsBL
         private Thread _CalcDiaThread;
         private Thread _CalcMeanBloodPressureThread;
         private Thread _CalcPulsThread;
-        public  EmployeeDTO employee { get; set; }
+        private Thread _subalarmThread;
+
+        public EmployeeDTO _employeeDTO;
         private RsquaredCalculator rsquaredCalculator;
         private ConcurrentQueue<RawDataQueue> _RawDataQueue;
 
@@ -37,10 +41,20 @@ namespace OP_VitalsBL
         private CalcDia _calcDia;
         private CalcMeanBloodPressure _calcMeanBloodPressure;
         private CalcPuls _calcPuls;
+        private Alarm _alarm;
 
         private bool _stopThreads;
 
-        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue,DAQSettingsDTO daqSettingsDto)
+        public EmployeeDTO GetEmployeeDTO()
+        {
+            return _employeeDTO;
+        }
+
+        public OperationDTO GetOperationDTO()
+        {
+            return _operationDTO;
+        }
+        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue,DAQSettingsDTO daqSettingsDto,OperationDTO operationDTO,EmployeeDTO employeeDTO)
         {
             _dataReadyEventMeanFilter = new AutoResetEvent(false);
             _dataReadyEventCalcSys = new AutoResetEvent(false);
@@ -52,10 +66,13 @@ namespace OP_VitalsBL
             rsquaredCalculator = new RsquaredCalculator();
             calibration = new Calibration(rsquaredCalculator);
             _daqSettings = daqSettingsDto;
-            employee = new EmployeeDTO();
+            _employeeDTO = employeeDTO;
+            _operationDTO = operationDTO;
+            _alarmDTO = new AlarmDTO();
             _deQueue = new DeQueue(_RawDataQueue);
             meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
-            _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue);
+            _alarm = new Alarm(_alarmDTO);
+            _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue,_alarm);
             _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue);
             _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
             _calcPuls = new CalcPuls(_daqSettings, _dataReadyEventCalcPuls, _deQueue);
@@ -66,6 +83,10 @@ namespace OP_VitalsBL
             calibration.AddMeasurePoint(currentDal.GetZeroPoint(),pressure);
         }
 
+        public void SaveComment(string comment)
+        {
+            
+        }
         public void LinearRegression(List<CalibrationPointDTO> list)
         {
             calibration.LinearRegression(list);
@@ -94,7 +115,7 @@ namespace OP_VitalsBL
 
         public void SaveCalibration()
         {
-            currentDal.SaveCalibration(calibration.Slope_,employee.EmployeeID_);
+            currentDal.SaveCalibration(calibration.Slope_,_employeeDTO.EmployeeID_);
         }
 
         
@@ -155,6 +176,7 @@ namespace OP_VitalsBL
         }
         public void StartChartThread()
         {
+            _operationDTO.StartTime_ = DateTime.Now;
             currentDal.StartDaq();
             currentDal.StartSaveThread();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
@@ -163,6 +185,7 @@ namespace OP_VitalsBL
             _CalcDiaThread = new Thread(_calcDia.RunCalcDia);
             _CalcMeanBloodPressureThread = new Thread(_calcMeanBloodPressure.RunCalcMeanBloodPressure);
             _CalcPulsThread = new Thread(_calcPuls.RunCalcPuls);
+            _subalarmThread = new Thread(_alarm.RunSubakutAlarm);
 
 
             _chartThread.IsBackground = true;
@@ -171,6 +194,7 @@ namespace OP_VitalsBL
             _CalcDiaThread.IsBackground = true;
             _CalcMeanBloodPressureThread.IsBackground = true;
             _CalcPulsThread.IsBackground = true;
+            _subalarmThread.IsBackground = true;
 
             _DeQueueThread.Start();
             _chartThread.Start();
@@ -178,6 +202,7 @@ namespace OP_VitalsBL
             _CalcDiaThread.Start();
             _CalcMeanBloodPressureThread.Start();
             _CalcPulsThread.Start();
+            _subalarmThread.Start();
         }
 
         public void StopThreads(bool result)
@@ -190,6 +215,7 @@ namespace OP_VitalsBL
             _calcPuls.StopThread(result);
             currentDal.StopMeasurement();
             currentDal.StopSaveDataThread(result);
+            currentDal.SaveToDatabase();
         }
 
         public double GetPuls()
@@ -201,5 +227,6 @@ namespace OP_VitalsBL
         {
             _calcPuls.Attach(observer);
         }
+
     }
 }

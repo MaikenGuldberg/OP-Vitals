@@ -19,6 +19,11 @@ namespace OP_VitalsMain
         private ConcurrentQueue<RawDataQueue> RawDataQueue;
         private ConcurrentQueue<RawDataQueue> SaveQueue;
         private DAQSettingsDTO daqSettings;
+        private EmployeeDTO employee;
+        private PatientDTO patient;
+        private OperationDTO operation;
+        private TransdusorDTO transdusor;
+        private BPDataSequenceDTO bpDataSequence;
 
         static void Main(string[] args)
         {
@@ -30,9 +35,14 @@ namespace OP_VitalsMain
             RawDataQueue = new ConcurrentQueue<RawDataQueue>();
             SaveQueue = new ConcurrentQueue<RawDataQueue>();
             daqSettings = new DAQSettingsDTO();
+            employee = new EmployeeDTO();
+            patient = new PatientDTO();
+            operation = new OperationDTO();
+            transdusor = new TransdusorDTO();
+            bpDataSequence = new BPDataSequenceDTO();
 
-            currentOpVitalsDal = new CtrlOPVitalsDAL(ref RawDataQueue,ref SaveQueue,daqSettings);
-            currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal,ref RawDataQueue,daqSettings);
+            currentOpVitalsDal = new CtrlOPVitalsDAL(ref RawDataQueue,ref SaveQueue,daqSettings,operation,employee,transdusor,bpDataSequence,patient);
+            currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal,ref RawDataQueue,daqSettings,operation,employee);
             currentOpVitalsPl = new CtrlOPVitalsPL(currentOpVitalsBl);
             currentOpVitalsPl.StartGUI();
         }

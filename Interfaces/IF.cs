@@ -22,6 +22,8 @@ namespace Interfaces
         void StopMeasurement();
         void StartSaveThread();
         void StopSaveDataThread(bool result);
+
+        void SaveToDatabase();
     }
 
     public interface iOPVitalsBL
@@ -38,7 +40,9 @@ namespace Interfaces
         double GetZeroPointFromBL();
 
         bool ValidateLogin(EmployeeDTO Employee);
-        EmployeeDTO employee { get; set; }
+        EmployeeDTO GetEmployeeDTO();
+
+        OperationDTO GetOperationDTO();
 
         void AttachToMeanFilter(IMeanFilterObserver observer);
 

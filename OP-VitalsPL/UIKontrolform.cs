@@ -104,9 +104,16 @@ namespace OP_VitalsPL
             currentBl.StopThreads(true);
         }
 
-       
-        
-
-       
+        private void SaveComment_Click(object sender, EventArgs e)
+        {
+            currentBl.GetOperationDTO().DurationOperation_hour_ = Convert.ToInt32(HourTextBox.Text);
+            currentBl.GetOperationDTO().DurationOperation_min_ = Convert.ToInt32(MinuteTextBox.Text);
+            currentBl.GetOperationDTO().DurationOperation_sec_ = Convert.ToInt32(SecondsTextBox.Text);
+            if (NoComplications.Checked == false && Complications.Checked == true)
+            {
+                currentBl.GetOperationDTO().Complikations_ = 1;
+            }
+            Description.Text.ToArray();
+        }
     }
 }

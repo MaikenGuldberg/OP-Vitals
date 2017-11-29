@@ -46,10 +46,11 @@ namespace OP_VitalsDAL
                 return interval;
         }
 
-        private void Zipfolder(string startPath)
+        private string Zipfolder(string startPath)
         {
             string zipPath = startPath + ".zip";
             ZipFile.CreateFromDirectory(startPath, zipPath);
+            return zipPath;
         }
         public bool SaveMeasurement(EmployeeDTO employee, OperationDTO operation, PatientDTO patient, DAQSettingsDTO DAQ, BPDataSequenceDTO dataSequence, TransdusorDTO transdusor)
         {
@@ -64,7 +65,7 @@ namespace OP_VitalsDAL
             {
                 parameterBuilder_.AddEmployee(cmd,employee);
                 parameterBuilder_.AddOperation(cmd,operation);
-                parameterBuilder_.AddComments(cmd,commentfile);
+                parameterBuilder_.AddComments(cmd,Zipfolder(operation.PathCommentFolder_));
                 parameterBuilder_.AddPatient(cmd,patient);
                 OperationID_ = (long)cmd.ExecuteScalar();
             }
@@ -75,7 +76,7 @@ namespace OP_VitalsDAL
 
             using (SqlCommand cmd = new SqlCommand(insertStringParamBPDataSequence, OpenConnection))
             {
-                parameterBuilder_.AddRawData(cmd,operation.PathOperationFolder_);
+                parameterBuilder_.AddRawData(cmd,Zipfolder(operation.PathOperationFolder_));
                 parameterBuilder_.AddDAQ(cmd,DAQ);
                 parameterBuilder_.AddDataSequence(cmd,dataSequence);
                 parameterBuilder_.AddTransdusor(cmd,transdusor);

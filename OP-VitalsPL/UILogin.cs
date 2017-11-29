@@ -33,11 +33,11 @@ namespace OP_VitalsPL
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            currentBl.employee.EmployeeID_ = EmployeeIDTextBox.Text;
-            currentBl.employee.Password_ = PasswordTextBox.Text;
-            if (currentBl.ValidateLogin(currentBl.employee) == true)
+            currentBl.GetEmployeeDTO().EmployeeID_ = EmployeeIDTextBox.Text;
+            currentBl.GetEmployeeDTO().Password_ = PasswordTextBox.Text;
+            if (currentBl.ValidateLogin(currentBl.GetEmployeeDTO()) == true)
             {
-                if (Profession(currentBl.employee.Profession_)==1)
+                if (Profession(currentBl.GetEmployeeDTO().Profession_)==1)
                 {
                     this.Hide();
                     kontrolform = new UIKontrolform(currentBl);
@@ -53,7 +53,7 @@ namespace OP_VitalsPL
 
 
                 }
-                if(Profession(currentBl.employee.Profession_)==2)
+                if(Profession(currentBl.GetEmployeeDTO().Profession_)==2)
                 {
                     kalibrering = new UIKalibrering(currentBl);
                     kalibrering.Show();

@@ -9,7 +9,6 @@ namespace DTO
     public class OperationDTO
     {
         public int NumberOfAlarms_ { get; set; }
-        public string Komments_ { get; set; }
         public int DurationOperation_hour_ { get; set; }
         public int DurationOperation_min_ { get; set; }
         public int DurationOperation_sec_ { get; set; }
@@ -20,8 +19,7 @@ namespace DTO
         public DateTime StartTime_ { get; set; }
 
         public string PathOperationFolder_ { get; set; }
-        public double ConversionConstant_ { get; set; }
-        public double ZeroPoint_ { get; set; }
+        public string PathCommentFolder_ { get; set; }
         // tilføjet af Margarit
         public int Systole { get; set; }
         public int Diastole { get; set; }
@@ -29,14 +27,15 @@ namespace DTO
         public OperationDTO()
         {
             NumberOfAlarms_ = 0;
-            Komments_ = "No Comments";
             DurationOperation_hour_ = 0;
             DurationOperation_min_ = 0;
             DurationOperation_sec_ = 1;
             Complikations_ = 0;
-           
+            PathCommentFolder_ =
+                @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Filingsystem\Comments.zip";
+            PathOperationFolder_ =
+                @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Filingsystem\MeasurementFiles\OperationTest.zip";
             StartTime_ = DateTime.Now;
-            PathOperationFolder_ = "";
         }
 
     }

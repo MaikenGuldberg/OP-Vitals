@@ -157,6 +157,7 @@
             this.SaveComment.TabIndex = 11;
             this.SaveComment.Text = "Gem Kommentar";
             this.SaveComment.UseVisualStyleBackColor = true;
+            this.SaveComment.Click += new System.EventHandler(this.SaveComment_Click);
             // 
             // KontrolLogOutButton
             // 
