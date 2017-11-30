@@ -87,7 +87,6 @@ namespace OP_VitalsDAL
                     // Read the available data from the channels
                     data = analogInReader.EndReadWaveform(ar);
 
-                    //DataToDataList(data);
                     RawDataQueue reading = new RawDataQueue();
                     reading.SetRawDataSample(data);
                     _rawDataQueue.Enqueue(reading); //Consumer producer patteren
