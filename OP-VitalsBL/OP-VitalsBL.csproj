@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
+    <Compile Include="AlarmPlayer.cs" />
     <Compile Include="CalcDia.cs" />
     <Compile Include="CalcDia2.cs" />
     <Compile Include="CalcDiaSubject.cs" />

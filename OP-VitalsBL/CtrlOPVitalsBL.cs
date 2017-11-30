@@ -24,7 +24,6 @@ namespace OP_VitalsBL
         private Thread _CalcDiaThread;
         private Thread _CalcMeanBloodPressureThread;
         private Thread _CalcPulsThread;
-        private Thread _subakutAlarmThread;
         public  EmployeeDTO employee { get; set; }
         private RsquaredCalculator rsquaredCalculator;
         private ConcurrentQueue<RawDataQueue> _RawDataQueue;
@@ -40,6 +39,7 @@ namespace OP_VitalsBL
         private CalcMeanBloodPressure _calcMeanBloodPressure;
         private CalcPuls _calcPuls;
         private Alarm _alarm;
+        private IAlarmPlayer _alarmPlayer;
 
         private bool _stopThreads;
 
@@ -59,9 +59,10 @@ namespace OP_VitalsBL
             _alarmDTO = new AlarmDTO();
             _deQueue = new DeQueue(_RawDataQueue);
             meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
-            _alarm = new Alarm(_alarmDTO);
+            _alarmPlayer = new AlarmPlayer();
+            _alarm = new Alarm(_alarmDTO,_alarmPlayer);
             _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue,_alarm);
-            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue);
+            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue,_alarm);
             _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
             _calcPuls = new CalcPuls(_daqSettings, _dataReadyEventCalcPuls, _deQueue);
         }
@@ -162,13 +163,13 @@ namespace OP_VitalsBL
         {
             currentDal.StartDaq();
             currentDal.StartSaveThread();
+            _alarm.ResetAlarm();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
             _CalcSysThread = new Thread(_calcSys.RunCalcSys);
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
             _CalcDiaThread = new Thread(_calcDia.RunCalcDia);
             _CalcMeanBloodPressureThread = new Thread(_calcMeanBloodPressure.RunCalcMeanBloodPressure);
             _CalcPulsThread = new Thread(_calcPuls.RunCalcPuls);
-            //_subakutAlarmThread = new Thread(_alarm.RunSubakutAlarm);
 
 
             _chartThread.IsBackground = true;
@@ -177,7 +178,6 @@ namespace OP_VitalsBL
             _CalcDiaThread.IsBackground = true;
             _CalcMeanBloodPressureThread.IsBackground = true;
             _CalcPulsThread.IsBackground = true;
-            //_subakutAlarmThread.IsBackground = true;
 
             _DeQueueThread.Start();
             _chartThread.Start();
@@ -185,7 +185,6 @@ namespace OP_VitalsBL
             _CalcDiaThread.Start();
             _CalcMeanBloodPressureThread.Start();
             _CalcPulsThread.Start();
-            //_subakutAlarmThread.Start();
         }
 
         public void StopThreads(bool result)
@@ -198,7 +197,7 @@ namespace OP_VitalsBL
             _calcPuls.StopThread(result);
             currentDal.StopMeasurement();
             currentDal.StopSaveDataThread(result);
-            //_alarm.stopThread(result);
+            _alarmPlayer.StopAlarm("SubAkut");
         }
 
         public double GetPuls()

@@ -18,8 +18,8 @@ namespace DTO
 
         public AlarmDTO()
         {
-            HighestDia = 90;
-            LowestDia = 70;
+            HighestDia = -1;
+            LowestDia = -3;
             HighestSys = 3;
             LowestSys = 1;
         }
