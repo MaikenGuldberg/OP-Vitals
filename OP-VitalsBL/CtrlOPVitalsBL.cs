@@ -15,6 +15,7 @@ namespace OP_VitalsBL
         private iOPVitalsDAL currentDal;
         private Calibration calibration;
         private DAQSettingsDTO _daqSettings;
+        private AlarmDTO _alarmDTO;
         private MeanFilter meanfilter_;
         private DeQueue _deQueue;
         private Thread _chartThread;
@@ -37,6 +38,8 @@ namespace OP_VitalsBL
         private CalcDia _calcDia;
         private CalcMeanBloodPressure _calcMeanBloodPressure;
         private CalcPuls _calcPuls;
+        private Alarm _alarm;
+        private IAlarmPlayer _alarmPlayer;
 
         private bool _stopThreads;
 
@@ -53,10 +56,13 @@ namespace OP_VitalsBL
             calibration = new Calibration(rsquaredCalculator);
             _daqSettings = daqSettingsDto;
             employee = new EmployeeDTO();
+            _alarmDTO = new AlarmDTO();
             _deQueue = new DeQueue(_RawDataQueue);
             meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
-            _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue);
-            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue);
+            _alarmPlayer = new AlarmPlayer();
+            _alarm = new Alarm(_alarmDTO,_alarmPlayer);
+            _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue,_alarm);
+            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue,_alarm);
             _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
             _calcPuls = new CalcPuls(_daqSettings, _dataReadyEventCalcPuls, _deQueue);
         }
@@ -157,6 +163,7 @@ namespace OP_VitalsBL
         {
             currentDal.StartDaq();
             currentDal.StartSaveThread();
+            _alarm.ResetAlarm();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
             _CalcSysThread = new Thread(_calcSys.RunCalcSys);
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
@@ -190,6 +197,7 @@ namespace OP_VitalsBL
             _calcPuls.StopThread(result);
             currentDal.StopMeasurement();
             currentDal.StopSaveDataThread(result);
+            _alarmPlayer.StopAlarm("SubAkut");
         }
 
         public double GetPuls()

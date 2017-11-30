@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia // public tilføjet
+    public class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia // public tilføjetC:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\OP-VitalsBL\CalcDia.cs
     {
         private List<double> analyselist;
         private double _dia;
@@ -17,11 +17,15 @@ namespace OP_VitalsBL
         private AutoResetEvent _dataReadyEvent;
         private DeQueue _deQueue;
         private bool _stopThread;
+        private Alarm _alarm;
+        private double dia;
 
-        public CalcDia(DAQSettingsDTO daqDTO, AutoResetEvent dataReadyEvent, DeQueue deQueue)
+        public CalcDia(DAQSettingsDTO daqDTO, AutoResetEvent dataReadyEvent, DeQueue deQueue,Alarm alarm)
         {
             analyselist = new List<double>();
             _dia = 0;
+            dia = 0;
+            _alarm = alarm;
             _daqDTO = daqDTO;
             _dataReadyEvent = dataReadyEvent;
             _deQueue = deQueue;
@@ -35,9 +39,16 @@ namespace OP_VitalsBL
             }
             if (analyselist.Count == 3 * _daqDTO.SampleRate)
             {
-                _dia = Math.Round(analyselist.Min());
-                Notify();
-                analyselist.RemoveRange(0,100);
+
+                
+                dia = Math.Round(analyselist.Min());
+                if (dia != _dia)
+                {
+                    _dia = dia;
+                    _alarm.CheckSubakutAlarmDia(_dia);
+                    Notify();
+                    analyselist.RemoveRange(0, 100);
+                }
             }
             
         }

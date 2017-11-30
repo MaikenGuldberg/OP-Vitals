@@ -127,4 +127,10 @@ namespace Interfaces
     {
         void UpdatePulsGUI();
     }
+
+    public interface IAlarmPlayer
+    {
+        void PlayAlarm(string type);
+        void StopAlarm(string type);
+    }
 }

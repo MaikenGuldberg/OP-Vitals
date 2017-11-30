@@ -16,5 +16,13 @@ namespace DTO
         public int LowestDia { get; set; }
         public bool AlarmState { get; set; }
 
+        public AlarmDTO()
+        {
+            HighestDia = -1;
+            LowestDia = -3;
+            HighestSys = 3;
+            LowestSys = 1;
+        }
+
     }
 }
