@@ -63,6 +63,12 @@
     <Compile Include="UICPR.designer.cs">
       <DependentUpon>UICPR.cs</DependentUpon>
     </Compile>
+    <Compile Include="UIForkertCPR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIForkertCPR.Designer.cs">
+      <DependentUpon>UIForkertCPR.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIGodkendKalibrering.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UICPR.resx">
       <DependentUpon>UICPR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIForkertCPR.resx">
+      <DependentUpon>UIForkertCPR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UIGodkendKalibrering.resx">
       <DependentUpon>UIGodkendKalibrering.cs</DependentUpon>

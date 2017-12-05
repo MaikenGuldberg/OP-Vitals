@@ -14,7 +14,7 @@ namespace Interfaces
     {
         void SaveCalibration(double value, string technicianID);
 
-        void StartDaq();
+        void StartDaq(bool QueueMode);
         double GetZeroPoint();
 
         bool ValidateLogin(EmployeeDTO Employee);
@@ -22,6 +22,7 @@ namespace Interfaces
         void StopMeasurement();
         void StartSaveThread();
         void StopSaveDataThread(bool result);
+        void LoadCalibrationConstant();
     }
 
     public interface iOPVitalsBL
@@ -33,7 +34,7 @@ namespace Interfaces
         double GetRsquared_();
         double GetSlope_();
         void SaveCalibration();
-        void InitiateDaqFromBL();
+        void InitiateDaqFromBL(bool QueueMode);
 
         double GetZeroPointFromBL();
 
@@ -59,6 +60,16 @@ namespace Interfaces
 
         double GetPuls();
         void AttachToCalcPuls(ICalcPulsObserver observer);
+
+        bool ZeroPointAdjust();
+
+        bool CheckCPR(string CPRnr);
+
+        PatientDTO GetPatientDto();
+
+        void LoadCalibrationConstant();
+
+        AlarmDTO GetAlarmDTO();
 
     }
 

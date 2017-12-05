@@ -43,9 +43,9 @@ namespace OP_VitalsDAL
             fileManager.CreateCalibrationFile(value,technicianID, out path);
         }
 
-        public void StartDaq()
+        public void StartDaq(bool QueueMode)
         {
-            DaqAsync.InitiateAsyncDaq();
+            DaqAsync.InitiateAsyncDaq(QueueMode);
         }
 
         public double GetZeroPoint()
@@ -80,6 +80,11 @@ namespace OP_VitalsDAL
         public void StopSaveDataThread(bool result)
         {
             _saveDataInFile.stopThread(result);
+        }
+
+        public void LoadCalibrationConstant()
+        {
+            _daqSettings.ConversionConstant_ = fileManager.ReadCalibrationFile();
         }
     }
 

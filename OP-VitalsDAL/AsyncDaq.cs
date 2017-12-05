@@ -23,14 +23,17 @@ namespace OP_VitalsDAL
         private double zeroDouble;
         private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
         private readonly ConcurrentQueue<RawDataQueue> _saveDataQueue;
+        private bool _queueMode;
 
         public AsyncDaq(ConcurrentQueue<RawDataQueue> rawDataQueue,ConcurrentQueue<RawDataQueue> saveDataQueue)
         {
             _rawDataQueue = rawDataQueue;
             _saveDataQueue = saveDataQueue;
+            _queueMode = false;
         }
-        public void InitiateAsyncDaq()
+        public void InitiateAsyncDaq(bool QueueMode)
         {
+            _queueMode = QueueMode;
             if (runningTask == null)
             {
                 try
@@ -86,18 +89,18 @@ namespace OP_VitalsDAL
                 {
                     // Read the available data from the channels
                     data = analogInReader.EndReadWaveform(ar);
+                    if (_queueMode == true) //Sikres at der ikke bliver lagt målinger i kø når der laves kalibrering
+                    {
+                        RawDataQueue reading = new RawDataQueue();
+                        reading.SetRawDataSample(data);
+                        _rawDataQueue.Enqueue(reading); //Consumer producer patteren
 
-                    RawDataQueue reading = new RawDataQueue();
-                    reading.SetRawDataSample(data);
-                    _rawDataQueue.Enqueue(reading); //Consumer producer patteren
-
-                    RawDataQueue reading2 = new RawDataQueue();
-                    reading2.SetRawDataSample(data);
-                    _saveDataQueue.Enqueue(reading2);
-
+                        RawDataQueue reading2 = new RawDataQueue();
+                        reading2.SetRawDataSample(data);
+                        _saveDataQueue.Enqueue(reading2);
+                    }
                     analogInReader.BeginMemoryOptimizedReadWaveform(100,
                         analogCallback, myTask, data);
-                    //Notify();
                 }
             }
             catch (DaqException exception)
@@ -111,11 +114,11 @@ namespace OP_VitalsDAL
         public double GetDataPointZero()
         {
             zeroPoint = new List<double>();
-            foreach (var d in analogInReader.ReadMultiSample(50))
+            foreach (var d in analogInReader.ReadMultiSample(200))
             {
                 zeroPoint.Add(d);
             }
-            zeroDouble = zeroPoint.Average();
+            zeroDouble = (zeroPoint.Average())*1000; //ændre enheden fra Volt til mV
             return zeroDouble;
         }
     }

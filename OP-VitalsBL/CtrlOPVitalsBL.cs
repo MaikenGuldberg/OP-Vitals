@@ -15,6 +15,7 @@ namespace OP_VitalsBL
         private iOPVitalsDAL currentDal;
         private Calibration calibration;
         private DAQSettingsDTO _daqSettings;
+        private OperationDTO _operationDTO;
         private AlarmDTO _alarmDTO;
         private MeanFilter meanfilter_;
         private DeQueue _deQueue;
@@ -41,33 +42,60 @@ namespace OP_VitalsBL
         private Alarm _alarm;
         private IAlarmPlayer _alarmPlayer;
 
+        private PatientDTO _patientDto;
+
         private bool _stopThreads;
 
-        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue,DAQSettingsDTO daqSettingsDto)
+        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue,DAQSettingsDTO daqSettingsDto,PatientDTO patientDto)
+        {
+            
+            _RawDataQueue = RawDataQueue;
+            this.currentDal = currentDal;
+            InitializeDataReadyEvents();
+            InitializeCalibrationClasses();
+            _daqSettings = daqSettingsDto;
+            _patientDto = patientDto;
+            _operationDTO = new OperationDTO();
+            employee = new EmployeeDTO();
+            _deQueue = new DeQueue(_RawDataQueue,_daqSettings);
+            meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
+            InitializeAlarmClasses();
+            InitializeCalculationClasses();
+
+
+        }
+
+        private void InitializeDataReadyEvents()
         {
             _dataReadyEventMeanFilter = new AutoResetEvent(false);
             _dataReadyEventCalcSys = new AutoResetEvent(false);
             _dataReadyEventCalcDia = new AutoResetEvent(false);
             _dataReadyEventCalcMeanBloodPressure = new AutoResetEvent(false);
             _dataReadyEventCalcPuls = new AutoResetEvent(false);
-            _RawDataQueue = RawDataQueue;
-            this.currentDal = currentDal;
+        }
+
+        private void InitializeCalibrationClasses()
+        {
             rsquaredCalculator = new RsquaredCalculator();
             calibration = new Calibration(rsquaredCalculator);
-            _daqSettings = daqSettingsDto;
-            employee = new EmployeeDTO();
-            _alarmDTO = new AlarmDTO();
-            _deQueue = new DeQueue(_RawDataQueue);
-            meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
-            _alarmPlayer = new AlarmPlayer();
-            _alarm = new Alarm(_alarmDTO,_alarmPlayer);
-            _calcSys = new CalcSys(_daqSettings,_dataReadyEventCalcSys,_deQueue,_alarm);
-            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue,_alarm);
-            _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings,_dataReadyEventCalcMeanBloodPressure,_deQueue);
+        }
+
+        private void InitializeCalculationClasses()
+        {
+            _calcSys = new CalcSys(_daqSettings, _dataReadyEventCalcSys, _deQueue, _alarm);
+            _calcDia = new CalcDia(_daqSettings, _dataReadyEventCalcDia, _deQueue, _alarm);
+            _calcMeanBloodPressure = new CalcMeanBloodPressure(_daqSettings, _dataReadyEventCalcMeanBloodPressure, _deQueue);
             _calcPuls = new CalcPuls(_daqSettings, _dataReadyEventCalcPuls, _deQueue);
         }
 
-        public void AddToCalibrationlist(double pressure)
+        private void InitializeAlarmClasses()
+        {
+            _alarmDTO = new AlarmDTO();
+            _alarmPlayer = new AlarmPlayer();
+            _alarm = new Alarm(_alarmDTO, _alarmPlayer,_operationDTO);
+
+        }
+        public void AddToCalibrationlist(double pressure) //denne metode tilføjer et kalibreringspunkt til kalibreringslisten
         {
             calibration.AddMeasurePoint(currentDal.GetZeroPoint(),pressure);
         }
@@ -110,9 +138,24 @@ namespace OP_VitalsBL
             return currentDal.ValidateLogin(Employee);
         }
 
-        public void InitiateDaqFromBL()
+        public bool ZeroPointAdjust() //måler det atmosfæriske tryk og tjekker om det er en valid værdi
         {
-            currentDal.StartDaq();
+            currentDal.StartDaq(false); //Starter Daqen unden brug af ConcurrentQueue
+            double atmospherePressure = currentDal.GetZeroPoint() * _daqSettings.ConversionConstant_; //finder spændingen og laver denne om til tryk
+            if (atmospherePressure > 760) //Tjekker om det atmosfæriske tryk er som forventet og hvis det er bliver zeropoint attributten sat til denne værdi i daqSettingsDTO'en
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+                _daqSettings.ZeroPoint_ = atmospherePressure;
+            }
+            currentDal.StopMeasurement(); //Stopper tråden der optager målinger fra daqen.
+        }
+        public void InitiateDaqFromBL(bool QueueMode)
+        {
+            currentDal.StartDaq(QueueMode);
         }
 
         public double GetZeroPointFromBL()
@@ -161,7 +204,7 @@ namespace OP_VitalsBL
         }
         public void StartChartThread()
         {
-            currentDal.StartDaq();
+            currentDal.StartDaq(true);
             currentDal.StartSaveThread();
             _alarm.ResetAlarm();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
@@ -208,6 +251,26 @@ namespace OP_VitalsBL
         public void AttachToCalcPuls(ICalcPulsObserver observer)
         {
             _calcPuls.Attach(observer);
+        }
+
+        public bool CheckCPR(string CPRnr)
+        {
+            return OP_VitalsBL.CheckCPR.cprOK(CPRnr);
+        }
+
+        public PatientDTO GetPatientDto()
+        {
+            return _patientDto;
+        }
+
+        public void LoadCalibrationConstant()
+        {
+            currentDal.LoadCalibrationConstant();
+        }
+
+        public AlarmDTO GetAlarmDTO()
+        {
+            return _alarmDTO;
         }
     }
 }

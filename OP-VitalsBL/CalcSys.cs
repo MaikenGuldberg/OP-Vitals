@@ -40,12 +40,13 @@ namespace OP_VitalsBL
             }
             if (analyselist.Count == 3 * _daqDTO.SampleRate)
             {
-                sys = Math.Round(analyselist.Max());
-                if (_sys != sys)
+                _sys = Math.Round(analyselist.Max());
+                _alarm.CheckAkutAlarm(_sys);
+                Notify();
+                if (sys != _sys)
                 {
-                    _sys = sys;
                     _alarm.CheckSubakutAlarmSys(_sys);
-                    Notify();
+                    sys = _sys;
                 }
                 analyselist.RemoveRange(0,100);
             }

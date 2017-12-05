@@ -14,11 +14,15 @@ namespace OP_VitalsBL
         private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
         private List<double> _listOfRawData;
         private bool _stopThread;
-        public DeQueue(ConcurrentQueue<RawDataQueue> rawDataQueue)
+        private DAQSettingsDTO _daqSettingsDTO;
+        private Converter _converter;
+        public DeQueue(ConcurrentQueue<RawDataQueue> rawDataQueue, DAQSettingsDTO daqSettingsDTO)
         {
             _stopThread = false;
             _rawDataQueue = rawDataQueue;
             _listOfRawData = new List<double>();
+            _daqSettingsDTO = daqSettingsDTO;
+            _converter = new Converter(_daqSettingsDTO);
 
         }
 
@@ -31,7 +35,7 @@ namespace OP_VitalsBL
                 {
                     Thread.Sleep(0);
                 }
-                _listOfRawData = dataQueue.GetRawData100().ToList();
+                _listOfRawData = _converter.Convert(dataQueue.GetRawData100());
                 Notify();
             }
 
@@ -46,5 +50,7 @@ namespace OP_VitalsBL
         {
             _stopThread = result;
         }
+
+        
     }
 }

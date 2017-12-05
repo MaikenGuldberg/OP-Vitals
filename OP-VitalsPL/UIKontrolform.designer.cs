@@ -57,6 +57,7 @@
             this.MeanBloodPressureValue = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.PulsValue = new System.Windows.Forms.Label();
+            this.ShowMonitor = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -160,12 +161,13 @@
             // 
             // KontrolLogOutButton
             // 
-            this.KontrolLogOutButton.Location = new System.Drawing.Point(562, 477);
+            this.KontrolLogOutButton.Location = new System.Drawing.Point(1363, 534);
             this.KontrolLogOutButton.Name = "KontrolLogOutButton";
             this.KontrolLogOutButton.Size = new System.Drawing.Size(75, 23);
             this.KontrolLogOutButton.TabIndex = 12;
             this.KontrolLogOutButton.Text = "Log  ud";
             this.KontrolLogOutButton.UseVisualStyleBackColor = true;
+            this.KontrolLogOutButton.Click += new System.EventHandler(this.KontrolLogOutButton_Click);
             // 
             // FilterOff
             // 
@@ -191,7 +193,7 @@
             // 
             // StopKontrolButton
             // 
-            this.StopKontrolButton.Location = new System.Drawing.Point(450, 477);
+            this.StopKontrolButton.Location = new System.Drawing.Point(1095, 433);
             this.StopKontrolButton.Name = "StopKontrolButton";
             this.StopKontrolButton.Size = new System.Drawing.Size(75, 23);
             this.StopKontrolButton.TabIndex = 16;
@@ -201,7 +203,7 @@
             // 
             // StartKontrolButton
             // 
-            this.StartKontrolButton.Location = new System.Drawing.Point(345, 477);
+            this.StartKontrolButton.Location = new System.Drawing.Point(996, 433);
             this.StartKontrolButton.Name = "StartKontrolButton";
             this.StartKontrolButton.Size = new System.Drawing.Size(75, 23);
             this.StartKontrolButton.TabIndex = 17;
@@ -329,11 +331,22 @@
             this.PulsValue.TabIndex = 30;
             this.PulsValue.Text = "0";
             // 
+            // ShowMonitor
+            // 
+            this.ShowMonitor.Location = new System.Drawing.Point(1203, 433);
+            this.ShowMonitor.Name = "ShowMonitor";
+            this.ShowMonitor.Size = new System.Drawing.Size(75, 23);
+            this.ShowMonitor.TabIndex = 31;
+            this.ShowMonitor.Text = "Monitor";
+            this.ShowMonitor.UseVisualStyleBackColor = true;
+            this.ShowMonitor.Click += new System.EventHandler(this.ShowMonitor_Click);
+            // 
             // UIKontrolform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 578);
+            this.Controls.Add(this.ShowMonitor);
             this.Controls.Add(this.PulsValue);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.MeanBloodPressureValue);
@@ -391,5 +404,6 @@
         private System.Windows.Forms.Label MeanBloodPressureValue;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label PulsValue;
+        private System.Windows.Forms.Button ShowMonitor;
     }
 }

@@ -8,29 +8,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using Interfaces;
 
 namespace OP_VitalsPL
 {
     public partial class UI_NulpunktsjusteringsFejl : Form
     {
-        public UI_NulpunktsjusteringsFejl()
+        private iOPVitalsBL currentBl;
+        private UILogin login;
+        private UICPR CPR;
+        public UI_NulpunktsjusteringsFejl(iOPVitalsBL mybl,UILogin UILogin)
         {
             InitializeComponent();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+            currentBl = mybl;
+            login = UILogin;
 
         }
 
-        private void UI_NulpunktsjusteringsFejl_Load(object sender, EventArgs e)
-        {
+        
 
+        
+
+        private void CancelButton_Click(object sender, EventArgs e) //hvis der trykkes på annuller laves der ikke en ny nulpunktsjustering men UICPR formen åbnes
+        {
+           this.Hide();
+            CPR = new UICPR(currentBl, login);
+            CPR.Show();
         }
 
-        private void CancelButton_Click(object sender, EventArgs e)
+        private void CheckButton_Click(object sender, EventArgs e) //hvis man trykker på tjekket laves der en ny nulpunktsjustering 
         {
-
+            this.Hide();
+            MessageBox.Show("Nulpunktsjustering påbegyndes");
+            var zeroPointAdjust = currentBl.ZeroPointAdjust();
+            if (zeroPointAdjust == false)
+            {
+                this.Show();
+            }
+            else if (zeroPointAdjust == true)
+            {
+                this.Hide();
+                CPR = new UICPR(currentBl, login);
+                CPR.Show();
+            }
         }
     }
 }
