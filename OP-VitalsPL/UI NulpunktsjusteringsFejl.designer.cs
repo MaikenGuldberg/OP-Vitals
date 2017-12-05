@@ -50,6 +50,7 @@
             this.CheckButton.TabIndex = 1;
             this.CheckButton.Text = "Tjekket";
             this.CheckButton.UseVisualStyleBackColor = true;
+            this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
             // 
             // CancelButton
             // 
@@ -71,7 +72,6 @@
             this.Controls.Add(this.label1);
             this.Name = "UI_NulpunktsjusteringsFejl";
             this.Text = "UI_NulpunktsjusteringsFejl";
-            this.Load += new System.EventHandler(this.UI_NulpunktsjusteringsFejl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

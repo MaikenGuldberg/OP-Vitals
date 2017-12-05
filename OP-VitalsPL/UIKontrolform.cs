@@ -17,9 +17,12 @@ namespace OP_VitalsPL
     public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver, ICalcDiaObserver,ICalcMeanBloodPressureObserver,ICalcPulsObserver
     {
         private iOPVitalsBL currentBl;
-        public UIKontrolform(iOPVitalsBL mybl)
+        private UILogin login;
+        private UIMonitor monitor;
+        public UIKontrolform(iOPVitalsBL mybl,UILogin UILogin)
         {
             this.currentBl = mybl;
+            login = UILogin;
             currentBl.AttachToMeanFilter(this);
             currentBl.AttachToCalcSys(this);
             currentBl.AttachToCalcDia(this);
@@ -95,7 +98,7 @@ namespace OP_VitalsPL
 
         private void StartKontrolButton_Click(object sender, EventArgs e)
         {
-            currentBl.StopThreads(false);
+            currentBl.StopThreads(false); //tjekkes om denne behøves
             currentBl.StartChartThread();
         }
 
@@ -104,9 +107,18 @@ namespace OP_VitalsPL
             currentBl.StopThreads(true);
         }
 
-       
-        
+        private void KontrolLogOutButton_Click(object sender, EventArgs e)
+        {
+            currentBl.StopThreads(true);
+            monitor.Hide();
+            this.Hide();
+            login.Show();
+        }
 
-       
+        private void ShowMonitor_Click(object sender, EventArgs e)
+        {
+            monitor = new UIMonitor(currentBl);
+            monitor.Show();
+        }
     }
 }

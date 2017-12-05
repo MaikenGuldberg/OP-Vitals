@@ -56,11 +56,12 @@
     <Compile Include="CalcSys.cs" />
     <Compile Include="CalcSys2.cs" />
     <Compile Include="CalcSysSubject.cs" />
+    <Compile Include="CheckCPR.cs" />
+    <Compile Include="Converter.cs" />
     <Compile Include="CtrlOPVitalsBL.cs" />
     <Compile Include="DeQueue.cs" />
     <Compile Include="DeQueueSubject.cs" />
     <Compile Include="DigitalFilter.cs" />
-    <Compile Include="Login.cs" />
     <Compile Include="CalcMeanBloodPressure.cs" />
     <Compile Include="Calibration.cs" />
     <Compile Include="MeanBloodPressureSubject.cs" />

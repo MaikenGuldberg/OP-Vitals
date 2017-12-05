@@ -19,34 +19,35 @@ namespace OP_VitalsBL
         private AlarmDTO dtoalarm = new AlarmDTO();
         // vi åbner et objekt af OperationDTO klassen for at kunne tilgå
         // de aktuelle diastolske og systolske værdier
-        private OperationDTO operation = new OperationDTO();
-        private int highest_dia;
-        private int lowest_dia;
-        private int highest_sys;
-        private int lowest_sys;
-        private int thresholdlowestsys;
-        private int thresholdhighestsys;
+        private OperationDTO _operationDTO;
+        private double highest_dia;
+        private double lowest_dia;
+        private double highest_sys;
+        private double lowest_sys;
         private bool SysCrossedTheLine;
         private bool DiaCrossedTheLine;
         private bool AlarmIsPlaying;
+        private bool akutalarmplays;
         private bool _stopThread;
         private IAlarmPlayer _alarmPlayer;
+        private List<double> listofsys;
 
         
         //connstructor
-        public Alarm(AlarmDTO dtoalarm,IAlarmPlayer alarmPlayer)
+        public Alarm(AlarmDTO dtoalarm,IAlarmPlayer alarmPlayer,OperationDTO operationDTO)
         {
             SysCrossedTheLine = false;
             DiaCrossedTheLine = false;
             AlarmIsPlaying = false;
+            akutalarmplays = false;
             _stopThread = false;
             highest_dia = dtoalarm.HighestDia;
             lowest_dia = dtoalarm.LowestDia;
             highest_sys = dtoalarm.HighestSys;
             lowest_sys = dtoalarm.LowestSys;
-            thresholdlowestsys = Convert.ToInt32(lowest_sys * 0.1);
-            thresholdhighestsys = Convert.ToInt32(highest_sys * 0.1);
             _alarmPlayer = alarmPlayer;
+            listofsys = new List<double>();
+            _operationDTO = operationDTO;
         }
         // alarmen kan ikke mutes men hvis blodtrykket normaliseres så slukkes alarmen automatisk
         public void CheckSubakutAlarmSys(double sys)
@@ -60,6 +61,7 @@ namespace OP_VitalsBL
                     _alarmPlayer.PlayAlarm("SubAkut");
                     SysCrossedTheLine = true;
                     AlarmIsPlaying = true;
+                    _operationDTO.NumberOfAlarms_++;
                 }
             }
             else if (sys > lowest_sys & sys < highest_sys)
@@ -78,11 +80,12 @@ namespace OP_VitalsBL
             // hvis patientens diastolsk og systolsk værdier overskrider default grænseværdier
             if (dia < lowest_dia || dia > highest_dia)
             {
-                if (DiaCrossedTheLine == false & AlarmIsPlaying == false)
+                if (DiaCrossedTheLine == false & AlarmIsPlaying == false & akutalarmplays == false)
                 {
                     DiaCrossedTheLine = true;
                     _alarmPlayer.PlayAlarm("SubAkut");
                     AlarmIsPlaying = true;
+                    _operationDTO.NumberOfAlarms_++;
                 }
             }
             else if (dia > lowest_dia & dia < highest_dia)
@@ -102,8 +105,36 @@ namespace OP_VitalsBL
             SysCrossedTheLine = false;
             DiaCrossedTheLine = false;
         }
-        
 
+        public void CheckAkutAlarm(double sys)
+        {
+            listofsys.Add(sys);
+            if (listofsys.Count == 100)
+            {
+                if (listofsys[99] <= (listofsys[0]*0.9))
+                {
+                    if (akutalarmplays == false)
+                    {
+                        if (AlarmIsPlaying == true)
+                        {
+                            _alarmPlayer.StopAlarm("SubAkut");
+                        }
+                        _alarmPlayer.PlayAlarm("Akut");
+                        akutalarmplays = true;
+                        _operationDTO.NumberOfAlarms_++;
+                    }
+                }
+                else
+                {
+                    if (akutalarmplays == true)
+                    {
+                        _alarmPlayer.StopAlarm("Akut");
+                        akutalarmplays = false;
+                    }
+                }
+                listofsys.Clear();
+            }
+        }
         
 
     }

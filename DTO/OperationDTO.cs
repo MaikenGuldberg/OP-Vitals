@@ -20,8 +20,7 @@ namespace DTO
         public DateTime StartTime_ { get; set; }
 
         public string PathOperationFolder_ { get; set; }
-        public double ConversionConstant_ { get; set; }
-        public double ZeroPoint_ { get; set; }
+        
         // tilføjet af Margarit
         public int Systole { get; set; }
         public int Diastole { get; set; }

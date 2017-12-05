@@ -9,19 +9,23 @@ namespace DTO
     public class AlarmDTO
     {
         //grænseværdier til systoliske blodtryk
-        public int HighestSys { get; set; }
-        public int LowestSys { get; set; }
+        public double HighestSys { get; set; }
+        public double LowestSys { get; set; }
         //grænseværdier til diastolske blodtryk
-        public int HighestDia { get; set; }
-        public int LowestDia { get; set; }
+        public double HighestDia { get; set; }
+        public double LowestDia { get; set; }
         public bool AlarmState { get; set; }
+        public int NormalSys { get; set; }
+        public int NormalDia { get; set; }
 
         public AlarmDTO()
         {
-            HighestDia = -1;
-            LowestDia = -3;
-            HighestSys = 3;
-            LowestSys = 1;
+            NormalSys = 120;
+            NormalDia = 80;
+            HighestDia = Convert.ToDouble(NormalDia)*1.15; 
+            LowestDia = Convert.ToDouble(NormalDia)*0.85; 
+            HighestSys = Convert.ToDouble(NormalSys)*1.15; 
+            LowestSys = Convert.ToDouble(NormalSys)*0.85; 
         }
 
     }
