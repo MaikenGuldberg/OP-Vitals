@@ -10,94 +10,102 @@ using DTO;
 
 namespace Interfaces
 {
-    public interface iOPVitalsDAL
-    {
-        void SaveCalibration(double value, string technicianID);
+    //public interface iOPVitalsDAL
+    //{
+    //    void SaveCalibration(double value, string technicianID);
 
-        void StartDaq(bool QueueMode);
-        double GetZeroPoint();
+    //    void StartDaq(bool QueueMode);
+    //    double GetZeroPoint();
 
-        bool ValidateLogin(EmployeeDTO Employee);
+    //    bool ValidateLogin(EmployeeDTO Employee);
 
-        void StopMeasurement();
-        void StartSaveThread();
-        void StopSaveDataThread(bool result);
-        void LoadCalibrationConstant();
-    }
+    //    void StopMeasurement();
+    //    void StartSaveThread();
+    //    void StopSaveDataThread(bool result);
+    //    void LoadCalibrationConstant();
 
-    public interface iOPVitalsBL
-    {
-        void AddToCalibrationlist(double pressure);
-        void LinearRegression(List<CalibrationPointDTO> list);
-        List<CalibrationPointDTO> GetCalibrationList();
-        double GetYintercept_();
-        double GetRsquared_();
-        double GetSlope_();
-        void SaveCalibration();
-        void InitiateDaqFromBL(bool QueueMode);
+    //    void SaveComments(string[] comments);
 
-        double GetZeroPointFromBL();
+    //    void SaveAll(EmployeeDTO employeeDto, OperationDTO operationDto, PatientDTO patientDto);
+    //}
 
-        bool ValidateLogin(EmployeeDTO Employee);
-        EmployeeDTO employee { get; set; }
+    //public interface iOPVitalsBL
+    //{
+    //    void AddToCalibrationlist(double pressure);
+    //    void LinearRegression(List<CalibrationPointDTO> list);
+    //    List<CalibrationPointDTO> GetCalibrationList();
+    //    double GetYintercept_();
+    //    double GetRsquared_();
+    //    double GetSlope_();
+    //    void SaveCalibration();
+    //    void InitiateDaqFromBL(bool QueueMode);
 
-        void AttachToMeanFilter(IMeanFilterObserver observer);
+    //    double GetZeroPointFromBL();
 
-        List<double> GetDisplayList();
-        void StartChartThread();
+    //    bool ValidateLogin(EmployeeDTO Employee);
+    //    EmployeeDTO employee { get; set; }
 
-        void StopThreads(bool result);
+    //    void AttachToMeanFilter(IMeanFilterObserver observer);
 
-        double GetSys();
+    //    List<double> GetDisplayList();
+    //    void StartChartThread();
 
-        void AttachToCalcSys(ICalcSysObserver observer);
-        double GetDia();
-        void AttachToCalcDia(ICalcDiaObserver observer);
+    //    void StopThreads(bool result);
 
-        double GetMeanBloodPressure();
+    //    double GetSys();
 
-        void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
+    //    void AttachToCalcSys(ICalcSysObserver observer);
+    //    double GetDia();
+    //    void AttachToCalcDia(ICalcDiaObserver observer);
 
-        double GetPuls();
-        void AttachToCalcPuls(ICalcPulsObserver observer);
+    //    double GetMeanBloodPressure();
 
-        bool ZeroPointAdjust();
+    //    void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
 
-        bool CheckCPR(string CPRnr);
+    //    double GetPuls();
+    //    void AttachToCalcPuls(ICalcPulsObserver observer);
 
-        PatientDTO GetPatientDto();
+    //    bool ZeroPointAdjust();
 
-        void LoadCalibrationConstant();
+    //    bool CheckCPR(string CPRnr);
 
-        AlarmDTO GetAlarmDTO();
+    //    PatientDTO GetPatientDto();
 
-    }
+    //    void LoadCalibrationConstant();
 
-    public interface iOPVitalsPL
-    {
-        void StartGUI();
-    }
+    //    AlarmDTO GetAlarmDTO();
+    //    void SaveComments(string[] comments, int OPHoure, int OPMinut, int OPSec, int Complikation);
 
-    public interface iParameterBuilder
-    {
-        void AddEmployee(SqlCommand cmd, EmployeeDTO employee);
-        void AddPatient(SqlCommand cmd, PatientDTO patient);
-        void AddOperation(SqlCommand cmd, OperationDTO operation);
-        void AddComments(SqlCommand cmd, string zipfolderpathComment);
-        void AddRawData(SqlCommand cmd, string zipfolderpathdata);
-        void AddDAQ(SqlCommand cmd, DAQSettingsDTO DAQ);
-        void AddTransdusor(SqlCommand cmd, TransdusorDTO transdusor);
-        void AddDataSequence(SqlCommand cmd, BPDataSequenceDTO dataSequence);
+    //    void SetFilter(string filtertype);
+    //    void SaveInDatabase();
 
-    }
+    //}
 
-    public interface iRsquaredCalculator
-    {
-        void LinearRegressionCalc(double[] xVals, double[] yVals,
-            int inclusiveStart, int exclusiveEnd,
-            out double rsquared, out double yintercept,
-            out double slope);
-    }
+    //public interface iOPVitalsPL
+    //{
+    //    void StartGUI();
+    //}
+
+    //public interface iParameterBuilder
+    //{
+    //    void AddEmployee(SqlCommand cmd, EmployeeDTO employee);
+    //    void AddPatient(SqlCommand cmd, PatientDTO patient);
+    //    void AddOperation(SqlCommand cmd, OperationDTO operation);
+    //    void AddComments(SqlCommand cmd, string zipfolderpathComment);
+    //    void AddRawData(SqlCommand cmd, string zipfolderpathdata);
+    //    void AddDAQ(SqlCommand cmd, DAQSettingsDTO DAQ);
+    //    void AddTransdusor(SqlCommand cmd, TransdusorDTO transdusor);
+    //    void AddDataSequence(SqlCommand cmd, BPDataSequenceDTO dataSequence);
+
+    //}
+
+    //public interface iRsquaredCalculator
+    //{
+    //    void LinearRegressionCalc(double[] xVals, double[] yVals,
+    //        int inclusiveStart, int exclusiveEnd,
+    //        out double rsquared, out double yintercept,
+    //        out double slope);
+    //}
 
     public interface ICalcSys
     {
@@ -109,39 +117,44 @@ namespace Interfaces
         
     }
 
-    public interface IMeanFilterObserver
-    {
-        void UpdateMeanFilterGUI();
-    }
+    //public interface IMeanFilterObserver
+    //{
+    //    void UpdateMeanFilterGUI();
+    //}
 
-    public interface IDeQueueObserver
-    {
-        void UpdateRawData();
-    }
+    //public interface IDeQueueObserver
+    //{
+    //    void UpdateRawData();
+    //}
 
-    public interface ICalcSysObserver
-    {
-        void UpdateSysGUI();
-    }
+    //public interface ICalcSysObserver
+    //{
+    //    void UpdateSysGUI();
+    //}
 
-    public interface ICalcDiaObserver
-    {
-        void UpdateDiaGUI();
-    }
+    //public interface ICalcDiaObserver
+    //{
+    //    void UpdateDiaGUI();
+    //}
 
-    public interface ICalcMeanBloodPressureObserver
-    {
-        void UpdateMeanBloodPressureGUI();
-    }
+    //public interface ICalcMeanBloodPressureObserver
+    //{
+    //    void UpdateMeanBloodPressureGUI();
+    //}
 
-    public interface ICalcPulsObserver
-    {
-        void UpdatePulsGUI();
-    }
+    //public interface ICalcPulsObserver
+    //{
+    //    void UpdatePulsGUI();
+    //}
 
-    public interface IAlarmPlayer
-    {
-        void PlayAlarm(string type);
-        void StopAlarm(string type);
-    }
+    //public interface IAlarmPlayer
+    //{
+    //    void PlayAlarm(string type);
+    //    void StopAlarm(string type);
+    //}
+
+    //public interface IFilter
+    //{
+    //    List<double> FilterData(double[] data);
+    //}
 }

@@ -23,6 +23,11 @@ namespace OP_VitalsDAL
         private ConcurrentQueue<RawDataQueue> _saveDataQueue;
         private DAQSettingsDTO _daqSettings;
         private Thread _saveMeasuremenThread;
+        private ClinicalDatabase _clinicalDatabase;
+        private TransdusorDTO _transdusorDTO;
+        private BPDataSequenceDTO _bpDataSequenceDTO;
+        private string pathoperation;
+        private string pathcomment;
 
         public CtrlOPVitalsDAL(ref ConcurrentQueue<RawDataQueue> RawDataQueue,ref ConcurrentQueue<RawDataQueue> saveDataQueue,DAQSettingsDTO daqSettings)
         {
@@ -32,8 +37,12 @@ namespace OP_VitalsDAL
             fileManager = new FileManager();
             employee = new EmployeeDatabase();
             DaqAsync = new AsyncDaq(_RawDataQueue,_saveDataQueue);
-            _saveDataInFile = new SaveDataInFile(_daqSettings,_saveDataQueue,fileManager);
-
+            _bpDataSequenceDTO = new BPDataSequenceDTO();
+            _saveDataInFile = new SaveDataInFile(_daqSettings,_saveDataQueue,fileManager,_bpDataSequenceDTO);
+            _clinicalDatabase = new ClinicalDatabase(new ParameterBuilder());
+            _transdusorDTO = new TransdusorDTO();
+            pathcomment = "";
+            pathoperation = "";
         }
 
         
@@ -69,7 +78,7 @@ namespace OP_VitalsDAL
 
         public void StartSaveThread()
         {
-            fileManager.CreateAFolderToOperationFiles(DateTime.Now);
+            pathoperation = fileManager.CreateAFolderToOperationFiles(DateTime.Now);
             _saveMeasuremenThread = new Thread(_saveDataInFile.RunSaveToFile);
 
             _saveMeasuremenThread.IsBackground = true;
@@ -85,6 +94,17 @@ namespace OP_VitalsDAL
         public void LoadCalibrationConstant()
         {
             _daqSettings.ConversionConstant_ = fileManager.ReadCalibrationFile();
+        }
+
+        public void SaveComments(string[] comments)
+        {
+            pathcomment = fileManager.SaveComments(comments);
+        }
+
+        public void SaveAll(EmployeeDTO employeeDto, OperationDTO operationDto, PatientDTO patientDto)
+        {
+            _clinicalDatabase.SaveMeasurement(employeeDto, operationDto, patientDto, _daqSettings, _bpDataSequenceDTO,
+                _transdusorDTO,pathcomment,pathoperation);
         }
     }
 

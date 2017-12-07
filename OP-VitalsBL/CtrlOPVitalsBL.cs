@@ -41,8 +41,9 @@ namespace OP_VitalsBL
         private CalcPuls _calcPuls;
         private Alarm _alarm;
         private IAlarmPlayer _alarmPlayer;
-
+        private FilterFactory _filterFactory;
         private PatientDTO _patientDto;
+        private FilterSettingsDTO _filterSettingsDTO;
 
         private bool _stopThreads;
 
@@ -58,7 +59,9 @@ namespace OP_VitalsBL
             _operationDTO = new OperationDTO();
             employee = new EmployeeDTO();
             _deQueue = new DeQueue(_RawDataQueue,_daqSettings);
-            meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue);
+            _filterSettingsDTO = new FilterSettingsDTO();
+            _filterFactory = new FilterFactory(_daqSettings,_filterSettingsDTO);
+            meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue,_filterFactory);
             InitializeAlarmClasses();
             InitializeCalculationClasses();
 
@@ -142,7 +145,7 @@ namespace OP_VitalsBL
         {
             currentDal.StartDaq(false); //Starter Daqen unden brug af ConcurrentQueue
             double atmospherePressure = currentDal.GetZeroPoint() * _daqSettings.ConversionConstant_; //finder spændingen og laver denne om til tryk
-            if (atmospherePressure > 760) //Tjekker om det atmosfæriske tryk er som forventet og hvis det er bliver zeropoint attributten sat til denne værdi i daqSettingsDTO'en
+            if (atmospherePressure > 750) //Tjekker om det atmosfæriske tryk er som forventet og hvis det er bliver zeropoint attributten sat til denne værdi i daqSettingsDTO'en
             {
                 return false;
             }
@@ -206,7 +209,7 @@ namespace OP_VitalsBL
         {
             currentDal.StartDaq(true);
             currentDal.StartSaveThread();
-            _alarm.ResetAlarm();
+            _alarm.ResetAlarm(); // ved ikke om den virker
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
             _CalcSysThread = new Thread(_calcSys.RunCalcSys);
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
@@ -271,6 +274,27 @@ namespace OP_VitalsBL
         public AlarmDTO GetAlarmDTO()
         {
             return _alarmDTO;
+        }
+
+        
+
+        public void SaveComments(string[] comments,int OPHoure,int OPMinut,int OPSec,int Complikation)
+        {
+            _operationDTO.DurationOperation_hour_ = OPHoure;
+            _operationDTO.DurationOperation_min_ = OPMinut;
+            _operationDTO.DurationOperation_sec_ = OPSec;
+            _operationDTO.Complikations_ = Complikation;
+            currentDal.SaveComments(comments);
+        }
+
+        public void SetFilter(string filtertype)
+        {
+            _filterSettingsDTO.filtersetting = filtertype;
+        }
+
+        public void SaveInDatabase()
+        {
+            currentDal.SaveAll(employee,_operationDTO,_patientDto);
         }
     }
 }

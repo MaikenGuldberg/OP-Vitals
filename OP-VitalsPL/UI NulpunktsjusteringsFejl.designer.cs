@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI_NulpunktsjusteringsFejl));
             this.label1 = new System.Windows.Forms.Label();
             this.CheckButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
@@ -36,14 +37,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 67);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(18, 61);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(242, 13);
+            this.label1.Size = new System.Drawing.Size(298, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Der er opstået fejl. Tjek igen og tryk på \"Tjekket\"!";
             // 
             // CheckButton
             // 
+            this.CheckButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CheckButton.Location = new System.Drawing.Point(58, 107);
             this.CheckButton.Name = "CheckButton";
             this.CheckButton.Size = new System.Drawing.Size(75, 23);
@@ -54,6 +57,7 @@
             // 
             // CancelButton
             // 
+            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelButton.Location = new System.Drawing.Point(182, 107);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
@@ -66,12 +70,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 200);
+            this.ClientSize = new System.Drawing.Size(350, 171);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.CheckButton);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UI_NulpunktsjusteringsFejl";
-            this.Text = "UI_NulpunktsjusteringsFejl";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OP-Vitals";
             this.ResumeLayout(false);
             this.PerformLayout();
 

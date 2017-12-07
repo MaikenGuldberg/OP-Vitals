@@ -114,7 +114,7 @@ namespace OP_VitalsDAL
         public double GetDataPointZero()
         {
             zeroPoint = new List<double>();
-            foreach (var d in analogInReader.ReadMultiSample(200))
+            foreach (var d in analogInReader.ReadMultiSample(1000))
             {
                 zeroPoint.Add(d);
             }

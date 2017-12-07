@@ -19,6 +19,10 @@ namespace OP_VitalsPL
         private iOPVitalsBL currentBl;
         private UILogin login;
         private UIMonitor monitor;
+        private string _commentssaved =
+            @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Flueben-200x198.png";
+
+        private string _commentsnotsaved = @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Red-x.png";
         public UIKontrolform(iOPVitalsBL mybl,UILogin UILogin)
         {
             this.currentBl = mybl;
@@ -104,7 +108,13 @@ namespace OP_VitalsPL
 
         private void StopKontrolButton_Click(object sender, EventArgs e)
         {
+            string[] lines = new[] { "Der er ikke indtastet kommentar" };
+            int houre = 0;
+            int minute = 0;
+            int second = 0;
             currentBl.StopThreads(true);
+            currentBl.SaveComments(lines, houre, minute, second, ComplicationsCheck());
+            currentBl.SaveInDatabase();
         }
 
         private void KontrolLogOutButton_Click(object sender, EventArgs e)
@@ -119,6 +129,93 @@ namespace OP_VitalsPL
         {
             monitor = new UIMonitor(currentBl);
             monitor.Show();
+        }
+
+        private void SaveComment_Click(object sender, EventArgs e)
+        {
+            bool result = false;
+            string[] lines = new[] {"Der er ikke indtastet kommentar"};
+            int houre = 0;
+            int minute = 0;
+            int second = 0;
+            if (string.IsNullOrWhiteSpace(Description.Text)!=true)
+            {
+                lines = Description.Text.Split(new string[] { Environment.NewLine },
+                    StringSplitOptions.RemoveEmptyEntries);
+            }
+            if (string.IsNullOrWhiteSpace(HourTextBox.Text) != true)
+            {
+                houre = Convert.ToInt16(HourTextBox.Text);
+            }
+            if (string.IsNullOrWhiteSpace(MinuteTextBox.Text) != true)
+            {
+                minute = Convert.ToInt16(MinuteTextBox.Text);
+            }
+            if (string.IsNullOrWhiteSpace(SecondsTextBox.Text) != true)
+            {
+                second = Convert.ToInt16(SecondsTextBox.Text);
+            }
+            currentBl.SaveComments(lines, houre, minute, second,ComplicationsCheck());
+            
+            pictureBox1.Image = Image.FromFile(_commentssaved);
+        }
+
+        private int ComplicationsCheck()
+        {
+            if (NoComplications.Checked == true)
+            {
+                return 0;
+            }
+            else if (Complications.Checked == true)
+            {
+                return 1;
+            }
+            else
+            {
+                return 3;
+            }
+        }
+
+        private void Description_TextChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(_commentsnotsaved);
+        }
+
+        private void NoComplications_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(_commentsnotsaved);
+        }
+
+        private void Complications_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(_commentsnotsaved);
+        }
+
+        private void HourTextBox_TextChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(_commentsnotsaved);
+        }
+
+        private void MinuteTextBox_TextChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(_commentsnotsaved);
+        }
+
+        private void SecondsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile(_commentsnotsaved);
+        }
+
+        private void FilterOff_CheckedChanged(object sender, EventArgs e)
+        {
+            if (FilterOff.Checked == true)
+            {
+                currentBl.SetFilter("NoFilter");
+            }
+            else if (FilterOn.Checked == true)
+            {
+                currentBl.SetFilter("Butterworth");
+            }
         }
     }
 }

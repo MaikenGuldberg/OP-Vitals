@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIGodkendKalibrering));
             this.label1 = new System.Windows.Forms.Label();
             this.CalibrationAccept = new System.Windows.Forms.Button();
             this.CalibrationCancel = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@
             // 
             // CalibrationAccept
             // 
+            this.CalibrationAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CalibrationAccept.Location = new System.Drawing.Point(59, 111);
             this.CalibrationAccept.Name = "CalibrationAccept";
             this.CalibrationAccept.Size = new System.Drawing.Size(78, 30);
@@ -55,6 +57,7 @@
             // 
             // CalibrationCancel
             // 
+            this.CalibrationCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CalibrationCancel.Location = new System.Drawing.Point(178, 111);
             this.CalibrationCancel.Name = "CalibrationCancel";
             this.CalibrationCancel.Size = new System.Drawing.Size(80, 30);
@@ -67,12 +70,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 194);
+            this.ClientSize = new System.Drawing.Size(344, 184);
             this.Controls.Add(this.CalibrationCancel);
             this.Controls.Add(this.CalibrationAccept);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UIGodkendKalibrering";
-            this.Text = "UIGodkendKalibrering";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OP-Vitals";
             this.ResumeLayout(false);
             this.PerformLayout();
 

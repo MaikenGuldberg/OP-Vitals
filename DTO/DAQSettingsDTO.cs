@@ -29,12 +29,13 @@ namespace DTO
 
         public int SaveInterval_ { get; protected set; } //med hvilket interval målingerne skal gemmes ned i en fil i sekunder.
 
+        public int Interval_ms { get; protected set; }
         public DAQSettingsDTO()
         {
             //besluttes senere
            
             SampleRate = 1000;
-            Samples = 0;
+            Interval_ms = 1;
             Data_Format_ = "bytearray"; //tjek om det er rigtigt
             Bin_or_text_ = 'b'; //tjek om det er rigtigt
             Measurement_Format_Type_ = "double";
@@ -44,7 +45,7 @@ namespace DTO
             physicalChannelName_ = "Dev2/ai0";
             MinValueVolt_ = -5;
             MaxValueVolt = 5;
-            SaveInterval_ = 300;
+            SaveInterval_ = 5000;
 
         }
     }

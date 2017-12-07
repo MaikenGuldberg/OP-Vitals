@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UICPR));
             this.label1 = new System.Windows.Forms.Label();
             this.CPRTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,10 +37,10 @@
             this.UICPROKButton = new System.Windows.Forms.Button();
             this.CPR = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.SysNormal = new System.Windows.Forms.TextBox();
             this.DiaNormal = new System.Windows.Forms.TextBox();
+            this.SysNormal = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.CPR.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -128,15 +129,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "NormalBlodtryk";
             // 
-            // label4
+            // DiaNormal
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Sys:";
+            this.DiaNormal.Location = new System.Drawing.Point(102, 63);
+            this.DiaNormal.Name = "DiaNormal";
+            this.DiaNormal.Size = new System.Drawing.Size(145, 22);
+            this.DiaNormal.TabIndex = 6;
+            this.DiaNormal.Text = "80";
+            this.DiaNormal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // SysNormal
+            // 
+            this.SysNormal.Location = new System.Drawing.Point(102, 31);
+            this.SysNormal.Name = "SysNormal";
+            this.SysNormal.Size = new System.Drawing.Size(145, 22);
+            this.SysNormal.TabIndex = 4;
+            this.SysNormal.Text = "120";
+            this.SysNormal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
             // 
@@ -148,36 +157,31 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "Dia:";
             // 
-            // SysNormal
+            // label4
             // 
-            this.SysNormal.Location = new System.Drawing.Point(102, 31);
-            this.SysNormal.Name = "SysNormal";
-            this.SysNormal.Size = new System.Drawing.Size(145, 22);
-            this.SysNormal.TabIndex = 4;
-            this.SysNormal.Text = "120";
-            this.SysNormal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // DiaNormal
-            // 
-            this.DiaNormal.Location = new System.Drawing.Point(102, 63);
-            this.DiaNormal.Name = "DiaNormal";
-            this.DiaNormal.Size = new System.Drawing.Size(145, 22);
-            this.DiaNormal.TabIndex = 6;
-            this.DiaNormal.Text = "80";
-            this.DiaNormal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(34, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Sys:";
             // 
             // UICPR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 381);
+            this.ClientSize = new System.Drawing.Size(380, 381);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.UICPROKButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CPR);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UICPR";
-            this.Text = "UICPR";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OP-Vitals";
             this.CPR.ResumeLayout(false);
             this.CPR.PerformLayout();
             this.groupBox1.ResumeLayout(false);

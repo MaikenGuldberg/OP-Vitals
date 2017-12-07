@@ -46,6 +46,7 @@
     <Compile Include="BPDataSequence.cs" />
     <Compile Include="DAQSettingsDTO.cs" />
     <Compile Include="EmployeeDTO.cs" />
+    <Compile Include="FilterSettingsDTO.cs" />
     <Compile Include="OperationDTO.cs" />
     <Compile Include="PatientDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

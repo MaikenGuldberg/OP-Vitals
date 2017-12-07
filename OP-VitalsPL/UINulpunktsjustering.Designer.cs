@@ -36,9 +36,10 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(273, 398);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 29);
+            this.button1.Size = new System.Drawing.Size(197, 29);
             this.button1.TabIndex = 1;
             this.button1.Text = "Begynd Nulpunktsjustering";
             this.button1.UseVisualStyleBackColor = true;
@@ -50,6 +51,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(59, 35);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(663, 348);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -60,8 +62,11 @@
             this.ClientSize = new System.Drawing.Size(782, 449);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UINulpunktsjustering";
-            this.Text = "UINulpunktsjustering";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OP-Vitals";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

@@ -45,12 +45,12 @@
   <ItemGroup>
     <Compile Include="AsyncDaq.cs" />
     <Compile Include="CtrlOP-VitalsDAL.cs" />
-    <Compile Include="ClinicalDatabase.cs" />
-    <Compile Include="EmployeeDatabase.cs" />
-    <Compile Include="FileManager.cs" />
-    <Compile Include="ParameterBuilder.cs" />
+    <Compile Include="Database\ClinicalDatabase\ClinicalDatabase.cs" />
+    <Compile Include="Database\EmployeeDatabase\EmployeeDatabase.cs" />
+    <Compile Include="SaveAndReadFiles\FileManager.cs" />
+    <Compile Include="Database\ClinicalDatabase\ParameterBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveDataInFile.cs" />
+    <Compile Include="SaveAndReadFiles\SaveDataInFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">
