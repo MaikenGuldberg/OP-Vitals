@@ -13,7 +13,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class Alarm
+    public class Alarm: IAlarm
     {
         // vi åbner et objekt af AlarmDTO klassen for at kunne tilgå den
         private AlarmDTO dtoalarm = new AlarmDTO();

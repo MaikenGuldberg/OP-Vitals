@@ -29,8 +29,11 @@ namespace OP_VitalsDAL.Test.Unit
             DAQSettingsDTO daq = new DAQSettingsDTO();
             BPDataSequenceDTO bpDataSequence = new BPDataSequenceDTO();
             TransdusorDTO transdusor = new TransdusorDTO();
+            string pathcomment = "";
+            string pathoperation = "";
 
-            uut.SaveMeasurement(employee, operation, patient, daq, bpDataSequence, transdusor);
+            uut.SaveMeasurement(employee, operation, patient, daq, bpDataSequence, transdusor, pathcomment,
+                pathoperation);
 
             Assert.That(parameterBuilder.WasAddEmployeeCalled,Is.EqualTo(true));
         }

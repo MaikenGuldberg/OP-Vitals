@@ -17,10 +17,10 @@ namespace OP_VitalsBL
         private AutoResetEvent _dataReadyEvent;
         private DeQueue _deQueue;
         private bool _stopThread;
-        private Alarm _alarm;
+        private IAlarm _alarm;
         private double dia;
 
-        public CalcDia(DAQSettingsDTO daqDTO, AutoResetEvent dataReadyEvent, DeQueue deQueue,Alarm alarm)
+        public CalcDia(DAQSettingsDTO daqDTO, AutoResetEvent dataReadyEvent, DeQueue deQueue,IAlarm alarm)
         {
             analyselist = new List<double>();
             _dia = 0;
