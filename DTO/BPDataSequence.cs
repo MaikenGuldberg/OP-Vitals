@@ -14,7 +14,7 @@ namespace DTO
         public BPDataSequenceDTO()
         {
             NumberOfSequences_ = 0;
-            SequenceDuration_sec_ = 300;
+            SequenceDuration_sec_ = 5000;
         }
     }
 }

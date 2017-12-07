@@ -152,6 +152,12 @@ namespace OP_VitalsPL
             RTextBox.Clear();
 
         }
-        
+
+        private void CalibrationLogOut_Click(object sender, EventArgs e)
+        {
+            Logout();
+            this.Hide();
+            login.Show();
+        }
     }
 }

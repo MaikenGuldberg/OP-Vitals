@@ -40,7 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAlarmPlayer.cs" />
     <Compile Include="IF.cs" />
+    <Compile Include="IFilter.cs" />
+    <Compile Include="IOP-VitalsBL.cs" />
+    <Compile Include="IOP-VitalsPL.cs" />
+    <Compile Include="IOPVitalsDAL.cs" />
+    <Compile Include="IParameterBuilder.cs" />
+    <Compile Include="IRsquaredCalculator.cs" />
+    <Compile Include="Observers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
