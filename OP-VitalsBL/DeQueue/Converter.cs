@@ -7,7 +7,7 @@ using DTO;
 
 namespace OP_VitalsBL
 {
-    class Converter
+    public class Converter
     {
         private DAQSettingsDTO _daqSettingsDTO;
 

@@ -49,10 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlarmUnitTest.cs" />
     <Compile Include="CalcDiaUnitTest.cs" />
+    <Compile Include="CalcPulsUnitTest.cs" />
     <Compile Include="CalcSysUnitTest.cs" />
     <Compile Include="CalibrationUnitTests.cs" />
-    <Compile Include="CtrlOPVitalsBLUnitTests.cs" />
+    <Compile Include="ConverterUnitTest.cs" />
     <Compile Include="Fakes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RsquaredCalculatorUnitTests.cs" />

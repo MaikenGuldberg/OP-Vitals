@@ -29,12 +29,13 @@ namespace OP_VitalsBL
         private bool AlarmIsPlaying;
         private bool akutalarmplays;
         private bool _stopThread;
-        private IAlarmPlayer _alarmPlayer;
+        private IAlarmPlayer _akutAlarmPlayer;
+        private IAlarmPlayer _subakutAlarmPlayer;
         private List<double> listofsys;
 
         
         //connstructor
-        public Alarm(AlarmDTO dtoalarm,IAlarmPlayer alarmPlayer,OperationDTO operationDTO)
+        public Alarm(AlarmDTO dtoalarm,IAlarmPlayer subakutalarmPlayer,IAlarmPlayer akutAlarmPlayer,OperationDTO operationDTO)
         {
             SysCrossedTheLine = false;
             DiaCrossedTheLine = false;
@@ -45,7 +46,8 @@ namespace OP_VitalsBL
             lowest_dia = dtoalarm.LowestDia;
             highest_sys = dtoalarm.HighestSys;
             lowest_sys = dtoalarm.LowestSys;
-            _alarmPlayer = alarmPlayer;
+            _akutAlarmPlayer = akutAlarmPlayer;
+            _subakutAlarmPlayer = subakutalarmPlayer;
             listofsys = new List<double>();
             _operationDTO = operationDTO;
         }
@@ -53,12 +55,12 @@ namespace OP_VitalsBL
         public void CheckSubakutAlarmSys(double sys)
         {
             // hvis patientens diastolsk og systolsk værdier overskrider default grænseværdier
-            if (sys < lowest_sys || sys > highest_sys)
+            if (sys < lowest_sys || sys > highest_sys )
             {
                 //SysCrossedTheLine = true;
                 if (SysCrossedTheLine == false & AlarmIsPlaying == false)
                 {
-                    _alarmPlayer.PlayAlarm("SubAkut");
+                    _subakutAlarmPlayer.PlayAlarm();
                     SysCrossedTheLine = true;
                     AlarmIsPlaying = true;
                     _operationDTO.NumberOfAlarms_++;
@@ -69,7 +71,7 @@ namespace OP_VitalsBL
                 if (SysCrossedTheLine = true & AlarmIsPlaying == true)
                 {
                     SysCrossedTheLine = false;
-                    _alarmPlayer.StopAlarm("SubAkut");
+                    _subakutAlarmPlayer.StopAlarm();
                     AlarmIsPlaying = false;
                 }
             }
@@ -83,7 +85,7 @@ namespace OP_VitalsBL
                 if (DiaCrossedTheLine == false & AlarmIsPlaying == false & akutalarmplays == false)
                 {
                     DiaCrossedTheLine = true;
-                    _alarmPlayer.PlayAlarm("SubAkut");
+                    _subakutAlarmPlayer.PlayAlarm();
                     AlarmIsPlaying = true;
                     _operationDTO.NumberOfAlarms_++;
                 }
@@ -93,7 +95,7 @@ namespace OP_VitalsBL
                 if (DiaCrossedTheLine == true & AlarmIsPlaying == true)
                 {
                     DiaCrossedTheLine = false;
-                    _alarmPlayer.StopAlarm("SubAkut");
+                    _subakutAlarmPlayer.StopAlarm();
                     AlarmIsPlaying = false;
                 }
             }
@@ -117,9 +119,9 @@ namespace OP_VitalsBL
                     {
                         if (AlarmIsPlaying == true)
                         {
-                            _alarmPlayer.StopAlarm("SubAkut");
+                            _subakutAlarmPlayer.StopAlarm();
                         }
-                        _alarmPlayer.PlayAlarm("Akut");
+                        _akutAlarmPlayer.PlayAlarm();
                         akutalarmplays = true;
                         _operationDTO.NumberOfAlarms_++;
                     }
@@ -128,8 +130,11 @@ namespace OP_VitalsBL
                 {
                     if (akutalarmplays == true)
                     {
-                        _alarmPlayer.StopAlarm("Akut");
+                        _akutAlarmPlayer.StopAlarm();
                         akutalarmplays = false;
+                        AlarmIsPlaying = false;
+                        DiaCrossedTheLine = false;
+                        SysCrossedTheLine = false;
                     }
                 }
                 listofsys.Clear();

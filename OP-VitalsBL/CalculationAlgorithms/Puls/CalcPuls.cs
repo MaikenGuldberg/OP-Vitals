@@ -32,7 +32,7 @@ namespace OP_VitalsBL
             _deQueue.Attach(this);
         }
 
-        private void CalculatePuls(List<double> dataList)
+        public void CalculatePuls(List<double> dataList)
         {
             foreach (var value in dataList)
             {

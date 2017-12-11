@@ -52,4 +52,46 @@ namespace OP_VitalsBL.Test.Unit
             CheckSubakutAlarmSysWasCalled = true;
         }
     }
+
+    public class MuckSubAkutAlarmPlayer : IAlarmPlayer
+    {
+        public bool PlayAlarmIsCalled { get; set; }
+        public bool StopAlarmIsCalled { get; set; }
+
+        public MuckSubAkutAlarmPlayer()
+        {
+            PlayAlarmIsCalled = false;
+            StopAlarmIsCalled = false;
+        }
+        public void PlayAlarm()
+        {
+            PlayAlarmIsCalled = true;
+        }
+
+        public void StopAlarm()
+        {
+            StopAlarmIsCalled = true;
+        }
+    }
+
+    public class MuckAkutAlarmPlayer : IAlarmPlayer
+    {
+        public bool PlayAlarmIsCalled { get; set; }
+        public bool StopAlarmIsCalled { get; set; }
+
+        public MuckAkutAlarmPlayer()
+        {
+            PlayAlarmIsCalled = false;
+            StopAlarmIsCalled = false;
+        }
+        public void PlayAlarm()
+        {
+            PlayAlarmIsCalled = true;
+        }
+
+        public void StopAlarm()
+        {
+            StopAlarmIsCalled = true;
+        }
+    }
 }

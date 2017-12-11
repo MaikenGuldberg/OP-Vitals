@@ -8,7 +8,7 @@ namespace Interfaces
 {
     public interface IAlarmPlayer
     {
-        void PlayAlarm(string type);
-        void StopAlarm(string type);
+        void PlayAlarm();
+        void StopAlarm();
     }
 }

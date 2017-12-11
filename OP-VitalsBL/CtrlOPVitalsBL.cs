@@ -40,7 +40,8 @@ namespace OP_VitalsBL
         private CalcMeanBloodPressure _calcMeanBloodPressure;
         private CalcPuls _calcPuls;
         private Alarm _alarm;
-        private IAlarmPlayer _alarmPlayer;
+        private IAlarmPlayer _akutAlarmPlayer;
+        private IAlarmPlayer _subakutAlarmPlayer;
         private FilterFactory _filterFactory;
         private PatientDTO _patientDto;
         private FilterSettingsDTO _filterSettingsDTO;
@@ -94,8 +95,9 @@ namespace OP_VitalsBL
         private void InitializeAlarmClasses()
         {
             _alarmDTO = new AlarmDTO();
-            _alarmPlayer = new AlarmPlayer();
-            _alarm = new Alarm(_alarmDTO, _alarmPlayer,_operationDTO);
+            _akutAlarmPlayer = new AlarmPlayerAkut();
+            _subakutAlarmPlayer = new AlarmPlayerSubakut();
+            _alarm = new Alarm(_alarmDTO,_subakutAlarmPlayer,_akutAlarmPlayer,_operationDTO);
 
         }
         public void AddToCalibrationlist(double pressure) //denne metode tilføjer et kalibreringspunkt til kalibreringslisten
@@ -243,7 +245,8 @@ namespace OP_VitalsBL
             _calcPuls.StopThread(result);
             currentDal.StopMeasurement();
             currentDal.StopSaveDataThread(result);
-            _alarmPlayer.StopAlarm("SubAkut");
+            _akutAlarmPlayer.StopAlarm();
+            _subakutAlarmPlayer.StopAlarm();
         }
 
         public double GetPuls()

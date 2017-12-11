@@ -48,7 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm\Alarm.cs" />
-    <Compile Include="Alarm\AlarmPlayer.cs" />
+    <Compile Include="Alarm\AlarmPlayerAkut.cs" />
+    <Compile Include="Alarm\AlarmPlayerSubakut.cs" />
     <Compile Include="CalculationAlgorithms\Dia\CalcDia.cs" />
     <Compile Include="CalculationAlgorithms\Dia\CalcDia2.cs" />
     <Compile Include="CalculationAlgorithms\Dia\CalcDiaSubject.cs" />

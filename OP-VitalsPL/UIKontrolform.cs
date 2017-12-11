@@ -23,6 +23,7 @@ namespace OP_VitalsPL
             @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Flueben-200x198.png";
 
         private string _commentsnotsaved = @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Red-x.png";
+        private bool monitorstartet;
         public UIKontrolform(iOPVitalsBL mybl,UILogin UILogin)
         {
             this.currentBl = mybl;
@@ -33,6 +34,7 @@ namespace OP_VitalsPL
             currentBl.AttachToMeanBloodPressure(this);
             currentBl.AttachToCalcPuls(this);
             InitializeComponent();
+            monitorstartet = false;
         }
 
         public void UpdateDiaGUI()
@@ -120,7 +122,10 @@ namespace OP_VitalsPL
         private void KontrolLogOutButton_Click(object sender, EventArgs e)
         {
             currentBl.StopThreads(true);
-            monitor.Hide();
+            if (monitorstartet == true)
+            {
+                monitor.Hide();
+            }
             this.Hide();
             login.Show();
         }
@@ -129,6 +134,7 @@ namespace OP_VitalsPL
         {
             monitor = new UIMonitor(currentBl);
             monitor.Show();
+            monitorstartet = true;
         }
 
         private void SaveComment_Click(object sender, EventArgs e)
