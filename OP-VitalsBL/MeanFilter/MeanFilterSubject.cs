@@ -9,14 +9,14 @@ namespace OP_VitalsBL
 {
     public class MeanFilterSubject
     {
-        private List<IMeanFilterObserver> _observers = new List<IMeanFilterObserver>();
+        private List<MeanFilterObserver> _observers = new List<MeanFilterObserver>();
 
-        public void Attach(IMeanFilterObserver observer)
+        public void Attach(MeanFilterObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(IMeanFilterObserver observer)
+        public void Detach(MeanFilterObserver observer)
         {
             _observers.Remove(observer);
         }

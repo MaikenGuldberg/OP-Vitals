@@ -58,9 +58,9 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(474, 557);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(119, 25);
+            this.label5.Size = new System.Drawing.Size(131, 25);
             this.label5.TabIndex = 37;
-            this.label5.Text = "5 sekunder";
+            this.label5.Text = "10 sekunder";
             // 
             // chart1
             // 
@@ -96,6 +96,8 @@
             this.chart1.Size = new System.Drawing.Size(1169, 575);
             this.chart1.TabIndex = 35;
             this.chart1.Text = "chart1";
+            chart1.ChartAreas[0].AxisY.Minimum = 20; //Min bloodtryksværdi
+            chart1.ChartAreas[0].AxisY.Maximum = 240; //Maks bloodtryksværdi
             // 
             // label10
             // 

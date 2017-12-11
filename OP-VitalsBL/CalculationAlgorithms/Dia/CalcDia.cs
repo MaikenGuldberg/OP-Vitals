@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class CalcDia : CalcDiaSubject, IDeQueueObserver, ICalcDia // public tilføjetC:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\OP-VitalsBL\CalcDia.cs
+    public class CalcDia : CalcDiaSubject, DeQueueObserver, ICalcDia // public tilføjetC:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\OP-VitalsBL\CalcDia.cs
     {
         private List<double> analyselist;
         private double _dia;

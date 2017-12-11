@@ -45,7 +45,7 @@ namespace Interfaces
     //    bool ValidateLogin(EmployeeDTO Employee);
     //    EmployeeDTO employee { get; set; }
 
-    //    void AttachToMeanFilter(IMeanFilterObserver observer);
+    //    void AttachToMeanFilter(MeanFilterObserver observer);
 
     //    List<double> GetDisplayList();
     //    void StartChartThread();
@@ -54,16 +54,16 @@ namespace Interfaces
 
     //    double GetSys();
 
-    //    void AttachToCalcSys(ICalcSysObserver observer);
+    //    void AttachToCalcSys(CalcSysObserver observer);
     //    double GetDia();
-    //    void AttachToCalcDia(ICalcDiaObserver observer);
+    //    void AttachToCalcDia(CalcDiaObserver observer);
 
     //    double GetMeanBloodPressure();
 
-    //    void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
+    //    void AttachToMeanBloodPressure(CalcMeanBloodPressureObserver observer);
 
     //    double GetPuls();
-    //    void AttachToCalcPuls(ICalcPulsObserver observer);
+    //    void AttachToCalcPuls(CalcPulsObserver observer);
 
     //    bool ZeroPointAdjust();
 
@@ -117,32 +117,32 @@ namespace Interfaces
         
     }
 
-    //public interface IMeanFilterObserver
+    //public interface MeanFilterObserver
     //{
     //    void UpdateMeanFilterGUI();
     //}
 
-    //public interface IDeQueueObserver
+    //public interface DeQueueObserver
     //{
     //    void UpdateRawData();
     //}
 
-    //public interface ICalcSysObserver
+    //public interface CalcSysObserver
     //{
     //    void UpdateSysGUI();
     //}
 
-    //public interface ICalcDiaObserver
+    //public interface CalcDiaObserver
     //{
     //    void UpdateDiaGUI();
     //}
 
-    //public interface ICalcMeanBloodPressureObserver
+    //public interface CalcMeanBloodPressureObserver
     //{
     //    void UpdateMeanBloodPressureGUI();
     //}
 
-    //public interface ICalcPulsObserver
+    //public interface CalcPulsObserver
     //{
     //    void UpdatePulsGUI();
     //}

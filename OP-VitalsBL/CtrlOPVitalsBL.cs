@@ -27,7 +27,7 @@ namespace OP_VitalsBL
         private Thread _CalcPulsThread;
         public  EmployeeDTO employee { get; set; }
         private RsquaredCalculator rsquaredCalculator;
-        private ConcurrentQueue<RawDataQueue> _RawDataQueue;
+        private ConcurrentQueue<RawData> _RawDataQueue;
 
         private AutoResetEvent _dataReadyEventMeanFilter;
         private AutoResetEvent _dataReadyEventCalcSys;
@@ -48,7 +48,7 @@ namespace OP_VitalsBL
 
         private bool _stopThreads;
 
-        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawDataQueue> RawDataQueue,DAQSettingsDTO daqSettingsDto,PatientDTO patientDto)
+        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawData> RawDataQueue,DAQSettingsDTO daqSettingsDto,PatientDTO patientDto)
         {
             
             _RawDataQueue = RawDataQueue;
@@ -168,22 +168,22 @@ namespace OP_VitalsBL
             return currentDal.GetZeroPoint();
         }
 
-        public void AttachToMeanFilter(IMeanFilterObserver observer)
+        public void AttachToMeanFilter(MeanFilterObserver observer)
         {
             meanfilter_.Attach(observer);
         }
 
-        public void AttachToCalcSys(ICalcSysObserver observer)
+        public void AttachToCalcSys(CalcSysObserver observer)
         {
             _calcSys.Attach(observer);
         }
 
-        public void AttachToCalcDia(ICalcDiaObserver observer)
+        public void AttachToCalcDia(CalcDiaObserver observer)
         {
             _calcDia.Attach(observer);
         }
 
-        public void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer)
+        public void AttachToMeanBloodPressure(CalcMeanBloodPressureObserver observer)
         {
             _calcMeanBloodPressure.Attach(observer);
         }
@@ -254,7 +254,7 @@ namespace OP_VitalsBL
             return _calcPuls.GetPuls();
         }
 
-        public void AttachToCalcPuls(ICalcPulsObserver observer)
+        public void AttachToCalcPuls(CalcPulsObserver observer)
         {
             _calcPuls.Attach(observer);
         }

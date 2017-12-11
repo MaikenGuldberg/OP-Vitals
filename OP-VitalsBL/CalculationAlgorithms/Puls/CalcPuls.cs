@@ -13,7 +13,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class CalcPuls: CalcPulsSubject, IDeQueueObserver
+    public class CalcPuls: CalcPulsSubject, DeQueueObserver
     {
         private List<double> analysisList;
         private double _puls;

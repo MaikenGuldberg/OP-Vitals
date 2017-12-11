@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace OP_VitalsPL
 {
-    public partial class UIKontrolform : Form,IMeanFilterObserver,ICalcSysObserver, ICalcDiaObserver,ICalcMeanBloodPressureObserver,ICalcPulsObserver
+    public partial class UIKontrolform : Form,MeanFilterObserver,CalcSysObserver, CalcDiaObserver,CalcMeanBloodPressureObserver,CalcPulsObserver
     {
         private iOPVitalsBL currentBl;
         private UILogin login;

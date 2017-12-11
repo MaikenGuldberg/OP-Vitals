@@ -19,8 +19,8 @@ namespace OP_VitalsDAL
         private AsyncDaq DaqAsync;
         private EmployeeDatabase employee;
         private SaveDataInFile _saveDataInFile;
-        private ConcurrentQueue<RawDataQueue> _RawDataQueue;
-        private ConcurrentQueue<RawDataQueue> _saveDataQueue;
+        private ConcurrentQueue<RawData> _RawDataQueue;
+        private ConcurrentQueue<RawData> _saveDataQueue;
         private DAQSettingsDTO _daqSettings;
         private Thread _saveMeasuremenThread;
         private ClinicalDatabase _clinicalDatabase;
@@ -29,7 +29,7 @@ namespace OP_VitalsDAL
         private string pathoperation;
         private string pathcomment;
 
-        public CtrlOPVitalsDAL(ref ConcurrentQueue<RawDataQueue> RawDataQueue,ref ConcurrentQueue<RawDataQueue> saveDataQueue,DAQSettingsDTO daqSettings)
+        public CtrlOPVitalsDAL(ref ConcurrentQueue<RawData> RawDataQueue,ref ConcurrentQueue<RawData> saveDataQueue,DAQSettingsDTO daqSettings)
         {
             _RawDataQueue = RawDataQueue;
             _saveDataQueue = saveDataQueue;

@@ -21,11 +21,11 @@ namespace OP_VitalsDAL
         private AnalogWaveform<double>[] data;
         private List<double> zeroPoint;
         private double zeroDouble;
-        private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
-        private readonly ConcurrentQueue<RawDataQueue> _saveDataQueue;
+        private readonly ConcurrentQueue<RawData> _rawDataQueue;
+        private readonly ConcurrentQueue<RawData> _saveDataQueue;
         private bool _queueMode;
 
-        public AsyncDaq(ConcurrentQueue<RawDataQueue> rawDataQueue,ConcurrentQueue<RawDataQueue> saveDataQueue)
+        public AsyncDaq(ConcurrentQueue<RawData> rawDataQueue,ConcurrentQueue<RawData> saveDataQueue)
         {
             _rawDataQueue = rawDataQueue;
             _saveDataQueue = saveDataQueue;
@@ -91,11 +91,11 @@ namespace OP_VitalsDAL
                     data = analogInReader.EndReadWaveform(ar);
                     if (_queueMode == true) //Sikres at der ikke bliver lagt målinger i kø når der laves kalibrering
                     {
-                        RawDataQueue reading = new RawDataQueue();
+                        RawData reading = new RawData();
                         reading.SetRawDataSample(data);
                         _rawDataQueue.Enqueue(reading); //Consumer producer patteren
 
-                        RawDataQueue reading2 = new RawDataQueue();
+                        RawData reading2 = new RawData();
                         reading2.SetRawDataSample(data);
                         _saveDataQueue.Enqueue(reading2);
                     }

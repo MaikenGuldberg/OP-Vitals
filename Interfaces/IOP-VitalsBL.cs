@@ -23,7 +23,7 @@ namespace Interfaces
         bool ValidateLogin(EmployeeDTO Employee);
         EmployeeDTO employee { get; set; }
 
-        void AttachToMeanFilter(IMeanFilterObserver observer);
+        void AttachToMeanFilter(MeanFilterObserver observer);
 
         List<double> GetDisplayList();
         void StartChartThread();
@@ -32,16 +32,16 @@ namespace Interfaces
 
         double GetSys();
 
-        void AttachToCalcSys(ICalcSysObserver observer);
+        void AttachToCalcSys(CalcSysObserver observer);
         double GetDia();
-        void AttachToCalcDia(ICalcDiaObserver observer);
+        void AttachToCalcDia(CalcDiaObserver observer);
 
         double GetMeanBloodPressure();
 
-        void AttachToMeanBloodPressure(ICalcMeanBloodPressureObserver observer);
+        void AttachToMeanBloodPressure(CalcMeanBloodPressureObserver observer);
 
         double GetPuls();
-        void AttachToCalcPuls(ICalcPulsObserver observer);
+        void AttachToCalcPuls(CalcPulsObserver observer);
 
         bool ZeroPointAdjust();
 

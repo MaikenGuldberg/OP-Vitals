@@ -11,12 +11,12 @@ namespace OP_VitalsBL
 {
     public class DeQueue:DeQueueSubject
     {
-        private readonly ConcurrentQueue<RawDataQueue> _rawDataQueue;
+        private readonly ConcurrentQueue<RawData> _rawDataQueue;
         private List<double> _listOfRawData;
         private bool _stopThread;
         private DAQSettingsDTO _daqSettingsDTO;
         private Converter _converter;
-        public DeQueue(ConcurrentQueue<RawDataQueue> rawDataQueue, DAQSettingsDTO daqSettingsDTO)
+        public DeQueue(ConcurrentQueue<RawData> rawDataQueue, DAQSettingsDTO daqSettingsDTO)
         {
             _stopThread = false;
             _rawDataQueue = rawDataQueue;
@@ -30,12 +30,12 @@ namespace OP_VitalsBL
         {
             while (!_stopThread)
             {
-                RawDataQueue dataQueue;
-                while (!_rawDataQueue.TryDequeue(out dataQueue))
+                RawData data;
+                while (!_rawDataQueue.TryDequeue(out data))
                 {
                     Thread.Sleep(0);
                 }
-                _listOfRawData = _converter.Convert(dataQueue.GetRawData100());
+                _listOfRawData = _converter.Convert(data.GetRawData100());
                 Notify();
             }
 

@@ -6,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    public interface IMeanFilterObserver
+    public interface MeanFilterObserver
     {
         void UpdateMeanFilterGUI();
     }
 
-    public interface IDeQueueObserver
+    public interface DeQueueObserver
     {
         void UpdateRawData();
     }
 
-    public interface ICalcSysObserver
+    public interface CalcSysObserver
     {
         void UpdateSysGUI();
     }
 
-    public interface ICalcDiaObserver
+    public interface CalcDiaObserver
     {
         void UpdateDiaGUI();
     }
 
-    public interface ICalcMeanBloodPressureObserver
+    public interface CalcMeanBloodPressureObserver
     {
         void UpdateMeanBloodPressureGUI();
     }
 
-    public interface ICalcPulsObserver
+    public interface CalcPulsObserver
     {
         void UpdatePulsGUI();
     }

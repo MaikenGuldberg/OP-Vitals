@@ -9,14 +9,14 @@ namespace OP_VitalsBL
 {
     public class CalcDiaSubject //public tilføjet
     {
-        private List<ICalcDiaObserver> _observers = new List<ICalcDiaObserver>();
+        private List<CalcDiaObserver> _observers = new List<CalcDiaObserver>();
 
-        public void Attach(ICalcDiaObserver observer)
+        public void Attach(CalcDiaObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(ICalcDiaObserver observer)
+        public void Detach(CalcDiaObserver observer)
         {
             _observers.Remove(observer);
         }

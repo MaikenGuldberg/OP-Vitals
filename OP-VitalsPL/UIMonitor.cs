@@ -13,7 +13,7 @@ using Interfaces;
 
 namespace OP_VitalsPL
 {
-    public partial class UIMonitor : Form, IMeanFilterObserver, ICalcSysObserver, ICalcDiaObserver, ICalcMeanBloodPressureObserver, ICalcPulsObserver
+    public partial class UIMonitor : Form, MeanFilterObserver, CalcSysObserver, CalcDiaObserver, CalcMeanBloodPressureObserver, CalcPulsObserver
     {
         private iOPVitalsBL currentBl;
         public UIMonitor(iOPVitalsBL mybl)

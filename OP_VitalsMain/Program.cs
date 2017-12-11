@@ -18,8 +18,8 @@ namespace OP_VitalsMain
         private CtrlOPVitalsDAL currentOpVitalsDal;
 
         //Datakøer
-        private ConcurrentQueue<RawDataQueue> RawDataQueue;
-        private ConcurrentQueue<RawDataQueue> SaveQueue;
+        private ConcurrentQueue<RawData> RawDataQueue;
+        private ConcurrentQueue<RawData> SaveQueue;
 
         //DTO'er
         private DAQSettingsDTO daqSettings;
@@ -33,8 +33,8 @@ namespace OP_VitalsMain
         public Program()
         {
             //Datakøer
-            RawDataQueue = new ConcurrentQueue<RawDataQueue>();
-            SaveQueue = new ConcurrentQueue<RawDataQueue>();
+            RawDataQueue = new ConcurrentQueue<RawData>();
+            SaveQueue = new ConcurrentQueue<RawData>();
 
             //DTO'er
             daqSettings = new DAQSettingsDTO();

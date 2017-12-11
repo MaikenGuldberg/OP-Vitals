@@ -7,13 +7,13 @@ using NationalInstruments;
 
 namespace DTO
 {
-    public class RawDataQueue
+    public class RawData
     {
-        private double[] RawData = new double[100];
+        private double[] _rawData = new double[100];
 
         public double[] GetRawData100()
         {
-            return RawData;
+            return _rawData;
         }
 
         public void SetRawDataSample(AnalogWaveform<double>[] dataAnalogWaveform)
@@ -22,7 +22,7 @@ namespace DTO
             {
                 for (int i = 0; i < waveform.Samples.Count; i++)
                 {
-                    RawData[i] = waveform.Samples[i].Value;
+                    _rawData[i] = waveform.Samples[i].Value;
                 }
             }
         }

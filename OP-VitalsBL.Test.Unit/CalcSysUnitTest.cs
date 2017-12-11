@@ -29,7 +29,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO daq = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, daq);
             var alarm = new MuckAlarm();
             uut = new CalcSys(daq, _autoresetevent, dequeue, alarm);
@@ -46,7 +46,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO daq = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, daq);
             var alarm = new MuckAlarm();
             uut = new CalcSys(daq, _autoresetevent, dequeue, alarm);
@@ -63,7 +63,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO daq = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, daq);
             var alarm = new MuckAlarm();
             uut = new CalcSys(daq, _autoresetevent, dequeue, alarm);
@@ -79,7 +79,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO daq = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, daq);
             var alarm = new MuckAlarm();
             uut = new CalcSys(daq, _autoresetevent, dequeue, alarm);

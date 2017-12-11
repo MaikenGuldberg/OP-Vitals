@@ -9,14 +9,14 @@ namespace OP_VitalsBL
 {
     public class MeanBloodPressureSubject // public tilføjet
     {
-        private List<ICalcMeanBloodPressureObserver> _observers = new List<ICalcMeanBloodPressureObserver>();
+        private List<CalcMeanBloodPressureObserver> _observers = new List<CalcMeanBloodPressureObserver>();
 
-        public void Attach(ICalcMeanBloodPressureObserver observer)
+        public void Attach(CalcMeanBloodPressureObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(ICalcMeanBloodPressureObserver observer)
+        public void Detach(CalcMeanBloodPressureObserver observer)
         {
             _observers.Remove(observer);
         }

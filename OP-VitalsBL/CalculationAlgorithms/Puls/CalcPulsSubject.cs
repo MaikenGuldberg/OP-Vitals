@@ -9,14 +9,14 @@ namespace OP_VitalsBL
 {
     public class CalcPulsSubject
     {
-        private List<ICalcPulsObserver> _observers = new List<ICalcPulsObserver>();
+        private List<CalcPulsObserver> _observers = new List<CalcPulsObserver>();
 
-        public void Attach(ICalcPulsObserver observer)
+        public void Attach(CalcPulsObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(ICalcPulsObserver observer)
+        public void Detach(CalcPulsObserver observer)
         {
             _observers.Remove(observer);
         }

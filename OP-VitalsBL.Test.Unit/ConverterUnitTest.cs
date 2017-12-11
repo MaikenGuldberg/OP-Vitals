@@ -25,11 +25,11 @@ namespace OP_VitalsBL.Test.Unit
         public void Convert_Value2_ConvertsTo3()
         {
             _daqSettingsDto.ConversionConstant_ = 2;
-            _daqSettingsDto.ZeroPoint_ = 1;
+            _daqSettingsDto.ZeroPoint_ = 1000;
             double[] data = new[] {2.0};
             List<double> list = uut.Convert(data);
 
-            Assert.That(list[0],Is.EqualTo(3.0));
+            Assert.That(list[0],Is.EqualTo(3000));
         }
 
     }

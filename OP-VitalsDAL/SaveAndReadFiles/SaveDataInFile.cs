@@ -15,11 +15,11 @@ namespace OP_VitalsBL
         private DAQSettingsDTO _daqDTO;
         private bool _stopThread;
         private List<double> savelist;
-        private ConcurrentQueue<RawDataQueue> _saveDataQueue;
+        private ConcurrentQueue<RawData> _saveDataQueue;
         private FileManager _fileManager;
         private int _sequenceNumber;
         private BPDataSequenceDTO _bpDataSequenceDTO;
-        public SaveDataInFile(DAQSettingsDTO daqDTO,ConcurrentQueue<RawDataQueue> saveDataQueue,FileManager fileManager,BPDataSequenceDTO bpDataSequenceDTO)
+        public SaveDataInFile(DAQSettingsDTO daqDTO,ConcurrentQueue<RawData> saveDataQueue,FileManager fileManager,BPDataSequenceDTO bpDataSequenceDTO)
         {
             savelist = new List<double>();
             _daqDTO = daqDTO;
@@ -34,12 +34,12 @@ namespace OP_VitalsBL
         {
             if (savelist.Count < _daqDTO.SampleRate * _daqDTO.SaveInterval_)
             {
-                RawDataQueue dataQueue;
-                while (!_saveDataQueue.TryDequeue(out dataQueue))
+                RawData data;
+                while (!_saveDataQueue.TryDequeue(out data))
                 {
                     Thread.Sleep(0);
                 }
-                foreach (var point in dataQueue.GetRawData100())
+                foreach (var point in data.GetRawData100())
                 {
                     savelist.Add(point);
                 }

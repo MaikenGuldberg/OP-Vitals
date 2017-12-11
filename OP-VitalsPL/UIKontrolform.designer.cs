@@ -109,6 +109,8 @@ namespace OP_VitalsPL
             this.chart1.Size = new System.Drawing.Size(1169, 575);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            chart1.ChartAreas[0].AxisY.Minimum = 20;
+            chart1.ChartAreas[0].AxisY.Maximum = 240;
             // 
             // label2
             // 
@@ -475,9 +477,9 @@ namespace OP_VitalsPL
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(798, 542);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(119, 25);
+            this.label5.Size = new System.Drawing.Size(131, 25);
             this.label5.TabIndex = 34;
-            this.label5.Text = "5 sekunder";
+            this.label5.Text = "10 sekunder";
             // 
             // UIKontrolform
             // 

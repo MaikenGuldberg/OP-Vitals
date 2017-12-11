@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class CalcMeanBloodPressure:MeanBloodPressureSubject,IDeQueueObserver //public tilføjet
+    public class CalcMeanBloodPressure:MeanBloodPressureSubject,DeQueueObserver //public tilføjet
     {
 
         private List<double> analyselist;

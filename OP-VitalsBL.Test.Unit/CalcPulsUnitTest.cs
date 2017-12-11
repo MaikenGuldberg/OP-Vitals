@@ -21,7 +21,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO _daqSettings = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, _daqSettings);
             uut = new CalcPuls(_daqSettings,_autoresetevent,dequeue);
 
@@ -38,7 +38,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO _daqSettings = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, _daqSettings);
             uut = new CalcPuls(_daqSettings, _autoresetevent, dequeue);
 
@@ -55,7 +55,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO _daqSettings = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, _daqSettings);
             uut = new CalcPuls(_daqSettings, _autoresetevent, dequeue);
 
@@ -72,7 +72,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO _daqSettings = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, _daqSettings);
             uut = new CalcPuls(_daqSettings, _autoresetevent, dequeue);
 
@@ -89,7 +89,7 @@ namespace OP_VitalsBL.Test.Unit
         {
             DAQSettingsDTO _daqSettings = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawDataQueue> _dataQueues = new ConcurrentQueue<RawDataQueue>();
+            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
             DeQueue dequeue = new DeQueue(_dataQueues, _daqSettings);
             uut = new CalcPuls(_daqSettings, _autoresetevent, dequeue);
 

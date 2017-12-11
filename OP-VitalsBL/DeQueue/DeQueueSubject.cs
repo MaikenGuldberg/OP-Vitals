@@ -9,14 +9,14 @@ namespace OP_VitalsBL
 {
     public class DeQueueSubject // public tilføjet
     {
-        private List<IDeQueueObserver> _observers = new List<IDeQueueObserver>();
+        private List<DeQueueObserver> _observers = new List<DeQueueObserver>();
 
-        public void Attach(IDeQueueObserver observer)
+        public void Attach(DeQueueObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(IDeQueueObserver observer)
+        public void Detach(DeQueueObserver observer)
         {
             _observers.Remove(observer);
         }

@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-    public class MeanFilter : MeanFilterSubject, IDeQueueObserver //public tilføjet
+    public class MeanFilter : MeanFilterSubject, DeQueueObserver //public tilføjet
     {
         private List<double> _displayList;
         private readonly AutoResetEvent _dataReadyEvent;
@@ -34,7 +34,7 @@ namespace OP_VitalsBL
                 double avg = (listofdata.GetRange(i, 10).Average());
                 _displayList.Add(avg);
 
-                if (_displayList.Count > 500)
+                if (_displayList.Count > 1000)
                 {
                     _displayList.RemoveAt(0);
                 }
