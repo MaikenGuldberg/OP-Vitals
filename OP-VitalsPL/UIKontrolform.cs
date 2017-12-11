@@ -24,6 +24,12 @@ namespace OP_VitalsPL
 
         private string _commentsnotsaved = @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Red-x.png";
         private bool monitorstartet;
+
+        private string[] lines;
+        private int houre;
+        private int minute;
+        private int second;
+        private bool startpressed;
         public UIKontrolform(iOPVitalsBL mybl,UILogin UILogin)
         {
             this.currentBl = mybl;
@@ -35,6 +41,17 @@ namespace OP_VitalsPL
             currentBl.AttachToCalcPuls(this);
             InitializeComponent();
             monitorstartet = false;
+            startpressed = false;
+
+            DefaultComments();
+        }
+
+        private void DefaultComments()
+        {
+            lines = new[] { "Der er ikke indtastet kommentar" };
+            houre = 0;
+            minute = 0;
+            second = 0;
         }
 
         public void UpdateDiaGUI()
@@ -106,6 +123,7 @@ namespace OP_VitalsPL
         {
             currentBl.StopThreads(false); //tjekkes om denne behøves
             currentBl.StartChartThread();
+            startpressed = true;
         }
 
         private void StopKontrolButton_Click(object sender, EventArgs e)
@@ -117,6 +135,7 @@ namespace OP_VitalsPL
             currentBl.StopThreads(true);
             currentBl.SaveComments(lines, houre, minute, second, ComplicationsCheck());
             currentBl.SaveInDatabase();
+            startpressed = false;
         }
 
         private void KontrolLogOutButton_Click(object sender, EventArgs e)
@@ -126,6 +145,12 @@ namespace OP_VitalsPL
             {
                 monitor.Hide();
             }
+            if (startpressed == true)
+            {
+                currentBl.SaveInDatabase();
+            }
+            currentBl.SaveComments(lines,houre,minute,second,ComplicationsCheck());
+            DefaultComments();
             this.Hide();
             login.Show();
         }
@@ -140,10 +165,6 @@ namespace OP_VitalsPL
         private void SaveComment_Click(object sender, EventArgs e)
         {
             bool result = false;
-            string[] lines = new[] {"Der er ikke indtastet kommentar"};
-            int houre = 0;
-            int minute = 0;
-            int second = 0;
             if (string.IsNullOrWhiteSpace(Description.Text)!=true)
             {
                 lines = Description.Text.Split(new string[] { Environment.NewLine },
