@@ -96,8 +96,6 @@
             this.chart1.Size = new System.Drawing.Size(1169, 575);
             this.chart1.TabIndex = 35;
             this.chart1.Text = "chart1";
-            chart1.ChartAreas[0].AxisY.Minimum = 20; //Min bloodtryksværdi
-            chart1.ChartAreas[0].AxisY.Maximum = 240; //Maks bloodtryksværdi
             // 
             // label10
             // 
@@ -256,7 +254,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1441, 638);
+            this.ClientSize = new System.Drawing.Size(1441, 624);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.panel1);

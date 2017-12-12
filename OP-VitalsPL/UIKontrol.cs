@@ -42,7 +42,8 @@ namespace OP_VitalsPL
             InitializeComponent();
             monitorstartet = false;
             startpressed = false;
-
+            chart1.ChartAreas[0].AxisY.Maximum = 240;
+            chart1.ChartAreas[0].AxisY.Minimum = 20;
             DefaultComments();
         }
 

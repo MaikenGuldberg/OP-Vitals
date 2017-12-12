@@ -72,7 +72,7 @@ namespace OP_VitalsBL.Test.Unit
             Assert.That(subAkutAlarmPlayer.PlayAlarmIsCalled, Is.EqualTo(true));
         }
 
-
+        
         [Test]
         public void CheckSubakutAlarmDia_DiaIs92_AlarmDoNotSound()
         {

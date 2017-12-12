@@ -25,6 +25,8 @@ namespace OP_VitalsPL
             currentBl.AttachToCalcDia(this);
             currentBl.AttachToMeanBloodPressure(this);
             currentBl.AttachToCalcPuls(this);
+            chart1.ChartAreas[0].AxisY.Maximum = 240;
+            chart1.ChartAreas[0].AxisY.Minimum = 20;
         }
 
         public void UpdateDiaGUI()
