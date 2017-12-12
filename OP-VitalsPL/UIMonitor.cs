@@ -27,6 +27,8 @@ namespace OP_VitalsPL
             currentBl.AttachToCalcPuls(this);
             chart1.ChartAreas[0].AxisY.Maximum = 240;
             chart1.ChartAreas[0].AxisY.Minimum = 20;
+            chart1.ChartAreas[0].AxisY.LabelAutoFitMinFontSize = 15;
+            chart1.ChartAreas[0].AxisY.LabelAutoFitMinFontSize = 15;
         }
 
         public void UpdateDiaGUI()
@@ -92,6 +94,11 @@ namespace OP_VitalsPL
 
                 });
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
