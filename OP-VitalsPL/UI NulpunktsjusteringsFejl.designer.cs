@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI_NulpunktsjusteringsFejl));
             this.label1 = new System.Windows.Forms.Label();
             this.CheckButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -47,31 +46,19 @@
             // CheckButton
             // 
             this.CheckButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckButton.Location = new System.Drawing.Point(58, 107);
+            this.CheckButton.Location = new System.Drawing.Point(118, 109);
             this.CheckButton.Name = "CheckButton";
-            this.CheckButton.Size = new System.Drawing.Size(75, 23);
+            this.CheckButton.Size = new System.Drawing.Size(80, 29);
             this.CheckButton.TabIndex = 1;
             this.CheckButton.Text = "Tjekket";
             this.CheckButton.UseVisualStyleBackColor = true;
             this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
-            // 
-            // CancelButton
-            // 
-            this.CancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CancelButton.Location = new System.Drawing.Point(182, 107);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 2;
-            this.CancelButton.Text = "Annuller";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // UI_NulpunktsjusteringsFejl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 171);
-            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.CheckButton);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -88,6 +75,5 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button CheckButton;
-        private System.Windows.Forms.Button CancelButton;
     }
 }

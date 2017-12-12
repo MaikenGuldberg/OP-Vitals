@@ -45,6 +45,7 @@ namespace OP_VitalsBL
         private FilterFactory _filterFactory;
         private PatientDTO _patientDto;
         private FilterSettingsDTO _filterSettingsDTO;
+        private double zero;
 
         private bool _stopThreads;
 
@@ -65,6 +66,7 @@ namespace OP_VitalsBL
             meanfilter_ = new MeanFilter(_dataReadyEventMeanFilter, _deQueue,_filterFactory);
             InitializeAlarmClasses();
             InitializeCalculationClasses();
+            zero = 0.0;
 
 
         }
@@ -146,8 +148,9 @@ namespace OP_VitalsBL
         public bool ZeroPointAdjust() //måler det atmosfæriske tryk og tjekker om det er en valid værdi
         {
             currentDal.StartDaq(false); //Starter Daqen unden brug af ConcurrentQueue
-            double atmospherePressure = currentDal.GetZeroPoint() * _daqSettings.ConversionConstant_; //finder spændingen og laver denne om til tryk
-            if (atmospherePressure > 750) //Tjekker om det atmosfæriske tryk er som forventet og hvis det er bliver zeropoint attributten sat til denne værdi i daqSettingsDTO'en
+            double zeropointInmV = currentDal.GetZeroPoint();
+            double atmospherePressure = zeropointInmV * _daqSettings.ConversionConstant_; //finder spændingen og laver denne om til tryk
+            if (zeropointInmV > 50 || zeropointInmV < 5) //Tjekker om det atmosfæriske tryk er som forventet og hvis det er bliver zeropoint attributten sat til denne værdi i daqSettingsDTO'en
             {
                 return false;
             }
@@ -156,6 +159,7 @@ namespace OP_VitalsBL
                 return true;
                 _daqSettings.ZeroPoint_ = atmospherePressure;
             }
+  
             currentDal.StopMeasurement(); //Stopper tråden der optager målinger fra daqen.
         }
         public void InitiateDaqFromBL(bool QueueMode)

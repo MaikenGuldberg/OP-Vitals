@@ -84,7 +84,7 @@
             // 
             this.AddMButton.Location = new System.Drawing.Point(195, 31);
             this.AddMButton.Name = "AddMButton";
-            this.AddMButton.Size = new System.Drawing.Size(75, 23);
+            this.AddMButton.Size = new System.Drawing.Size(75, 22);
             this.AddMButton.TabIndex = 6;
             this.AddMButton.Text = "Tilføj Måling";
             this.AddMButton.UseVisualStyleBackColor = true;

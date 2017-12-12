@@ -38,11 +38,9 @@ namespace OP_VitalsDAL
         {
             try
             {
-
-                var date = DateTime.Now.ToShortDateString();
                 System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(addressFileCalibration_);
                 int CountCalibrationfiles_ = dir.GetFiles().Length + 1;
-                string fileName = "Calibration" + date + "_" + CountCalibrationfiles_ + ".csv";
+                string fileName = "Calibration" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + CountCalibrationfiles_ + ".csv";
                 string path_ = System.IO.Path.Combine(addressFileCalibration_, fileName);
 
                 FileStream input = new FileStream(path_, FileMode.OpenOrCreate, FileAccess.Write);
@@ -67,6 +65,7 @@ namespace OP_VitalsDAL
             string foldername = "Operation" + dateoperation.Year + "-" + dateoperation.Month + "-" + dateoperation.Day + "_" + dateoperation.Hour + "-" + dateoperation.Minute + "-" + dateoperation.Second;
             string pathFolder = System.IO.Path.Combine(addressFileMeasurements_, foldername);
             System.IO.Directory.CreateDirectory(pathFolder);
+            OperationFolder = pathFolder;
             return pathFolder;
         }
 

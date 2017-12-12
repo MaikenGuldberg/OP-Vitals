@@ -18,7 +18,7 @@ namespace OP_VitalsPL
         private iOPVitalsBL currentBl;
         private UILogin login;
         private UIForkertCPR _wrongCPR;
-        private UIKontrolform _controlform;
+        private UIKontrol _controlform;
         public UICPR(iOPVitalsBL mybl,UILogin UILogin)
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace OP_VitalsPL
                 {
                     this.Hide();
                     currentBl.GetPatientDto().PatientCPR = CPRTextBox.Text;
-                    _controlform = new UIKontrolform(currentBl, login);
+                    _controlform = new UIKontrol(currentBl, login);
                     _controlform.Show();
                 }
                 else if (iscpr == false)
@@ -51,7 +51,7 @@ namespace OP_VitalsPL
                     {
                         this.Hide();
                         currentBl.GetPatientDto().PatientCPR = CPRTextBox.Text;
-                        _controlform = new UIKontrolform(currentBl,login);
+                        _controlform = new UIKontrol(currentBl,login);
                         _controlform.Show();
                     }
                     else if (result == DialogResult.Retry)
@@ -64,7 +64,7 @@ namespace OP_VitalsPL
             {
                 this.Hide();
                 currentBl.GetPatientDto().PatientCPR = "Not known";
-                _controlform = new UIKontrolform(currentBl, login);
+                _controlform = new UIKontrol(currentBl, login);
                 _controlform.Show();
             }
         }

@@ -25,17 +25,6 @@ namespace OP_VitalsPL
 
         }
 
-        
-
-        
-
-        private void CancelButton_Click(object sender, EventArgs e) //hvis der trykkes på annuller laves der ikke en ny nulpunktsjustering men UICPR formen åbnes
-        {
-           this.Hide();
-            CPR = new UICPR(currentBl, login);
-            CPR.Show();
-        }
-
         private void CheckButton_Click(object sender, EventArgs e) //hvis man trykker på tjekket laves der en ny nulpunktsjustering 
         {
             this.Hide();

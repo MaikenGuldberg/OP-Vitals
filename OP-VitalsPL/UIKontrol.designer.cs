@@ -2,7 +2,7 @@
 
 namespace OP_VitalsPL
 {
-    partial class UIKontrolform
+    partial class UIKontrol
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,10 @@ namespace OP_VitalsPL
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIKontrolform));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIKontrol));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label2 = new System.Windows.Forms.Label();
             this.HourTextBox = new System.Windows.Forms.TextBox();
@@ -78,39 +78,37 @@ namespace OP_VitalsPL
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Orange;
-            chartArea1.AxisX.MajorGrid.LineWidth = 2;
-            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.Red;
-            chartArea1.AxisX2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            chartArea1.AxisX2.TitleForeColor = System.Drawing.Color.Red;
-            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Orange;
-            chartArea1.AxisY.MajorGrid.LineWidth = 2;
-            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.Red;
-            chartArea1.AxisY2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            chartArea1.AxisY2.TitleForeColor = System.Drawing.Color.Red;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.Orange;
+            chartArea3.AxisX.MajorGrid.LineWidth = 2;
+            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.Red;
+            chartArea3.AxisX2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            chartArea3.AxisX2.TitleForeColor = System.Drawing.Color.Red;
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.Orange;
+            chartArea3.AxisY.MajorGrid.LineWidth = 2;
+            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.Red;
+            chartArea3.AxisY2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            chartArea3.AxisY2.TitleForeColor = System.Drawing.Color.Red;
+            chartArea3.BackColor = System.Drawing.Color.Black;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(306, 12);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series1.BorderColor = System.Drawing.Color.White;
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.Red;
-            series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series3.BorderColor = System.Drawing.Color.White;
+            series3.BorderWidth = 3;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.Red;
+            series3.IsVisibleInLegend = false;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(1169, 575);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            chart1.ChartAreas[0].AxisY.Minimum = 20;
-            chart1.ChartAreas[0].AxisY.Maximum = 240;
             // 
             // label2
             // 
@@ -282,7 +280,7 @@ namespace OP_VitalsPL
             this.groupBox2.Size = new System.Drawing.Size(270, 210);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "General forløb af operation";
+            this.groupBox2.Text = "Generalt forløb af operation";
             // 
             // groupBox3
             // 
@@ -481,7 +479,7 @@ namespace OP_VitalsPL
             this.label5.TabIndex = 34;
             this.label5.Text = "10 sekunder";
             // 
-            // UIKontrolform
+            // UIKontrol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -500,7 +498,7 @@ namespace OP_VitalsPL
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "UIKontrolform";
+            this.Name = "UIKontrol";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OP-Vitals";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();

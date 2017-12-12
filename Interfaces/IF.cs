@@ -15,7 +15,7 @@ namespace Interfaces
     //    void SaveCalibration(double value, string technicianID);
 
     //    void StartDaq(bool QueueMode);
-    //    double GetZeroPoint();
+    //    double GetCalibrationPoint();
 
     //    bool ValidateLogin(EmployeeDTO Employee);
 

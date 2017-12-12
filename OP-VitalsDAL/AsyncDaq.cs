@@ -116,9 +116,9 @@ namespace OP_VitalsDAL
             zeroPoint = new List<double>();
             foreach (var d in analogInReader.ReadMultiSample(1000))
             {
-                zeroPoint.Add(d);
+                zeroPoint.Add(d*1000);
             }
-            zeroDouble = (zeroPoint.Average())*1000; //ændre enheden fra Volt til mV
+            zeroDouble = (zeroPoint.Average()); //ændre enheden fra Volt til mV
             return zeroDouble;
         }
     }

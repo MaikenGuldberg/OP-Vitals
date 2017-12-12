@@ -14,7 +14,7 @@ using System.Threading;
 
 namespace OP_VitalsPL
 {
-    public partial class UIKontrolform : Form,MeanFilterObserver,CalcSysObserver, CalcDiaObserver,CalcMeanBloodPressureObserver,CalcPulsObserver
+    public partial class UIKontrol : Form,MeanFilterObserver,CalcSysObserver, CalcDiaObserver,CalcMeanBloodPressureObserver,CalcPulsObserver
     {
         private iOPVitalsBL currentBl;
         private UILogin login;
@@ -30,7 +30,7 @@ namespace OP_VitalsPL
         private int minute;
         private int second;
         private bool startpressed;
-        public UIKontrolform(iOPVitalsBL mybl,UILogin UILogin)
+        public UIKontrol(iOPVitalsBL mybl,UILogin UILogin)
         {
             this.currentBl = mybl;
             login = UILogin;

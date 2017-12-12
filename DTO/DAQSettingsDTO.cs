@@ -40,7 +40,7 @@ namespace DTO
             Bin_or_text_ = 'b'; //tjek om det er rigtigt
             Measurement_Format_Type_ = "double";
             ConversionConstant_ = 1; //tjek værdierne 
-            ZeroPoint_ = 0; //tjek værdierne
+            ZeroPoint_ = 0.0; //tjek værdierne
             SamplesPerChannel = 100;
             physicalChannelName_ = "Dev2/ai0";
             MinValueVolt_ = -5;

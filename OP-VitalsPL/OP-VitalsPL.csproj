@@ -81,11 +81,11 @@
     <Compile Include="UIKalibrering.designer.cs">
       <DependentUpon>UIKalibrering.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIKontrolform.cs">
+    <Compile Include="UIKontrol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIKontrolform.designer.cs">
-      <DependentUpon>UIKontrolform.cs</DependentUpon>
+    <Compile Include="UIKontrol.designer.cs">
+      <DependentUpon>UIKontrol.cs</DependentUpon>
     </Compile>
     <Compile Include="UILogin.cs">
       <SubType>Form</SubType>
@@ -136,8 +136,8 @@
     <EmbeddedResource Include="UIKalibrering.resx">
       <DependentUpon>UIKalibrering.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIKontrolform.resx">
-      <DependentUpon>UIKontrolform.cs</DependentUpon>
+    <EmbeddedResource Include="UIKontrol.resx">
+      <DependentUpon>UIKontrol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UILogin.resx">
       <DependentUpon>UILogin.cs</DependentUpon>
