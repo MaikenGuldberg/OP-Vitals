@@ -42,10 +42,11 @@ namespace OP_VitalsBL
             {
                 _sys = Math.Round(analyselist.Max());
                 _alarm.CheckAkutAlarm(_sys);
+                _alarm.CheckSubakutAlarmSys(_sys);
                 Notify();
                 if (sys != _sys)
                 {
-                    _alarm.CheckSubakutAlarmSys(_sys);
+                    //_alarm.CheckSubakutAlarmSys(_sys);
                     sys = _sys;
                 }
                 analyselist.RemoveRange(0,100);

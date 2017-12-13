@@ -106,6 +106,7 @@ namespace OP_VitalsBL
             AlarmIsPlaying = false;
             SysCrossedTheLine = false;
             DiaCrossedTheLine = false;
+            akutalarmplays = false;
         }
 
         public void CheckAkutAlarm(double sys)

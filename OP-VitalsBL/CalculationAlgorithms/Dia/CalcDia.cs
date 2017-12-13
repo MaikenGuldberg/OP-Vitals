@@ -40,11 +40,12 @@ namespace OP_VitalsBL
             if (analyselist.Count == 3 * _daqDTO.SampleRate)
             {
                 _dia = Math.Round(analyselist.Min());
+                _alarm.CheckSubakutAlarmDia(_dia);
                 Notify();
 
                 if (_dia != dia)
                 {
-                    _alarm.CheckSubakutAlarmDia(_dia);
+                    //_alarm.CheckSubakutAlarmDia(_dia);
                     dia = _dia;
                 }
                 analyselist.RemoveRange(0, 100);

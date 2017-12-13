@@ -212,7 +212,7 @@ namespace OP_VitalsBL
         {
             currentDal.StartDaq(true);
             currentDal.StartSaveThread();
-            _alarm.ResetAlarm(); // ved ikke om den virker
+            _alarm.ResetAlarm();
             _chartThread = new Thread(meanfilter_.RunMeanFilter);
             _CalcSysThread = new Thread(_calcSys.RunCalcSys);
             _DeQueueThread = new Thread(_deQueue.GetDataFromQue);
