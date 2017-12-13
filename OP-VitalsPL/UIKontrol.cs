@@ -129,10 +129,6 @@ namespace OP_VitalsPL
 
         private void StopKontrolButton_Click(object sender, EventArgs e)
         {
-            string[] lines = new[] { "Der er ikke indtastet kommentar" };
-            int houre = 0;
-            int minute = 0;
-            int second = 0;
             currentBl.StopThreads(true);
             currentBl.SaveComments(lines, houre, minute, second, ComplicationsCheck());
             currentBl.SaveInDatabase();

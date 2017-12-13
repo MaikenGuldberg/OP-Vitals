@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AlarmUnitTest.cs" />
     <Compile Include="CalcDiaUnitTest.cs" />
+    <Compile Include="CalcMeanBloodPressureUnitTest.cs" />
     <Compile Include="CalcPulsUnitTest.cs" />
     <Compile Include="CalcSysUnitTest.cs" />
     <Compile Include="CalibrationUnitTests.cs" />

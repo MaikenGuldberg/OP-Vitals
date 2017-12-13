@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace OP_VitalsBL
 {
-     public class CalcSys : CalcSysSubject, ICalcSys, DeQueueObserver //+public tilføjet
+     public class CalcSys : CalcSysSubject, DeQueueObserver //+public tilføjet
     {
         private List<double> analyselist;
         private double _sys;

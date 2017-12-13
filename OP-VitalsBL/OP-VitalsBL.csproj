@@ -51,11 +51,9 @@
     <Compile Include="Alarm\AlarmPlayerAkut.cs" />
     <Compile Include="Alarm\AlarmPlayerSubakut.cs" />
     <Compile Include="CalculationAlgorithms\Dia\CalcDia.cs" />
-    <Compile Include="CalculationAlgorithms\Dia\CalcDia2.cs" />
     <Compile Include="CalculationAlgorithms\Dia\CalcDiaSubject.cs" />
     <Compile Include="CalculationAlgorithms\Puls\CalcPulsSubject.cs" />
     <Compile Include="CalculationAlgorithms\Sys\CalcSys.cs" />
-    <Compile Include="CalculationAlgorithms\Sys\CalcSys2.cs" />
     <Compile Include="CalculationAlgorithms\Sys\CalcSysSubject.cs" />
     <Compile Include="CheckCPR.cs" />
     <Compile Include="DeQueue\Converter.cs" />

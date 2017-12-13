@@ -64,9 +64,9 @@ namespace OP_VitalsDAL
                 OperationID_ = (long)cmd.ExecuteScalar();
             }
 
-            string insertStringParamBPDataSequence = @"INSERT INTO BPDataSequence( Raw_Data, Samplerate_hz, Interval_sec, NumberOfSequences, SequenceDuration_sec, Data_Format, Bin_or_Text, Measurement_Format_Type, ConversionConstant_mmhgprmV, ZeroPoint_mmhg, Transdusor_Identification, OperationID )
+            string insertStringParamBPDataSequence = @"INSERT INTO BPDataSequence( Raw_Data, Samplerate_hz, Interval_sec, NumberOfSequences, SequenceDuration_sec, Data_Format, Bin_or_Text, Measurement_Format_Type, ConversionConstant_mmhgprmV, ZeroPoint_mmHg, Transdusor_Identification, OperationID )
                                         OUTPUT INSERTED.BPdataID 
-                                        VALUES(@Raw_Data,@Samplerate_hz, @Interval_sec, @NumberOfSequences, @SequenceDuration_sec, @Data_Format, @Bin_or_Text, @Measurement_Format_Type,@ConversionConstant_mmhgprmV,@ZeroPoint_mmhg,@Transdusor_Identification,@OperationID)";
+                                        VALUES(@Raw_Data,@Samplerate_hz, @Interval_sec, @NumberOfSequences, @SequenceDuration_sec, @Data_Format, @Bin_or_Text, @Measurement_Format_Type,@ConversionConstant_mmhgprmV,@ZeroPoint_mmHg,@Transdusor_Identification,@OperationID)";
 
             using (SqlCommand cmd = new SqlCommand(insertStringParamBPDataSequence, OpenConnection))
             {

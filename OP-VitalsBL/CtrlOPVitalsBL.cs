@@ -49,7 +49,7 @@ namespace OP_VitalsBL
 
         private bool _stopThreads;
 
-        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawData> RawDataQueue,DAQSettingsDTO daqSettingsDto,PatientDTO patientDto)
+        public CtrlOPVitalsBL(iOPVitalsDAL currentDal, ref ConcurrentQueue<RawData> RawDataQueue,ref DAQSettingsDTO daqSettingsDto,PatientDTO patientDto)
         {
             
             _RawDataQueue = RawDataQueue;
@@ -152,15 +152,12 @@ namespace OP_VitalsBL
             double atmospherePressure = zeropointInmV * _daqSettings.ConversionConstant_; //finder spændingen og laver denne om til tryk
             if (zeropointInmV > 50 || zeropointInmV < 5) //Tjekker om det atmosfæriske tryk er som forventet og hvis det er bliver zeropoint attributten sat til denne værdi i daqSettingsDTO'en
             {
+                currentDal.StopMeasurement(); //Stopper tasken der optager målinger fra daqen.
                 return false;
             }
-            else
-            {
-                return true;
-                _daqSettings.ZeroPoint_ = atmospherePressure;
-            }
-  
-            currentDal.StopMeasurement(); //Stopper tråden der optager målinger fra daqen.
+            _daqSettings.ZeroPoint_ = zeropointInmV;
+            currentDal.StopMeasurement(); //Stopper tasken der optager målinger fra daqen.
+            return true;
         }
         public void InitiateDaqFromBL(bool QueueMode)
         {

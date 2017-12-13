@@ -41,8 +41,8 @@ namespace OP_VitalsMain
             patientDTO = new PatientDTO();
 
 
-            currentOpVitalsDal = new CtrlOPVitalsDAL(ref RawDataQueue,ref SaveQueue,daqSettings);
-            currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal,ref RawDataQueue,daqSettings,patientDTO);
+            currentOpVitalsDal = new CtrlOPVitalsDAL(ref RawDataQueue,ref SaveQueue,ref daqSettings);
+            currentOpVitalsBl = new CtrlOPVitalsBL(currentOpVitalsDal,ref RawDataQueue,ref daqSettings,patientDTO);
             currentOpVitalsPl = new CtrlOPVitalsPL(currentOpVitalsBl);
             currentOpVitalsPl.StartGUI();
         }

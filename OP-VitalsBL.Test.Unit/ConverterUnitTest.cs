@@ -29,7 +29,7 @@ namespace OP_VitalsBL.Test.Unit
             double[] data = new[] {2.0};
             List<double> list = uut.Convert(data);
 
-            Assert.That(list[0],Is.EqualTo(3000));
+            Assert.That(list[0],Is.EqualTo(2000));
         }
 
     }

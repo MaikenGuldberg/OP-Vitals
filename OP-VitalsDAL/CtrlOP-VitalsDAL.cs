@@ -29,7 +29,7 @@ namespace OP_VitalsDAL
         private string pathoperation;
         private string pathcomment;
 
-        public CtrlOPVitalsDAL(ref ConcurrentQueue<RawData> RawDataQueue,ref ConcurrentQueue<RawData> saveDataQueue,DAQSettingsDTO daqSettings)
+        public CtrlOPVitalsDAL(ref ConcurrentQueue<RawData> RawDataQueue,ref ConcurrentQueue<RawData> saveDataQueue,ref DAQSettingsDTO daqSettings)
         {
             _RawDataQueue = RawDataQueue;
             _saveDataQueue = saveDataQueue;

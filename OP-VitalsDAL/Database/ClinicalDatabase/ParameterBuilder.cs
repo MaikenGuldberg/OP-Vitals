@@ -55,7 +55,7 @@ namespace OP_VitalsDAL
             cmd.Parameters.AddWithValue("@Bin_or_Text", DAQ.Bin_or_text_);
             cmd.Parameters.AddWithValue("@Measurement_Format_Type", DAQ.Data_Format_);
             cmd.Parameters.AddWithValue("@ConversionConstant_mmhgprmV", DAQ.ConversionConstant_);
-            cmd.Parameters.AddWithValue("@ZeroPoint_mmhg", DAQ.ZeroPoint_);
+            cmd.Parameters.AddWithValue("@ZeroPoint_mmHg", DAQ.ZeroPoint_);
         }
 
         public void AddTransdusor(SqlCommand cmd, TransdusorDTO transdusor)

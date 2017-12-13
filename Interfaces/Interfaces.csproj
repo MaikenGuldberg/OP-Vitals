@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="IAlarm.cs" />
     <Compile Include="IAlarmPlayer.cs" />
-    <Compile Include="IF.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IOP-VitalsBL.cs" />
     <Compile Include="IOP-VitalsPL.cs" />

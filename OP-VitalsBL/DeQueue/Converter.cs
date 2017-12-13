@@ -21,7 +21,7 @@ namespace OP_VitalsBL
             List<double> convertetList = new List<double>();
             foreach (var value in listOfRawData)
             {
-                double result = (value * 1000 * _daqSettingsDTO.ConversionConstant_) - _daqSettingsDTO.ZeroPoint_;
+                double result = ((value * 1000)-_daqSettingsDTO.ZeroPoint_)* _daqSettingsDTO.ConversionConstant_;
                 convertetList.Add(result);
             }
             return convertetList;
