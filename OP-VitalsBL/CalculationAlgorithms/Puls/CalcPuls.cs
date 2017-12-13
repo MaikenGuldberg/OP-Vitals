@@ -56,7 +56,7 @@ namespace OP_VitalsBL
                 }
                 Fourier.Forward(complexAnalysisListWithWindow,FourierOptions.NoScaling);
 
-                double[] magnitudes = new double[complexAnalysisListWithWindow.Length/2];
+                double[] magnitudes = new double[complexAnalysisListWithWindow.Length/2]; //vi kigger kun på den første halvdel af frekvensspekteret fordi efter nyquist frekvensen gentager spekteret sig. 
 
                 for (int i = 2; i < complexAnalysisListWithWindow.Length/2; i++)
                 {

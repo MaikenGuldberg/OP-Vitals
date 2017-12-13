@@ -80,7 +80,7 @@ namespace OP_VitalsBL.Test.Unit
 
             uut.CalculatePuls(data);
 
-            Assert.That(uut.GetPuls(), Is.EqualTo(15));
+            Assert.That(uut.GetPuls(), Is.GreaterThanOrEqualTo(20));
         }
 
         [Test]

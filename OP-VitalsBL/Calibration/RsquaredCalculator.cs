@@ -43,6 +43,7 @@ namespace OP_VitalsBL
                 sumOfYSq += y * y; //summen af y-værdiernes kvadratroder
             }
             ssX = sumOfXSq - ((sumOfX * sumOfX) / count); //beregning af nævneren i brøken til at finde hældningen på den lineære regression
+            ssY = sumOfYSq - ((sumOfY * sumOfY) / count);
             double RNumerator = (count * sumCodeviates) - (sumOfX * sumOfY);
             double RDenom = (count * sumOfXSq - (sumOfX * sumOfX))
              * (count * sumOfYSq - (sumOfY * sumOfY));

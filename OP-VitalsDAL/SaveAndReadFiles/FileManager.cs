@@ -18,8 +18,7 @@ namespace OP_VitalsDAL
 
         private string addressFileComments_ = @"C:\Users\Maiken Guldberg\Documents\3. Semester\Semesterprojekt\OP-Vitals\Filingsystem\Comments";
 
-        private int CountSequences_ = 1;
-
+        
         private string OperationFolder;
 
         public string GetOperationFolder()
@@ -27,14 +26,11 @@ namespace OP_VitalsDAL
             return OperationFolder;
         }
 
-        public void SetSequences(int numberofsequence)
-        {
-            CountSequences_ = numberofsequence;
-        }
-        //Laver en fil til calibreringenværdien. Denne er navngivet efter præcippet: Calibration + dato(day-month-year) + nummeret på denne dags kalibration +  csv
+        
+        //Laver en fil til calibreringenværdien. Denne er navngivet efter præcippet: Calibration + dato(year-month-day) + nummeret på denne dags kalibration +  csv
         //den første linje i filen beskriver hvad der er i de forskellige kolonner. I dette tilfælde: ConversionConstant(mmhg/mV) + TechnicianID
         //Calibrationsfilerne er også nummeret således at hvis der er lavet to kalibrationer på en dag bliver disse ikke overskrevet (nummeret denne fil får er = antal filer i folderen + 1)
-        public void CreateCalibrationFile(double value, string technicianid, out string path) //overvej om der er flere ting vi gerne vil have gemt ned
+        public void CreateCalibrationFile(double value, string technicianid, out string path)
         {
             try
             {
@@ -59,7 +55,7 @@ namespace OP_VitalsDAL
 
         //Laver en mappe til den pågældende operation. Denne er unik for lige denne operation og denne metode skal kun benyttes en gang lige når man starter målingen. Man skal gemme vejen for 
         //folderen ned i DTO til senere brug når man skal til at gemme sekvenserne i filer
-        // folderen bliver navngivet efter metoden: Operation + dato (date-month-year) + tidspunkt (hour:min:sek)
+        // folderen bliver navngivet efter metoden: Operation + dato (year-month-day) + tidspunkt (hour:min:sek)
         public string CreateAFolderToOperationFiles(DateTime dateoperation)
         {
             string foldername = "Operation" + dateoperation.Year + "-" + dateoperation.Month + "-" + dateoperation.Day + "_" + dateoperation.Hour + "-" + dateoperation.Minute + "-" + dateoperation.Second;
@@ -82,7 +78,7 @@ namespace OP_VitalsDAL
                 fileWriter.WriteLine("Index" + ";" + "Value");
                 for (int i = 0; i < list.Count; i++)
                 {
-                    fileWriter.WriteLine(i + ";" + list[i]); //der er også en metode der hedder asynkron... måske kan vi senere få brug for denne
+                    fileWriter.WriteLine(i + ";" + list[i]); 
                 }
                 fileWriter.Close();
             }
