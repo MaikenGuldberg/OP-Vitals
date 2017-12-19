@@ -22,7 +22,7 @@ namespace OP_VitalsBL.Test.Unit
 
         [Test]
 
-        public void Convert_Value2_ConvertsTo3000()
+        public void Convert_Value2_ConvertsTo2000()
         {
             _daqSettingsDto.ConversionConstant_ = 2;
             _daqSettingsDto.ZeroPoint_ = 1000;

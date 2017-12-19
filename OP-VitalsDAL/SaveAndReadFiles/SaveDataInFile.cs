@@ -65,6 +65,7 @@ namespace OP_VitalsBL
             _stopThread = result;
             if (savelist.Count > 0)
             {
+                _daqDTO.Interval_s = savelist.Count / _daqDTO.SampleRate;
                 _fileManager.SaveMeasurementsInFile(savelist, _fileManager.GetOperationFolder(), _sequenceNumber);
             }
             _bpDataSequenceDTO.NumberOfSequences_ = _sequenceNumber;

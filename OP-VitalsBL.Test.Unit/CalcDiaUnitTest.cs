@@ -19,7 +19,7 @@ namespace OP_VitalsBL.Test.Unit
         private CalcDia uut;
 
         [Test]
-        public void CalculateDia_sinusWithAmplityde3_sysIsminus3()
+        public void CalculateDia_sinusWithAmplityde3_diaIsminus3()
         {
             DAQSettingsDTO daq = new DAQSettingsDTO();
             AutoResetEvent _autoresetevent = new AutoResetEvent(false);

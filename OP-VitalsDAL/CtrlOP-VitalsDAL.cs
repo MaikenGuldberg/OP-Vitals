@@ -36,7 +36,7 @@ namespace OP_VitalsDAL
             _daqSettings = daqSettings;
             fileManager = new FileManager();
             employee = new EmployeeDatabase();
-            DaqAsync = new AsyncDaq(_RawDataQueue,_saveDataQueue);
+            DaqAsync = new AsyncDaq(_RawDataQueue,_saveDataQueue,_daqSettings);
             _bpDataSequenceDTO = new BPDataSequenceDTO();
             _saveDataInFile = new SaveDataInFile(_daqSettings,_saveDataQueue,fileManager,_bpDataSequenceDTO);
             _clinicalDatabase = new ClinicalDatabase(new ParameterBuilder());

@@ -24,11 +24,13 @@ namespace OP_VitalsDAL
         private readonly ConcurrentQueue<RawData> _rawDataQueue;
         private readonly ConcurrentQueue<RawData> _saveDataQueue;
         private bool _queueMode;
+        private DAQSettingsDTO _daqSettingsDTO;
 
-        public AsyncDaq(ConcurrentQueue<RawData> rawDataQueue,ConcurrentQueue<RawData> saveDataQueue)
+        public AsyncDaq(ConcurrentQueue<RawData> rawDataQueue,ConcurrentQueue<RawData> saveDataQueue,DAQSettingsDTO daqSettingsDTO)
         {
             _rawDataQueue = rawDataQueue;
             _saveDataQueue = saveDataQueue;
+            _daqSettingsDTO = daqSettingsDTO;
             _queueMode = false;
         }
         public void InitiateAsyncDaq(bool QueueMode)
@@ -42,12 +44,12 @@ namespace OP_VitalsDAL
                     myTask = new NationalInstruments.DAQmx.Task();
 
                     // Create a virtual channel
-                    myTask.AIChannels.CreateVoltageChannel("Dev2/ai0", "",
-                        (AITerminalConfiguration)(-1), -5, 5, AIVoltageUnits.Volts);
+                    myTask.AIChannels.CreateVoltageChannel(_daqSettingsDTO.physicalChannelName_, "",
+                        (AITerminalConfiguration)(-1), _daqSettingsDTO.MinValueVolt_, _daqSettingsDTO.MaxValueVolt, AIVoltageUnits.Volts);
 
                     // Configure the timing parameters
-                    myTask.Timing.ConfigureSampleClock("", 1000, // 1000 = frekvensen der læses med i hz
-                        SampleClockActiveEdge.Rising, SampleQuantityMode.ContinuousSamples, 100); // 100 = antal samples per læsning
+                    myTask.Timing.ConfigureSampleClock("", _daqSettingsDTO.SampleRate, // 1000 = frekvensen der læses med i hz
+                        SampleClockActiveEdge.Rising, SampleQuantityMode.ContinuousSamples, _daqSettingsDTO.SamplesPerChannel); // 100 = antal samples per læsning
 
                     // Verify the Task
                     myTask.Control(TaskAction.Verify);
@@ -59,7 +61,7 @@ namespace OP_VitalsDAL
                     // Use SynchronizeCallbacks to specify that the object 
                     // marshals callbacks across threads appropriately.
                     analogInReader.SynchronizeCallbacks = true;
-                    analogInReader.BeginReadWaveform(100,
+                    analogInReader.BeginReadWaveform(_daqSettingsDTO.SamplesPerChannel,
                         analogCallback, myTask);
                 }
                 catch (DaqException exception)
@@ -99,7 +101,7 @@ namespace OP_VitalsDAL
                         reading2.SetRawDataSample(data);
                         _saveDataQueue.Enqueue(reading2);
                     }
-                    analogInReader.BeginMemoryOptimizedReadWaveform(100,
+                    analogInReader.BeginMemoryOptimizedReadWaveform(_daqSettingsDTO.SamplesPerChannel,
                         analogCallback, myTask, data);
                 }
             }

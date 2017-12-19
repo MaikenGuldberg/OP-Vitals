@@ -65,24 +65,6 @@ namespace OP_VitalsBL.Test.Unit
 
             Assert.That(uut.GetPuls(), Is.EqualTo(20));
         }
-
-        [Test]
-
-        public void CalculatePuls_SinusSignal0point25Hz_Puls15()
-        {
-            DAQSettingsDTO _daqSettings = new DAQSettingsDTO();
-            AutoResetEvent _autoresetevent = new AutoResetEvent(false);
-            ConcurrentQueue<RawData> _dataQueues = new ConcurrentQueue<RawData>();
-            DeQueue dequeue = new DeQueue(_dataQueues, _daqSettings);
-            uut = new CalcPuls(_daqSettings, _autoresetevent, dequeue);
-
-            List<double> data = Generate.Sinusoidal(6000, 1000, 0.25, 2, 1, 0, 0).ToList();
-
-            uut.CalculatePuls(data);
-
-            Assert.That(uut.GetPuls(), Is.GreaterThanOrEqualTo(20));
-        }
-
         [Test]
 
         public void CalculatePuls_SinusSignal4point166Hz_Puls250()
